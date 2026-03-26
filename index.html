@@ -86,6 +86,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 
 footer { text-align: center; color: #ccc; font-size: 12px; padding: 24px; border-top: 1px solid #e8eaed; margin-top: 0; }
 footer a { color: #1a73e8; text-decoration: none; }
+
+/* ── RETAG ── */
+.retag-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding: 2px 3px; line-height: 1; opacity: 0; transition: opacity 0.15s; }
+.report-card:hover .retag-btn { opacity: 0.4; }
+.retag-btn:hover { opacity: 1 !important; }
+.retag-popover { position: absolute; z-index: 999; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.13); padding: 6px; min-width: 190px; }
+.retag-option { display: block; width: 100%; text-align: left; background: none; border: none; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; color: #333; transition: background 0.1s; }
+.retag-option:hover { background: #f1f3f4; }
+.retag-option.active { background: #e8f0fe; color: #1a73e8; font-weight: 700; }
+.retag-option.retag-reset { color: #888; font-size: 12px; border-top: 1px solid #eee; margin-top: 4px; padding-top: 10px; }
+.retag-option.retag-reset:hover { background: #fff3e0; color: #c2410c; }
 </style>
 </head>
 <body>
@@ -247,33 +258,134 @@ footer a { color: #1a73e8; text-decoration: none; }
 </footer>
 
 <script>
-const STORAGE_KEY = 'hub_starred';
-
+// ── Storage helpers ────────────────────────────────────────────────────────
 function getStarred() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem('hub_starred') || '[]'); } catch { return []; }
 }
 function setStarred(arr) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch {}
+  try { localStorage.setItem('hub_starred', JSON.stringify(arr)); } catch {}
+}
+function getSavedTags() {
+  try { return JSON.parse(localStorage.getItem('hub_retag') || '{}'); } catch { return {}; }
+}
+function setSavedTag(id, tag) {
+  const t = getSavedTags();
+  if (tag === null) delete t[id]; else t[id] = tag;
+  try { localStorage.setItem('hub_retag', JSON.stringify(t)); } catch {}
 }
 
-let activeTag = 'all';
-let sortOrder = 'newest';
+// ── Tag definitions (mirrors publish.py TAG_META) ─────────────────────────
+const TAG_DEFS = {
+  morning:     { label: '☀️ Morning Briefs',       cls: 'morning'     },
+  accelerator: { label: '🎯 GPA',                  cls: 'accelerator' },
+  serbia:      { label: '🇷🇸 Serbia Rising Stars', cls: 'serbia'      },
+  artifacts:   { label: '📦 Artifacts',            cls: 'artifacts'   },
+  research:    { label: '🔬 Research',             cls: 'research'    },
+};
 
-function init() {
-  // Restore stars
-  const starred = getStarred();
-  document.querySelectorAll('.star-btn').forEach(btn => {
-    if (starred.includes(btn.dataset.id)) btn.classList.add('starred');
-    btn.addEventListener('click', e => {
+let activeTag  = 'all';
+let sortOrder  = 'newest';
+let activePopover = null;
+
+// ── Retag logic ────────────────────────────────────────────────────────────
+function applyRetag(card, tag) {
+  const def = TAG_DEFS[tag];
+  if (!def) return;
+  card.dataset.tags = tag;
+  const accent = card.querySelector('.card-accent');
+  if (accent) accent.className = 'card-accent accent-' + def.cls;
+  const pill = card.querySelector('.card-tag');
+  if (pill) { pill.className = 'card-tag card-tag-' + def.cls; pill.textContent = def.label; }
+}
+
+function showRetagPopover(card, btn, cardId) {
+  if (activePopover) { activePopover.remove(); activePopover = null; }
+
+  const currentTag = card.dataset.tags;
+  const savedTags  = getSavedTags();
+  const isRetagged = !!savedTags[cardId];
+
+  const pop = document.createElement('div');
+  pop.className = 'retag-popover';
+
+  Object.entries(TAG_DEFS).forEach(([key, def]) => {
+    const opt = document.createElement('button');
+    opt.className = 'retag-option' + (key === currentTag ? ' active' : '');
+    opt.textContent = def.label;
+    opt.addEventListener('click', e => {
       e.stopPropagation();
-      const id = btn.dataset.id;
-      const s = getStarred();
-      const idx = s.indexOf(id);
-      if (idx === -1) s.push(id); else s.splice(idx, 1);
-      setStarred(s);
-      btn.classList.toggle('starred');
+      applyRetag(card, key);
+      setSavedTag(cardId, key);
+      pop.remove(); activePopover = null;
       applyFilter();
     });
+    pop.appendChild(opt);
+  });
+
+  if (isRetagged) {
+    const reset = document.createElement('button');
+    reset.className = 'retag-option retag-reset';
+    reset.textContent = '↩ Reset to original';
+    reset.addEventListener('click', e => {
+      e.stopPropagation();
+      setSavedTag(cardId, null);
+      pop.remove(); activePopover = null;
+      location.reload();
+    });
+    pop.appendChild(reset);
+  }
+
+  document.body.appendChild(pop);
+  activePopover = pop;
+
+  // Position below button, flip left if near edge
+  const r = btn.getBoundingClientRect();
+  let top  = r.bottom + window.scrollY + 6;
+  let left = r.left   + window.scrollX;
+  if (left + 200 > window.innerWidth - 12) left = r.right + window.scrollX - 200;
+  pop.style.top  = top  + 'px';
+  pop.style.left = left + 'px';
+
+  setTimeout(() => document.addEventListener('click', () => {
+    if (activePopover) { activePopover.remove(); activePopover = null; }
+  }, { once: true }), 0);
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+function init() {
+  const starred   = getStarred();
+  const savedTags = getSavedTags();
+
+  document.querySelectorAll('.report-card').forEach(card => {
+    const actions = card.querySelector('.card-actions');
+    const starBtn = card.querySelector('.star-btn');
+    const cardId  = starBtn?.dataset.id;
+    if (!actions || !cardId) return;
+
+    // Restore saved retag
+    if (savedTags[cardId]) applyRetag(card, savedTags[cardId]);
+
+    // Restore star state
+    if (starred.includes(cardId)) starBtn.classList.add('starred');
+    starBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const s = getStarred(), idx = s.indexOf(cardId);
+      if (idx === -1) s.push(cardId); else s.splice(idx, 1);
+      setStarred(s);
+      starBtn.classList.toggle('starred');
+      applyFilter();
+    });
+
+    // Inject retag button (hidden until hover via CSS)
+    const retagBtn = document.createElement('button');
+    retagBtn.className = 'retag-btn';
+    retagBtn.title     = 'Move to a different category';
+    retagBtn.textContent = '✏️';
+    retagBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      showRetagPopover(card, retagBtn, cardId);
+    });
+    actions.insertBefore(retagBtn, starBtn);
   });
 
   // Tag filter buttons
@@ -304,36 +416,27 @@ function init() {
 }
 
 function applyFilter() {
-  const grid = document.getElementById('cardsGrid');
-  const cards = Array.from(grid.querySelectorAll('.report-card'));
+  const grid    = document.getElementById('cardsGrid');
+  const cards   = Array.from(grid.querySelectorAll('.report-card'));
   const starred = getStarred();
 
-  // Filter
   let visible = cards.filter(card => {
     const tags = card.dataset.tags.split(' ');
-    if (activeTag === 'all') return true;
+    if (activeTag === 'all')     return true;
     if (activeTag === 'starred') return starred.includes(card.querySelector('.star-btn')?.dataset.id);
     return tags.includes(activeTag);
   });
 
-  // Sort
   visible.sort((a, b) => {
-    const da = new Date(a.dataset.date);
-    const db = new Date(b.dataset.date);
+    const da = new Date(a.dataset.date), db = new Date(b.dataset.date);
     return sortOrder === 'newest' ? db - da : da - db;
   });
 
-  // Apply hidden/order
   cards.forEach(c => c.classList.add('hidden'));
-  visible.forEach((c, i) => {
-    c.classList.remove('hidden');
-    c.style.order = i;
-  });
+  visible.forEach((c, i) => { c.classList.remove('hidden'); c.style.order = i; });
 
-  // Empty state
   document.getElementById('emptyState').style.display = visible.length === 0 ? 'block' : 'none';
 
-  // Meta
   const total = cards.length;
   document.getElementById('resultsMeta').textContent =
     visible.length === total
