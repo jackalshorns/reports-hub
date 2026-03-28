@@ -33,6 +33,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .sort-btn:hover { background: #e8eaed; }
 .sort-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
 
+/* ── BRIEF PREVIEW ROW (All tab) ── */
+.brief-preview { max-width: 1100px; margin: 0 auto; padding: 28px 24px 0; }
+.brief-preview-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.brief-preview-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.brief-card { background: white; border: 1px solid #e8eaed; border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.15s, transform 0.15s; }
+.brief-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+.brief-card-accent { height: 4px; background: linear-gradient(90deg, #f97316, #fb923c); }
+.brief-card-body { padding: 14px 16px 14px; flex: 1; }
+.brief-card-date { font-size: 18px; font-weight: 800; color: #c2410c; margin-bottom: 2px; }
+.brief-card-day { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.brief-card-mtg { font-size: 11px; color: #666; line-height: 1.5; margin-bottom: 4px; }
+.brief-card-mtg .ext { color: #7c3aed; font-weight: 600; }
+.brief-card-mtg .int { color: #64748b; }
+.brief-card-cos { font-size: 10px; color: #c2410c; font-weight: 600; line-height: 1.35; }
+.brief-card-empty { font-size: 11px; color: #bbb; font-style: italic; }
+
 /* ── MAIN GRID ── */
 .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
 .results-meta { font-size: 12px; color: #999; margin-bottom: 16px; font-weight: 500; }
@@ -87,6 +103,37 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 footer { text-align: center; color: #ccc; font-size: 12px; padding: 24px; border-top: 1px solid #e8eaed; margin-top: 0; }
 footer a { color: #1a73e8; text-decoration: none; }
 
+/* ── FULL CALENDAR VIEW (Morning Briefs tab) ── */
+.cal-full { max-width: 1100px; margin: 0 auto; padding: 28px 24px 48px; display: none; }
+.cal-full-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+.cal-full-title { display: flex; align-items: center; gap: 8px; }
+.cal-full-title h2 { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+.cal-full-link { font-size: 12px; color: #f97316; font-weight: 600; text-decoration: none; padding: 5px 12px; border-radius: 6px; background: #fff3e0; transition: background 0.15s; }
+.cal-full-link:hover { background: #ffe4c4; }
+
+.cal-month-block { background: white; border: 1px solid #e8eaed; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.cal-month-bar { padding: 14px 20px; font-size: 15px; font-weight: 700; color: #1a1a2e; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); padding: 8px 12px 12px; gap: 3px; }
+.cal-day-hdr { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #999; text-align: center; padding: 8px 0 6px; }
+.cal-cell { position: relative; min-height: 140px; border-radius: 8px; padding: 8px 9px; font-size: 13px; font-weight: 500; color: #bbb; transition: all 0.15s; display: flex; flex-direction: column; }
+.cal-cell.empty { min-height: 0; }
+.cal-cell .cal-date { font-size: 14px; font-weight: 600; line-height: 1; }
+.cal-cell.today .cal-date { color: #1a1a2e; }
+.cal-cell.today { background: #f8f9fa; }
+.cal-cell.has-brief { background: #fff7ed; cursor: pointer; border: 1px solid #fed7aa; }
+.cal-cell.has-brief .cal-date { color: #c2410c; font-weight: 700; }
+.cal-cell.has-brief:hover { background: #fff3e0; border-color: #f97316; box-shadow: 0 2px 8px rgba(249,115,22,0.15); transform: translateY(-1px); }
+.cal-cell.has-brief.today { border: 2px solid #f97316; }
+.cal-mtg-counts { font-size: 11px; color: #888; margin-top: 5px; line-height: 1.4; }
+.cal-mtg-counts .ext-count { color: #7c3aed; font-weight: 600; }
+.cal-mtg-counts .int-count { color: #64748b; }
+.cal-companies { font-size: 10px; color: #c2410c; font-weight: 600; margin-top: 3px; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; flex: 1; }
+.cal-open { margin-top: auto; font-size: 10px; color: #f97316; font-weight: 600; padding-top: 4px; }
+
+.load-more-wrap { text-align: center; padding: 8px 0 16px; }
+.load-more-btn { background: #f1f3f4; border: 1.5px solid #e0e0e0; border-radius: 10px; padding: 10px 28px; font-size: 13px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.15s; }
+.load-more-btn:hover { background: #e8eaed; border-color: #bbb; color: #1a1a2e; }
+
 /* ── RETAG ── */
 .retag-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding: 2px 3px; line-height: 1; opacity: 0; transition: opacity 0.15s; }
 .report-card:hover .retag-btn { opacity: 0.4; }
@@ -117,33 +164,40 @@ footer a { color: #1a73e8; text-decoration: none; }
     <button class="tag-btn tag-artifacts" data-tag="artifacts">📦 General Artifacts</button>
     <button class="tag-btn tag-research" data-tag="research">🔬 Research</button>
   </div>
-  <div class="sort-controls">
+  <div class="sort-controls" id="sortControls">
     <span class="sort-label">Sort:</span>
     <button class="sort-btn active" id="sortNewest">Newest</button>
     <button class="sort-btn" id="sortOldest">Oldest</button>
   </div>
 </div>
 
-<div class="container">
+<!-- ── BRIEF PREVIEW ROW (visible on "All" tab) ── -->
+<div class="brief-preview" id="briefPreview">
+  <div class="brief-preview-label">☀️ Morning Briefs</div>
+  <div class="brief-preview-row" id="briefPreviewRow">
+    <!-- JS renders: today card, yesterday card, tease card -->
+  </div>
+</div>
+
+<!-- ── FULL CALENDAR (visible on "Morning Briefs" tab) ── -->
+<div class="cal-full" id="calFull">
+  <div class="cal-full-header">
+    <div class="cal-full-title">
+      <span style="font-size:22px">☀️</span>
+      <h2>Morning Briefs</h2>
+    </div>
+    <a class="cal-full-link" href="https://jackalshorns.github.io/daily-briefs/" target="_blank">View all on GitHub →</a>
+  </div>
+  <div id="calMonths"></div>
+  <div class="load-more-wrap">
+    <button class="load-more-btn" id="loadMoreBtn">← Previous months</button>
+  </div>
+</div>
+
+<!-- ── CARD GRID (all non-morning cards) ── -->
+<div class="container" id="cardContainer">
   <div class="results-meta" id="resultsMeta"></div>
   <div class="cards-grid" id="cardsGrid">
-
-    <!-- ── MORNING BRIEFS ── -->
-    <div class="report-card" data-tags="morning" data-date="2026-03-23">
-      <div class="card-accent accent-morning"></div>
-      <div class="card-body">
-        <div class="card-type">Morning Brief · Index</div>
-        <div class="card-title">All Morning Briefs</div>
-        <div class="card-desc">Browse every daily brief, newest first. Auto-updated each morning via Cowork.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-morning">☀️ Morning Briefs</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="morning-index" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/daily-briefs/" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
 
     <!-- ── GOOGLE PLAY ACCELERATOR ── -->
     <div class="report-card" data-tags="accelerator" data-date="2026-03-10">
@@ -258,7 +312,235 @@ footer a { color: #1a73e8; text-decoration: none; }
 </footer>
 
 <script>
-// ── Storage helpers ────────────────────────────────────────────────────────
+// ── Morning Briefs Data ──────────────────────────────────────────────────
+// publish.py injects/prunes entries here automatically.
+// Format: "YYYY-MM-DD": { url, "int", "ext", companies[] }
+const MORNING_BRIEFS = {
+  "2026-03-28": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-28.html", "int": 0, "ext": 1, companies: ["AI Agents Workshop"] },
+  "2026-03-27": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-27.html", "int": 3, "ext": 2, companies: ["Company Meeting", "Jaime Sanchez"] },
+  "2026-03-26": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-26.html", "int": 3, "ext": 7, companies: ["Riot TFT", "2K Horizon", "Pokémon TCG", "Jam & Tea"] },
+  "2026-03-25": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-25.html", "int": 0, "ext": 0, companies: [] },
+  "2026-03-24": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-24.html", "int": 1, "ext": 6, companies: ["Tricoman", "Chore Focus", "Skarvo", "2K Horizon"] },
+  "2026-03-23": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-23.html", "int": 0, "ext": 0, companies: [] },
+  "2026-03-22": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-22.html", "int": 0, "ext": 0, companies: [] },
+  "2026-03-21": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-21.html", "int": 1, "ext": 1, companies: ["Irena Pereira"] },
+  "2026-03-20": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-20.html", "int": 0, "ext": 0, companies: [] },
+  "2026-03-19": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-19.html", "int": 5, "ext": 1, companies: ["GPA Squad Meetup"] },
+  "2026-03-18": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-18.html", "int": 4, "ext": 5, companies: ["2K Horizon", "Skarvo", "Jam & Tea", "Scopely"] },
+  "2026-03-17": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-17.html", "int": 2, "ext": 0, companies: [] },
+  "2026-03-16": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-16.html", "int": 1, "ext": 0, companies: [] },
+  "2026-03-15": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-15.html", "int": 3, "ext": 2, companies: ["2K", "Carl Kwoh"] },
+  "2026-03-04": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-04.html", "int": 4, "ext": 5, companies: ["Effecto", "GPA Onboarding", "Corey Dangel", "M42"] },
+  "2026-03-03": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-03.html", "int": 4, "ext": 1, companies: ["Kayla Sachs"] },
+  "2026-03-02": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-02.html", "int": 0, "ext": 1, companies: ["Ric Neil"] },
+  "2026-03-01": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-01.html", "int": 0, "ext": 0, companies: [] },
+  "2026-02-28": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-28.html", "int": 0, "ext": 0, companies: [] },
+  "2026-02-27": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-27.html", "int": 0, "ext": 0, companies: [] },
+  /* MORNING_BRIEFS_DATA */
+};
+
+// ── Helpers ──────────────────────────────────────────────────────────────
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function pad(n) { return String(n).padStart(2, '0'); }
+function todayStr() {
+  const t = new Date();
+  return t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+}
+function dateStr(y, m, d) { return y + '-' + pad(m+1) + '-' + pad(d); }
+function prevDateStr(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  d.setDate(d.getDate() - 1);
+  return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+}
+function formatDateNice(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  return MONTHS[d.getMonth()] + ' ' + d.getDate();
+}
+function formatDayName(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  return DAY_NAMES[d.getDay()];
+}
+
+// Find most recent N dates with briefs, starting from a given date
+function recentBriefDates(startDate, count) {
+  const results = [];
+  let d = startDate;
+  let safety = 60; // don't search more than 60 days back
+  while (results.length < count && safety-- > 0) {
+    if (MORNING_BRIEFS[d]) results.push(d);
+    d = prevDateStr(d);
+  }
+  return results;
+}
+
+// ── Brief Preview Row (All tab) ──────────────────────────────────────────
+function renderBriefPreview() {
+  const row = document.getElementById('briefPreviewRow');
+  if (!row) return;
+  row.innerHTML = '';
+
+  const today = todayStr();
+  const recent = recentBriefDates(today, 3);
+
+  function makeBriefCard(date, label) {
+    const brief = MORNING_BRIEFS[date];
+    if (!brief) return null;
+    const a = document.createElement('a');
+    a.className = 'brief-card';
+    a.href = brief.url;
+    a.target = '_blank';
+    let mtgHtml = '';
+    if (brief.ext > 0 || brief.int > 0) {
+      const parts = [];
+      if (brief.ext > 0) parts.push('<span class="ext">' + brief.ext + ' external</span>');
+      if (brief.int > 0) parts.push('<span class="int">' + brief.int + ' internal</span>');
+      mtgHtml = '<div class="brief-card-mtg">' + parts.join(' · ') + '</div>';
+    }
+    let cosHtml = '';
+    if (brief.companies && brief.companies.length > 0) {
+      cosHtml = '<div class="brief-card-cos">' + brief.companies.join(', ') + '</div>';
+    }
+    let emptyHtml = '';
+    if (brief.ext === 0 && brief.int === 0) {
+      emptyHtml = '<div class="brief-card-empty">No meetings logged</div>';
+    }
+    a.innerHTML = '<div class="brief-card-accent"></div>' +
+      '<div class="brief-card-body">' +
+        '<div class="brief-card-date">' + formatDateNice(date) + '</div>' +
+        '<div class="brief-card-day">' + label + '</div>' +
+        mtgHtml + cosHtml + emptyHtml +
+      '</div>';
+    return a;
+  }
+
+  const yesterday = prevDateStr(today);
+  recent.forEach(date => {
+    let label;
+    if (date === today) label = 'Today';
+    else if (date === yesterday) label = 'Yesterday';
+    else label = formatDayName(date);
+    const card = makeBriefCard(date, label);
+    if (card) row.appendChild(card);
+  });
+}
+
+// ── Full Calendar View (Morning Briefs tab) ──────────────────────────────
+let calOldestLoaded = null; // track how far back we've loaded
+
+function renderMonth(year, month, container) {
+  const block = document.createElement('div');
+  block.className = 'cal-month-block';
+
+  const bar = document.createElement('div');
+  bar.className = 'cal-month-bar';
+  bar.textContent = MONTHS[month] + ' ' + year;
+  block.appendChild(bar);
+
+  const grid = document.createElement('div');
+  grid.className = 'cal-grid';
+
+  DAYS.forEach(d => {
+    const hdr = document.createElement('div');
+    hdr.className = 'cal-day-hdr';
+    hdr.textContent = d;
+    grid.appendChild(hdr);
+  });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = todayStr();
+
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell empty';
+    grid.appendChild(cell);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = dateStr(year, month, d);
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell';
+
+    const dateEl = document.createElement('div');
+    dateEl.className = 'cal-date';
+    dateEl.textContent = d;
+    cell.appendChild(dateEl);
+
+    if (ds === today) cell.classList.add('today');
+
+    const brief = MORNING_BRIEFS[ds];
+    if (brief) {
+      cell.classList.add('has-brief');
+      cell.title = 'Morning Brief — ' + ds;
+      cell.addEventListener('click', () => window.open(brief.url, '_blank'));
+
+      if (brief.int > 0 || brief.ext > 0) {
+        const counts = document.createElement('div');
+        counts.className = 'cal-mtg-counts';
+        const parts = [];
+        if (brief.ext > 0) parts.push('<span class="ext-count">' + brief.ext + ' ext</span>');
+        if (brief.int > 0) parts.push('<span class="int-count">' + brief.int + ' int</span>');
+        counts.innerHTML = parts.join(' · ');
+        cell.appendChild(counts);
+      }
+
+      if (brief.companies && brief.companies.length > 0) {
+        const cos = document.createElement('div');
+        cos.className = 'cal-companies';
+        cos.textContent = brief.companies.join(', ');
+        cell.appendChild(cos);
+      }
+
+      // "Open →" label
+      const openLabel = document.createElement('div');
+      openLabel.className = 'cal-open';
+      openLabel.textContent = 'Open →';
+      cell.appendChild(openLabel);
+    }
+
+    grid.appendChild(cell);
+  }
+
+  block.appendChild(grid);
+  container.appendChild(block);
+}
+
+function initFullCalendar() {
+  const container = document.getElementById('calMonths');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const now = new Date();
+  // Current month
+  renderMonth(now.getFullYear(), now.getMonth(), container);
+  // Previous month
+  let pm = now.getMonth() - 1, py = now.getFullYear();
+  if (pm < 0) { pm = 11; py--; }
+  renderMonth(py, pm, container);
+
+  calOldestLoaded = { year: py, month: pm };
+}
+
+function loadMoreMonths() {
+  const container = document.getElementById('calMonths');
+  if (!container || !calOldestLoaded) return;
+
+  for (let i = 0; i < 2; i++) {
+    let m = calOldestLoaded.month - 1;
+    let y = calOldestLoaded.year;
+    if (m < 0) { m = 11; y--; }
+    renderMonth(y, m, container);
+    calOldestLoaded = { year: y, month: m };
+  }
+}
+
+document.getElementById('loadMoreBtn').addEventListener('click', loadMoreMonths);
+
+// ── Storage helpers ──────────────────────────────────────────────────────
 function getStarred() {
   try { return JSON.parse(localStorage.getItem('hub_starred') || '[]'); } catch { return []; }
 }
@@ -274,7 +556,7 @@ function setSavedTag(id, tag) {
   try { localStorage.setItem('hub_retag', JSON.stringify(t)); } catch {}
 }
 
-// ── Tag definitions (mirrors publish.py TAG_META) ─────────────────────────
+// ── Tag definitions (mirrors publish.py TAG_META) ────────────────────────
 const TAG_DEFS = {
   morning:     { label: '☀️ Morning Briefs',       cls: 'morning'     },
   accelerator: { label: '🎯 GPA',                  cls: 'accelerator' },
@@ -287,7 +569,7 @@ let activeTag  = 'all';
 let sortOrder  = 'newest';
 let activePopover = null;
 
-// ── Retag logic ────────────────────────────────────────────────────────────
+// ── Retag logic ──────────────────────────────────────────────────────────
 function applyRetag(card, tag) {
   const def = TAG_DEFS[tag];
   if (!def) return;
@@ -338,7 +620,6 @@ function showRetagPopover(card, btn, cardId) {
   document.body.appendChild(pop);
   activePopover = pop;
 
-  // Position below button, flip left if near edge
   const r = btn.getBoundingClientRect();
   let top  = r.bottom + window.scrollY + 6;
   let left = r.left   + window.scrollX;
@@ -351,7 +632,9 @@ function showRetagPopover(card, btn, cardId) {
   }, { once: true }), 0);
 }
 
-// ── Init ───────────────────────────────────────────────────────────────────
+// ── Init ─────────────────────────────────────────────────────────────────
+let calInitialized = false;
+
 function init() {
   const starred   = getStarred();
   const savedTags = getSavedTags();
@@ -362,10 +645,8 @@ function init() {
     const cardId  = starBtn?.dataset.id;
     if (!actions || !cardId) return;
 
-    // Restore saved retag
     if (savedTags[cardId]) applyRetag(card, savedTags[cardId]);
 
-    // Restore star state
     if (starred.includes(cardId)) starBtn.classList.add('starred');
     starBtn.addEventListener('click', e => {
       e.stopPropagation();
@@ -376,7 +657,6 @@ function init() {
       applyFilter();
     });
 
-    // Inject retag button (hidden until hover via CSS)
     const retagBtn = document.createElement('button');
     retagBtn.className = 'retag-btn';
     retagBtn.title     = 'Move to a different category';
@@ -412,36 +692,58 @@ function init() {
     applyFilter();
   });
 
+  renderBriefPreview();
   applyFilter();
 }
 
 function applyFilter() {
-  const grid    = document.getElementById('cardsGrid');
-  const cards   = Array.from(grid.querySelectorAll('.report-card'));
-  const starred = getStarred();
+  const briefPreview  = document.getElementById('briefPreview');
+  const calFull       = document.getElementById('calFull');
+  const cardContainer = document.getElementById('cardContainer');
+  const sortControls  = document.getElementById('sortControls');
+  const grid          = document.getElementById('cardsGrid');
+  const cards         = Array.from(grid.querySelectorAll('.report-card'));
+  const starred       = getStarred();
 
-  let visible = cards.filter(card => {
-    const tags = card.dataset.tags.split(' ');
-    if (activeTag === 'all')     return true;
-    if (activeTag === 'starred') return starred.includes(card.querySelector('.star-btn')?.dataset.id);
-    return tags.includes(activeTag);
-  });
+  const isMorning = activeTag === 'morning';
+  const isAll     = activeTag === 'all';
 
-  visible.sort((a, b) => {
-    const da = new Date(a.dataset.date), db = new Date(b.dataset.date);
-    return sortOrder === 'newest' ? db - da : da - db;
-  });
+  // Toggle sections
+  briefPreview.style.display  = isAll ? '' : 'none';
+  calFull.style.display       = isMorning ? 'block' : 'none';
+  cardContainer.style.display = isMorning ? 'none' : '';
+  sortControls.style.display  = isMorning ? 'none' : '';
 
-  cards.forEach(c => c.classList.add('hidden'));
-  visible.forEach((c, i) => { c.classList.remove('hidden'); c.style.order = i; });
+  // Lazy-init full calendar on first view
+  if (isMorning && !calInitialized) {
+    initFullCalendar();
+    calInitialized = true;
+  }
 
-  document.getElementById('emptyState').style.display = visible.length === 0 ? 'block' : 'none';
+  if (!isMorning) {
+    let visible = cards.filter(card => {
+      const tags = card.dataset.tags.split(' ');
+      if (isAll)                     return true;
+      if (activeTag === 'starred')   return starred.includes(card.querySelector('.star-btn')?.dataset.id);
+      return tags.includes(activeTag);
+    });
 
-  const total = cards.length;
-  document.getElementById('resultsMeta').textContent =
-    visible.length === total
-      ? `${total} report${total !== 1 ? 's' : ''}`
-      : `${visible.length} of ${total} reports`;
+    visible.sort((a, b) => {
+      const da = new Date(a.dataset.date), db = new Date(b.dataset.date);
+      return sortOrder === 'newest' ? db - da : da - db;
+    });
+
+    cards.forEach(c => c.classList.add('hidden'));
+    visible.forEach((c, i) => { c.classList.remove('hidden'); c.style.order = i; });
+
+    document.getElementById('emptyState').style.display = visible.length === 0 ? 'block' : 'none';
+
+    const total = cards.length;
+    document.getElementById('resultsMeta').textContent =
+      visible.length === total
+        ? `${total} report${total !== 1 ? 's' : ''}`
+        : `${visible.length} of ${total} reports`;
+  }
 }
 
 init();
