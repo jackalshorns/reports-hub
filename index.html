@@ -58,7 +58,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 
 /* ── REPORT CARD ── */
-.report-card { background: white; border: 1px solid #e8eaed; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: box-shadow 0.15s, transform 0.15s; position: relative; }
+.report-card { background: white; border: 1px solid #e8eaed; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: box-shadow 0.15s, transform 0.15s; position: relative; cursor: pointer; }
 .report-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
 .report-card.hidden { display: none; }
 
@@ -739,6 +739,24 @@ function init() {
       showRetagPopover(card, retagBtn, cardId);
     });
     actions.insertBefore(retagBtn, starBtn);
+  });
+
+  // Sloppy-click: clicking anywhere on a report-card or brief-card opens the link
+  document.querySelectorAll('.report-card').forEach(card => {
+    const link = card.querySelector('.open-link');
+    if (!link) return;
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', e => {
+      // Don't intercept clicks on interactive elements (buttons, links)
+      if (e.target.closest('a, button')) return;
+      window.open(link.href, '_blank');
+    });
+  });
+  document.querySelectorAll('.brief-card').forEach(card => {
+    if (!card.href) return;
+    card.style.cursor = 'pointer';
+    // brief-cards are already <a> tags, but clicks on child elements
+    // may not trigger navigation — ensure the whole card works
   });
 
   // Tag filter buttons
