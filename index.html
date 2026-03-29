@@ -121,16 +121,24 @@ footer a { color: #1a73e8; text-decoration: none; }
 .cal-cell.empty { min-height: 0; }
 .cal-cell .cal-date { font-size: 22px; font-weight: 800; line-height: 1; }
 .cal-cell.today .cal-date { color: #1a1a2e; }
-.cal-cell.today { background: #f8f9fa; }
+.cal-cell.today { background: #f0f7ff; border: 1.5px solid #bfdbfe; }
+.cal-cell.today .cal-date { color: #1a73e8; font-weight: 800; }
+.cal-cell.today .cal-today-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; margin-top: 2px; }
+.cal-cell.today .cal-today-meetings { font-size: 12px; color: #555; margin-top: 8px; line-height: 1.5; flex: 1; }
+.cal-cell.today .cal-today-meetings strong { color: #1a73e8; font-weight: 600; }
 .cal-cell.has-brief { background: #fff7ed; cursor: pointer; border: 1.5px solid #fed7aa; }
 .cal-cell.has-brief .cal-date { color: #c2410c; font-weight: 800; }
 .cal-cell.has-brief:hover { background: #fff3e0; border-color: #f97316; box-shadow: 0 4px 12px rgba(249,115,22,0.18); transform: translateY(-2px); }
-.cal-cell.has-brief.today { border: 2.5px solid #f97316; }
+.cal-cell.has-brief.today { background: linear-gradient(135deg, #f0f7ff 0%, #fff7ed 100%); border: 2.5px solid #1a73e8; }
+.cal-cell.has-brief.today .cal-date { color: #1a73e8; }
+.cal-cell.has-brief.today .cal-today-label { color: #1a73e8; }
 .cal-mtg-counts { font-size: 13px; color: #888; margin-top: 8px; line-height: 1.5; }
 .cal-mtg-counts .ext-count { color: #7c3aed; font-weight: 600; }
 .cal-mtg-counts .int-count { color: #64748b; }
 .cal-companies { font-size: 12px; color: #c2410c; font-weight: 600; margin-top: 4px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; flex: 1; }
-.cal-open { margin-top: auto; font-size: 12px; color: #f97316; font-weight: 700; padding-top: 8px; }
+.cal-open { margin-top: auto; padding-top: 8px; }
+.cal-open .open-link { font-size: 12px; color: #1a73e8; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: #e8f0fe; transition: background 0.15s; white-space: nowrap; }
+.cal-open .open-link:hover { background: #d0e3ff; }
 
 .load-more-wrap { text-align: center; padding: 8px 0 16px; }
 .load-more-btn { background: #f1f3f4; border: 1.5px solid #e0e0e0; border-radius: 10px; padding: 10px 28px; font-size: 13px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.15s; }
@@ -315,6 +323,11 @@ footer a { color: #1a73e8; text-decoration: none; }
 
 <script>
 // ── Morning Briefs Data ──────────────────────────────────────────────────
+// Today's meetings — injected by publish.py or manually.
+// Format: [ { time: "9:00 AM", title: "Meeting Name" }, ... ]
+// Leave empty array for no meetings.
+const TODAY_MEETINGS = [/* TODAY_MEETINGS_DATA */];
+
 // publish.py injects/prunes entries here automatically.
 // Format: "YYYY-MM-DD": { url, "int", "ext", companies[] }
 const MORNING_BRIEFS = {
@@ -495,11 +508,39 @@ function renderMonth(year, month, container) {
         cell.appendChild(cos);
       }
 
-      // "Open →" label
-      const openLabel = document.createElement('div');
-      openLabel.className = 'cal-open';
-      openLabel.textContent = 'Open →';
-      cell.appendChild(openLabel);
+      // "Open →" pill button (matches card grid style)
+      const openWrap = document.createElement('div');
+      openWrap.className = 'cal-open';
+      const openPill = document.createElement('span');
+      openPill.className = 'open-link';
+      openPill.textContent = 'Open →';
+      openWrap.appendChild(openPill);
+      cell.appendChild(openWrap);
+    }
+
+    // Today's cell: show "TODAY" label and meetings from calendar data
+    if (ds === today && !MORNING_BRIEFS[ds]) {
+      const todayLabel = document.createElement('div');
+      todayLabel.className = 'cal-today-label';
+      todayLabel.textContent = 'Today';
+      cell.appendChild(todayLabel);
+    }
+    if (ds === today) {
+      // Add "TODAY" label after the date for cells with briefs too
+      if (MORNING_BRIEFS[ds]) {
+        const todayLabel = document.createElement('div');
+        todayLabel.className = 'cal-today-label';
+        todayLabel.textContent = 'Today';
+        // Insert after date element
+        dateEl.after(todayLabel);
+      }
+      // Show today's key meetings if calendar data exists
+      if (typeof TODAY_MEETINGS !== 'undefined' && TODAY_MEETINGS.length > 0) {
+        const mtgDiv = document.createElement('div');
+        mtgDiv.className = 'cal-today-meetings';
+        mtgDiv.innerHTML = TODAY_MEETINGS.map(m => '<strong>' + m.time + '</strong> ' + m.title).join('<br>');
+        cell.appendChild(mtgDiv);
+      }
     }
 
     grid.appendChild(cell);
