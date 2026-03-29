@@ -135,8 +135,12 @@ footer a { color: #1a73e8; text-decoration: none; }
 .cal-mtg-counts { font-size: 13px; color: #888; margin-top: 8px; line-height: 1.5; }
 .cal-mtg-counts .ext-count { color: #7c3aed; font-weight: 600; }
 .cal-mtg-counts .int-count { color: #64748b; }
-.cal-companies { font-size: 12px; color: #c2410c; font-weight: 600; margin-top: 4px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; flex: 1; }
-.cal-open { margin-top: auto; padding-top: 8px; }
+.cal-companies { font-size: 12px; color: #c2410c; font-weight: 600; margin-top: 4px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.cal-no-mtg { font-size: 11px; color: #bbb; font-style: italic; margin-top: 8px; }
+.cal-warn { font-size: 11px; color: #d97706; margin-top: 4px; display: flex; align-items: center; gap: 3px; }
+.cal-warn .warn-icon { flex-shrink: 0; }
+.cal-cell-body { flex: 1; }
+.cal-open { margin-top: auto; padding-top: 8px; display: flex; justify-content: flex-end; }
 .cal-open .open-link { font-size: 12px; color: #1a73e8; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: #e8f0fe; transition: background 0.15s; white-space: nowrap; }
 .cal-open .open-link:hover { background: #d0e3ff; }
 
@@ -485,30 +489,66 @@ function renderMonth(year, month, container) {
 
     if (ds === today) cell.classList.add('today');
 
+    // "TODAY" label
+    if (ds === today) {
+      const todayLabel = document.createElement('div');
+      todayLabel.className = 'cal-today-label';
+      todayLabel.textContent = 'Today';
+      cell.appendChild(todayLabel);
+    }
+
+    // Body wrapper (flex: 1 so Open button stays at bottom-right)
+    const body = document.createElement('div');
+    body.className = 'cal-cell-body';
+
     const brief = MORNING_BRIEFS[ds];
     if (brief) {
       cell.classList.add('has-brief');
       cell.title = 'Morning Brief — ' + ds;
       cell.addEventListener('click', () => window.open(brief.url, '_blank'));
 
-      if (brief.int > 0 || brief.ext > 0) {
+      const totalMtg = (brief.int || 0) + (brief.ext || 0);
+      const hasCos = brief.companies && brief.companies.length > 0;
+
+      if (totalMtg > 0) {
         const counts = document.createElement('div');
         counts.className = 'cal-mtg-counts';
         const parts = [];
         if (brief.ext > 0) parts.push('<span class="ext-count">' + brief.ext + ' ext</span>');
         if (brief.int > 0) parts.push('<span class="int-count">' + brief.int + ' int</span>');
         counts.innerHTML = parts.join(' · ');
-        cell.appendChild(counts);
+        body.appendChild(counts);
+      } else {
+        // Has a brief but zero meetings
+        const noMtg = document.createElement('div');
+        noMtg.className = 'cal-no-mtg';
+        noMtg.textContent = 'No meetings';
+        body.appendChild(noMtg);
       }
 
-      if (brief.companies && brief.companies.length > 0) {
+      if (hasCos) {
         const cos = document.createElement('div');
         cos.className = 'cal-companies';
         cos.textContent = brief.companies.join(', ');
-        cell.appendChild(cos);
+        body.appendChild(cos);
       }
 
-      // "Open →" pill button (matches card grid style)
+      // Warning: meetings logged but no companies, or companies but no meetings
+      if (totalMtg > 0 && !hasCos) {
+        const warn = document.createElement('div');
+        warn.className = 'cal-warn';
+        warn.innerHTML = '<svg class="warn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Missing companies';
+        body.appendChild(warn);
+      } else if (totalMtg === 0 && hasCos) {
+        const warn = document.createElement('div');
+        warn.className = 'cal-warn';
+        warn.innerHTML = '<svg class="warn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Missing meeting count';
+        body.appendChild(warn);
+      }
+
+      cell.appendChild(body);
+
+      // "Open →" pill — bottom right
       const openWrap = document.createElement('div');
       openWrap.className = 'cal-open';
       const openPill = document.createElement('span');
@@ -516,31 +556,23 @@ function renderMonth(year, month, container) {
       openPill.textContent = 'Open →';
       openWrap.appendChild(openPill);
       cell.appendChild(openWrap);
-    }
-
-    // Today's cell: show "TODAY" label and meetings from calendar data
-    if (ds === today && !MORNING_BRIEFS[ds]) {
-      const todayLabel = document.createElement('div');
-      todayLabel.className = 'cal-today-label';
-      todayLabel.textContent = 'Today';
-      cell.appendChild(todayLabel);
-    }
-    if (ds === today) {
-      // Add "TODAY" label after the date for cells with briefs too
-      if (MORNING_BRIEFS[ds]) {
-        const todayLabel = document.createElement('div');
-        todayLabel.className = 'cal-today-label';
-        todayLabel.textContent = 'Today';
-        // Insert after date element
-        dateEl.after(todayLabel);
+    } else {
+      // No brief for this date
+      if (ds === today) {
+        // Today without a brief: show meetings from calendar or "No meetings"
+        if (typeof TODAY_MEETINGS !== 'undefined' && TODAY_MEETINGS.length > 0) {
+          const mtgDiv = document.createElement('div');
+          mtgDiv.className = 'cal-today-meetings';
+          mtgDiv.innerHTML = TODAY_MEETINGS.map(m => '<strong>' + m.time + '</strong> ' + m.title).join('<br>');
+          body.appendChild(mtgDiv);
+        } else {
+          const noMtg = document.createElement('div');
+          noMtg.className = 'cal-no-mtg';
+          noMtg.textContent = 'No meetings';
+          body.appendChild(noMtg);
+        }
       }
-      // Show today's key meetings if calendar data exists
-      if (typeof TODAY_MEETINGS !== 'undefined' && TODAY_MEETINGS.length > 0) {
-        const mtgDiv = document.createElement('div');
-        mtgDiv.className = 'cal-today-meetings';
-        mtgDiv.innerHTML = TODAY_MEETINGS.map(m => '<strong>' + m.time + '</strong> ' + m.title).join('<br>');
-        cell.appendChild(mtgDiv);
-      }
+      cell.appendChild(body);
     }
 
     grid.appendChild(cell);
