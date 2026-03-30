@@ -814,7 +814,7 @@ function applyFilter() {
 }
 
 // ── BOOT ─────────────────────────────────────────────────────────────────
-fetch('hub-data.json')
+fetch('hub-data.json?v=' + Date.now())
   .then(r => r.json())
   .then(init)
   .catch(err => {
