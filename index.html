@@ -608,11 +608,11 @@ function renderCalendar() {
 
   const monthsToShow = [];
   const startDate = new Date();
+  startDate.setDate(1); // Pin to 1st to avoid month overflow (e.g. Mar 30 - 1mo = Feb 30 = Mar 2)
 
   // Render current month first, then older months going back
   for (let i = 0; i < calendarMonthsLoaded; i++) {
-    const date = new Date(startDate);
-    date.setMonth(date.getMonth() - i);
+    const date = new Date(startDate.getFullYear(), startDate.getMonth() - i, 1);
     monthsToShow.push(date);
   }
 
