@@ -619,10 +619,10 @@ function renderCalendarMonths() {
   const now = new Date();
   const tStr = todayStr();
 
-  // Show 3 months at a time, going backward with "Previous months"
+  // Show 3 months at a time, going backward (current month first, then older)
   const months = [];
-  for (let i = -monthOffset; i < 3 - monthOffset; i++) {
-    months.push(new Date(now.getFullYear(), now.getMonth() + i, 1));
+  for (let i = monthOffset; i < monthOffset + 3; i++) {
+    months.push(new Date(now.getFullYear(), now.getMonth() - i, 1));
   }
 
   months.forEach(monthDate => {
@@ -702,7 +702,7 @@ function createMonthBlock(monthDate, tStr) {
           let parts = [];
           if (ext > 0) parts.push(`<strong>${ext}</strong> external`);
           if (intm > 0) parts.push(`<strong>${intm}</strong> internal`);
-          mtgDiv.innerHTML = parts.join(', ') + ' meeting' + ((ext + intm) !== 1 ? 's' : '');
+          mtgDiv.innerHTML = parts.join(' · ') + ' meeting' + ((ext + intm) !== 1 ? 's' : '');
           if (brief.companies && brief.companies.length > 0) {
             mtgDiv.innerHTML += '<br>' + brief.companies.join(', ');
           }
@@ -726,7 +726,7 @@ function createMonthBlock(monthDate, tStr) {
         let parts = [];
         if (ext > 0) parts.push(`<span class="ext-count">${ext}</span> ext`);
         if (intm > 0) parts.push(`<span class="int-count">${intm}</span> int`);
-        counts.innerHTML = parts.join(', ');
+        counts.innerHTML = parts.join(' · ');
         cell.appendChild(counts);
       } else {
         const noMtg = document.createElement('div');
