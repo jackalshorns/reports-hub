@@ -1,182 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jason Schklar — Reports Hub</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; min-height: 100vh; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Jason Schklar — Reports Hub</title>
+  <style>
+    /* ===== THEME VARIABLES ===== */
+    :root[data-theme="dark"] {
+      --bg: #0f1117; --surface: #1a1d27; --surface-2: #222633; --border: #2a2d3a;
+      --text: #e2e4ea; --text-secondary: #b0b3c0; --muted: #8b8fa3;
+      --accent: #6c8aff; --accent-dim: #3d5299;
+      --header-bg-1: #12122a; --header-bg-2: #1e1e3a;
+      --toolbar-bg: #1a1d27; --toolbar-border: #2a2d3a; --toolbar-shadow: rgba(0,0,0,0.3);
+      --tag-btn-bg: #2a2d3a; --tag-btn-color: #b0b3c0; --tag-btn-hover-bg: #333748;
+      --tag-btn-active-bg: #6c8aff; --tag-btn-active-color: #fff;
+      --card-bg: #1a1d27; --card-border: #2a2d3a; --card-shadow: rgba(0,0,0,0.2);
+      --card-hover-shadow: rgba(0,0,0,0.4);
+      --card-type-color: #8b8fa3; --card-title-color: #e2e4ea; --card-desc-color: #b0b3c0;
+      --open-link-bg: #2a3560; --open-link-color: #8ab4ff; --open-link-hover-bg: #3a4570;
+      --star-opacity: 0.4;
+      --footer-bg: transparent; --footer-border: #2a2d3a; --footer-color: #555;
+      --footer-link-color: #6c8aff;
+      --sort-btn-bg: #2a2d3a; --sort-btn-color: #b0b3c0;
+      --results-meta-color: #8b8fa3;
+      --empty-color: #8b8fa3;
+      --index-card-bg: #1a1d27; --index-card-border: #2a2d3a;
+      --index-card-hover-bg: #222633; --index-card-hover-border: #6c8aff;
+      --brief-card-bg: #1a1d27; --brief-card-border: #2a2d3a;
+      --brief-card-hover-shadow: rgba(0,0,0,0.4);
+      --brief-type-color: #8b8fa3; --brief-date-color: #e2e4ea;
+      --brief-mtg-color: #b0b3c0; --brief-empty-color: #555;
+      --brief-footer-tag-bg: #3a2a10; --brief-footer-tag-color: #fb923c;
+      --cal-month-bg: #1a1d27; --cal-month-border: #2a2d3a;
+      --cal-month-bar-bg: #222633; --cal-month-bar-color: #e2e4ea; --cal-month-bar-border: #2a2d3a;
+      --cal-day-hdr-color: #8b8fa3;
+      --cal-cell-date-color: #555;
+      --cal-today-bg: #1a2540; --cal-today-border: #2a3a60; --cal-today-date-color: #6c8aff;
+      --cal-today-label-color: #6c8aff;
+      --cal-today-mtg-color: #b0b3c0; --cal-today-mtg-strong: #6c8aff;
+      --cal-brief-bg: #2a2010; --cal-brief-border: #4a3510; --cal-brief-date-color: #fb923c;
+      --cal-brief-hover-bg: #3a2a10; --cal-brief-hover-border: #fb923c;
+      --cal-brief-hover-shadow: rgba(249,115,22,0.18);
+      --cal-brief-today-bg: linear-gradient(135deg, #1a2540 0%, #2a2010 100%);
+      --cal-mtg-counts-color: #8b8fa3; --cal-ext-color: #a78bfa; --cal-int-color: #94a3b8;
+      --cal-companies-color: #fb923c; --cal-no-mtg-color: #555;
+      --cal-warn-bg: rgba(217,119,6,0.1); --cal-warn-border: rgba(217,119,6,0.3); --cal-warn-color: #d97706;
+      --load-more-bg: #2a2d3a; --load-more-border: #3a3d4a; --load-more-color: #b0b3c0;
+      --load-more-hover-bg: #333748;
+      --retag-bg: #222633; --retag-border: #2a2d3a; --retag-shadow: rgba(0,0,0,0.4);
+      --retag-option-color: #e2e4ea; --retag-option-hover-bg: #2a2d3a;
+      --retag-active-bg: #2a3560; --retag-active-color: #6c8aff;
+      --retag-reset-color: #8b8fa3; --retag-reset-border: #2a2d3a;
+      --retag-reset-hover-bg: #3a2a10; --retag-reset-hover-color: #fb923c;
+      --tag-morning-bg: #3a2a10; --tag-morning-color: #fb923c;
+      --tag-accelerator-bg: #1a2a50; --tag-accelerator-color: #6c8aff;
+      --tag-serbia-bg: #2a1a3a; --tag-serbia-color: #c084fc;
+      --tag-artifacts-bg: #1a2e1a; --tag-artifacts-color: #4ade80;
+      --tag-research-bg: #1a2a3a; --tag-research-color: #22d3ee;
+      --toggle-icon: "☀️"; --toggle-bg: #2a2d3a;
+    }
+    :root[data-theme="light"] {
+      --bg: #f8f9fa; --surface: #ffffff; --surface-2: #fafafa; --border: #e8eaed;
+      --text: #1a1a2e; --text-secondary: #555; --muted: #999;
+      --accent: #1a73e8; --accent-dim: #d0e3ff;
+      --header-bg-1: #1a1a2e; --header-bg-2: #2d3561;
+      --toolbar-bg: #ffffff; --toolbar-border: #e8eaed; --toolbar-shadow: rgba(0,0,0,0.06);
+      --tag-btn-bg: #f1f3f4; --tag-btn-color: #555; --tag-btn-hover-bg: #e8eaed;
+      --tag-btn-active-bg: #1a1a2e; --tag-btn-active-color: #fff;
+      --card-bg: #ffffff; --card-border: #e8eaed; --card-shadow: rgba(0,0,0,0.05);
+      --card-hover-shadow: rgba(0,0,0,0.1);
+      --card-type-color: #999; --card-title-color: #1a1a2e; --card-desc-color: #666;
+      --open-link-bg: #e8f0fe; --open-link-color: #1a73e8; --open-link-hover-bg: #d0e3ff;
+      --star-opacity: 0.3;
+      --footer-bg: transparent; --footer-border: #e8eaed; --footer-color: #ccc;
+      --footer-link-color: #1a73e8;
+      --sort-btn-bg: #f1f3f4; --sort-btn-color: #555;
+      --results-meta-color: #999;
+      --empty-color: #999;
+      --index-card-bg: #f8f9fa; --index-card-border: #dadce0;
+      --index-card-hover-bg: #f0f4ff; --index-card-hover-border: #1a73e8;
+      --brief-card-bg: #ffffff; --brief-card-border: #e8eaed;
+      --brief-card-hover-shadow: rgba(0,0,0,0.1);
+      --brief-type-color: #999; --brief-date-color: #1a1a2e;
+      --brief-mtg-color: #666; --brief-empty-color: #bbb;
+      --brief-footer-tag-bg: #fff3e0; --brief-footer-tag-color: #c2410c;
+      --cal-month-bg: #ffffff; --cal-month-border: #e8eaed;
+      --cal-month-bar-bg: #fafafa; --cal-month-bar-color: #1a1a2e; --cal-month-bar-border: #f0f0f0;
+      --cal-day-hdr-color: #999;
+      --cal-cell-date-color: #bbb;
+      --cal-today-bg: #f0f7ff; --cal-today-border: #bfdbfe; --cal-today-date-color: #1a73e8;
+      --cal-today-label-color: #1a73e8;
+      --cal-today-mtg-color: #555; --cal-today-mtg-strong: #1a73e8;
+      --cal-brief-bg: #fff7ed; --cal-brief-border: #fed7aa; --cal-brief-date-color: #c2410c;
+      --cal-brief-hover-bg: #fff3e0; --cal-brief-hover-border: #f97316;
+      --cal-brief-hover-shadow: rgba(249,115,22,0.18);
+      --cal-brief-today-bg: linear-gradient(135deg, #f0f7ff 0%, #fff7ed 100%);
+      --cal-mtg-counts-color: #888; --cal-ext-color: #7c3aed; --cal-int-color: #64748b;
+      --cal-companies-color: #c2410c; --cal-no-mtg-color: #bbb;
+      --cal-warn-bg: #fff8e8; --cal-warn-border: #f5c842; --cal-warn-color: #856404;
+      --load-more-bg: #f1f3f4; --load-more-border: #e0e0e0; --load-more-color: #555;
+      --load-more-hover-bg: #e8eaed;
+      --retag-bg: #fff; --retag-border: #e0e0e0; --retag-shadow: rgba(0,0,0,0.13);
+      --retag-option-color: #333; --retag-option-hover-bg: #f1f3f4;
+      --retag-active-bg: #e8f0fe; --retag-active-color: #1a73e8;
+      --retag-reset-color: #888; --retag-reset-border: #eee;
+      --retag-reset-hover-bg: #fff3e0; --retag-reset-hover-color: #c2410c;
+      --tag-morning-bg: #fff3e0; --tag-morning-color: #c2410c;
+      --tag-accelerator-bg: #e8f0fe; --tag-accelerator-color: #1558d6;
+      --tag-serbia-bg: #f3e8ff; --tag-serbia-color: #6b21a8;
+      --tag-artifacts-bg: #e6f4ea; --tag-artifacts-color: #15803d;
+      --tag-research-bg: #ecfeff; --tag-research-color: #0e7490;
+      --toggle-icon: "🌙"; --toggle-bg: #e2e4ea;
+    }
 
-/* ── HEADER ── */
-.header { background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 100%); color: white; padding: 40px 48px 36px; }
-.header-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px; }
-.header h1 { font-size: 30px; font-weight: 700; margin-bottom: 4px; }
-.header-sub { font-size: 14px; opacity: 0.6; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; transition: background 0.3s, color 0.3s, border-color 0.3s; }
 
-/* ── TOOLBAR ── */
-.toolbar { background: white; border-bottom: 1px solid #e8eaed; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-.tag-filters { display: flex; align-items: center; gap: 6px; padding: 14px 0; flex-wrap: wrap; }
-.tag-btn { background: #f1f3f4; border: 1.5px solid transparent; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap; }
-.tag-btn:hover { background: #e8eaed; color: #1a1a2e; }
-.tag-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
-.tag-btn.active.tag-star { background: #f59e0b; border-color: #f59e0b; }
-.tag-btn.active.tag-morning { background: #f97316; border-color: #f97316; }
-.tag-btn.active.tag-accelerator { background: #1a73e8; border-color: #1a73e8; }
-.tag-btn.active.tag-serbia { background: #7b1fa2; border-color: #7b1fa2; }
-.tag-btn.active.tag-artifacts { background: #34a853; border-color: #34a853; }
-.tag-btn.active.tag-research  { background: #0891b2; border-color: #0891b2; }
+    .header { background: linear-gradient(135deg, var(--header-bg-1) 0%, var(--header-bg-2) 100%); color: white; padding: 40px 48px 36px; position: relative; }
+    .header-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px; }
+    .header h1 { font-size: 30px; font-weight: 700; margin-bottom: 4px; }
+    .header-sub { font-size: 14px; opacity: 0.6; }
 
-.sort-controls { display: flex; align-items: center; gap: 8px; padding: 14px 0; }
-.sort-label { font-size: 12px; color: #888; font-weight: 500; }
-.sort-btn { background: #f1f3f4; border: 1.5px solid transparent; border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.15s; }
-.sort-btn:hover { background: #e8eaed; }
-.sort-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+    .theme-toggle { position: absolute; top: 40px; right: 48px; background: var(--toggle-bg); border: 1px solid var(--border); border-radius: 8px; width: 38px; height: 38px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .theme-toggle:hover { border-color: var(--accent); }
+    .theme-toggle::after { content: var(--toggle-icon); }
 
-/* ── BRIEF PREVIEW ROW (All tab) ── */
-.brief-preview { max-width: 1100px; margin: 0 auto; padding: 28px 24px 0; }
-.brief-preview-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.brief-preview-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.brief-card { background: white; border: 1px solid #e8eaed; border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: box-shadow 0.15s, transform 0.15s; }
-.brief-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
-.brief-card-accent { height: 4px; background: linear-gradient(90deg, #f97316, #fb923c); }
-.brief-card-body { padding: 16px 18px 12px; flex: 1; }
-.brief-card-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 5px; }
-.brief-card-date { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; line-height: 1.35; }
-.brief-card-mtg { font-size: 12px; color: #666; line-height: 1.55; margin-bottom: 4px; }
-.brief-card-mtg .ext { color: #7c3aed; font-weight: 600; }
-.brief-card-mtg .int { color: #64748b; }
-.brief-card-cos { font-size: 12px; color: #666; line-height: 1.55; }
-.brief-card-empty { font-size: 12px; color: #bbb; font-style: italic; }
-.brief-card-footer { padding: 10px 18px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.brief-card-footer .card-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; background: #fff3e0; color: #c2410c; }
+    .toolbar { background: var(--toolbar-bg); border-bottom: 1px solid var(--toolbar-border); padding: 0 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px var(--toolbar-shadow); transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; }
+    .tag-filters { display: flex; align-items: center; gap: 6px; padding: 14px 0; flex-wrap: wrap; }
+    .tag-btn { background: var(--tag-btn-bg); border: 1.5px solid transparent; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: var(--tag-btn-color); cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap; }
+    .tag-btn:hover { background: var(--tag-btn-hover-bg); color: var(--text); }
+    .tag-btn.active { background: var(--tag-btn-active-bg); color: var(--tag-btn-active-color); border-color: var(--tag-btn-active-bg); }
+    .tag-btn.active.tag-star { background: #f59e0b; border-color: #f59e0b; }
+    .tag-btn.active.tag-morning { background: #f97316; border-color: #f97316; }
+    .tag-btn.active.tag-accelerator { background: #1a73e8; border-color: #1a73e8; }
+    .tag-btn.active.tag-serbia { background: #7b1fa2; border-color: #7b1fa2; }
+    .tag-btn.active.tag-artifacts { background: #34a853; border-color: #34a853; }
+    .tag-btn.active.tag-research  { background: #0891b2; border-color: #0891b2; }
 
-/* ── MAIN GRID ── */
-.container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
-.results-meta { font-size: 12px; color: #999; margin-bottom: 16px; font-weight: 500; }
+    .sort-controls { display: flex; align-items: center; gap: 8px; padding: 14px 0; }
+    .sort-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .sort-btn { background: var(--sort-btn-bg); border: 1.5px solid transparent; border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--sort-btn-color); cursor: pointer; transition: all 0.15s; }
+    .sort-btn:hover { background: var(--tag-btn-hover-bg); }
+    .sort-btn.active { background: var(--tag-btn-active-bg); color: var(--tag-btn-active-color); border-color: var(--tag-btn-active-bg); }
 
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .brief-preview { max-width: 1100px; margin: 0 auto; padding: 28px 24px 0; }
+    .brief-preview-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .brief-preview-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .brief-card { background: var(--brief-card-bg); border: 1px solid var(--brief-card-border); border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; box-shadow: 0 1px 3px var(--card-shadow); transition: box-shadow 0.15s, transform 0.15s; }
+    .brief-card:hover { box-shadow: 0 4px 16px var(--brief-card-hover-shadow); transform: translateY(-2px); }
+    .brief-card-accent { height: 4px; background: linear-gradient(90deg, #f97316, #fb923c); }
+    .brief-card-body { padding: 16px 18px 12px; flex: 1; }
+    .brief-card-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--brief-type-color); margin-bottom: 5px; }
+    .brief-card-date { font-size: 15px; font-weight: 700; color: var(--brief-date-color); margin-bottom: 6px; line-height: 1.35; }
+    .brief-card-mtg { font-size: 12px; color: var(--brief-mtg-color); line-height: 1.55; margin-bottom: 4px; }
+    .brief-card-mtg .ext { color: #7c3aed; font-weight: 600; }
+    .brief-card-mtg .int { color: #64748b; }
+    .brief-card-cos { font-size: 12px; color: var(--brief-mtg-color); line-height: 1.55; }
+    .brief-card-empty { font-size: 12px; color: var(--brief-empty-color); font-style: italic; }
+    .brief-card-footer { padding: 10px 18px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .brief-card-footer .card-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; background: var(--tag-morning-bg); color: var(--tag-morning-color); }
 
-/* ── REPORT CARD ── */
-.report-card { background: white; border: 1px solid #e8eaed; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: box-shadow 0.15s, transform 0.15s; position: relative; cursor: pointer; }
-.report-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
-.report-card.hidden { display: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
+    .results-meta { font-size: 12px; color: var(--results-meta-color); margin-bottom: 16px; font-weight: 500; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 
-.card-accent { height: 4px; flex-shrink: 0; }
-.accent-morning { background: linear-gradient(90deg, #f97316, #fb923c); }
-.accent-accelerator { background: linear-gradient(90deg, #1a73e8, #4285f4); }
-.accent-serbia { background: linear-gradient(90deg, #7b1fa2, #9c27b0); }
-.accent-artifacts { background: linear-gradient(90deg, #34a853, #4caf50); }
-.accent-research  { background: linear-gradient(90deg, #0891b2, #06b6d4); }
+    .report-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px var(--card-shadow); display: flex; flex-direction: column; transition: box-shadow 0.15s, transform 0.15s; position: relative; cursor: pointer; }
+    .report-card:hover { box-shadow: 0 4px 16px var(--card-hover-shadow); transform: translateY(-2px); }
+    .report-card.hidden { display: none; }
 
-.card-body { padding: 16px 18px 12px; flex: 1; }
-.card-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 5px; }
-.card-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; line-height: 1.35; }
-.card-desc { font-size: 12px; color: #666; line-height: 1.55; }
+    .card-accent { height: 4px; flex-shrink: 0; }
+    .accent-morning { background: linear-gradient(90deg, #f97316, #fb923c); }
+    .accent-accelerator { background: linear-gradient(90deg, #1a73e8, #4285f4); }
+    .accent-serbia { background: linear-gradient(90deg, #7b1fa2, #9c27b0); }
+    .accent-artifacts { background: linear-gradient(90deg, #34a853, #4caf50); }
+    .accent-research  { background: linear-gradient(90deg, #0891b2, #06b6d4); }
 
-.card-footer { padding: 10px 18px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.card-tags { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
-.card-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; }
-.card-tag-morning { background: #fff3e0; color: #c2410c; }
-.card-tag-accelerator { background: #e8f0fe; color: #1558d6; }
-.card-tag-serbia { background: #f3e8ff; color: #6b21a8; }
-.card-tag-artifacts { background: #e6f4ea; color: #15803d; }
-.card-tag-research  { background: #ecfeff; color: #0e7490; }
+    .card-body { padding: 16px 18px 12px; flex: 1; }
+    .card-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--card-type-color); margin-bottom: 5px; }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--card-title-color); margin-bottom: 6px; line-height: 1.35; }
+    .card-desc { font-size: 12px; color: var(--card-desc-color); line-height: 1.55; }
 
-.card-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.star-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 2px; line-height: 1; opacity: 0.3; transition: opacity 0.15s, transform 0.15s; }
-.star-btn:hover { opacity: 0.7; transform: scale(1.2); }
-.star-btn.starred { opacity: 1; }
-.open-link { font-size: 12px; color: #1a73e8; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: #e8f0fe; transition: background 0.15s; white-space: nowrap; }
-.open-link:hover { background: #d0e3ff; }
+    .card-footer { padding: 10px 18px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
+    .card-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; }
+    .card-tag-morning { background: var(--tag-morning-bg); color: var(--tag-morning-color); }
+    .card-tag-accelerator { background: var(--tag-accelerator-bg); color: var(--tag-accelerator-color); }
+    .card-tag-serbia { background: var(--tag-serbia-bg); color: var(--tag-serbia-color); }
+    .card-tag-artifacts { background: var(--tag-artifacts-bg); color: var(--tag-artifacts-color); }
+    .card-tag-research  { background: var(--tag-research-bg); color: var(--tag-research-color); }
 
-/* ── EMPTY STATE ── */
-.empty-state { text-align: center; padding: 64px 24px; color: #999; }
-.empty-state .icon { font-size: 40px; margin-bottom: 12px; }
-.empty-state p { font-size: 14px; }
+    .card-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .star-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 2px; line-height: 1; opacity: var(--star-opacity); transition: opacity 0.15s, transform 0.15s; }
+    .star-btn:hover { opacity: 0.7; transform: scale(1.2); }
+    .star-btn.starred { opacity: 1; }
+    .open-link { font-size: 12px; color: var(--open-link-color); font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: var(--open-link-bg); transition: background 0.15s; white-space: nowrap; }
+    .open-link:hover { background: var(--open-link-hover-bg); }
 
-/* ── INDEX CARD ── */
-.index-link-card { background: #f8f9fa; border: 1.5px dashed #dadce0; border-radius: 12px; padding: 18px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; transition: border-color 0.15s, background 0.15s; }
-.index-link-card:hover { background: #f0f4ff; border-color: #1a73e8; }
-.index-link-card .icon { font-size: 22px; flex-shrink: 0; }
-.index-link-card strong { font-size: 13px; font-weight: 600; display: block; }
-.index-link-card span { font-size: 12px; color: #666; }
+    .empty-state { text-align: center; padding: 64px 24px; color: var(--empty-color); }
+    .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+    .empty-state p { font-size: 14px; }
 
-footer { text-align: center; color: #ccc; font-size: 12px; padding: 24px; border-top: 1px solid #e8eaed; margin-top: 0; }
-footer a { color: #1a73e8; text-decoration: none; }
+    .index-link-card { background: var(--index-card-bg); border: 1.5px dashed var(--index-card-border); border-radius: 12px; padding: 18px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; transition: border-color 0.15s, background 0.15s; }
+    .index-link-card:hover { background: var(--index-card-hover-bg); border-color: var(--index-card-hover-border); }
+    .index-link-card .icon { font-size: 22px; flex-shrink: 0; }
+    .index-link-card strong { font-size: 13px; font-weight: 600; display: block; }
+    .index-link-card span { font-size: 12px; color: var(--card-desc-color); }
 
-/* ── FULL CALENDAR VIEW (Morning Briefs tab) ── */
-.cal-full { margin: 0 auto; padding: 32px 32px 48px; display: none; }
-.cal-full-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
-.cal-full-title { display: flex; align-items: center; gap: 8px; }
-.cal-full-title h2 { font-size: 24px; font-weight: 700; color: #1a1a2e; }
-.cal-full-link { font-size: 13px; color: #f97316; font-weight: 600; text-decoration: none; padding: 6px 16px; border-radius: 6px; background: #fff3e0; transition: background 0.15s; }
-.cal-full-link:hover { background: #ffe4c4; }
+    footer { text-align: center; color: var(--footer-color); font-size: 12px; padding: 24px; border-top: 1px solid var(--footer-border); margin-top: 0; }
+    footer a { color: var(--footer-link-color); text-decoration: none; }
 
-.cal-month-block { background: white; border: 1px solid #e8eaed; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); margin-bottom: 28px; }
-.cal-month-bar { padding: 18px 24px; font-size: 18px; font-weight: 700; color: #1a1a2e; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); padding: 16px 20px 20px; gap: 8px; }
-.cal-day-hdr { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; text-align: center; padding: 12px 0 10px; }
-.cal-cell { position: relative; min-height: 200px; border-radius: 10px; padding: 14px 16px; font-size: 14px; font-weight: 500; color: #bbb; transition: all 0.15s; display: flex; flex-direction: column; }
-.cal-cell.empty { min-height: 0; }
-.cal-cell .cal-date { font-size: 22px; font-weight: 800; line-height: 1; }
-.cal-cell.today .cal-date { color: #1a1a2e; }
-.cal-cell.today { background: #f0f7ff; border: 1.5px solid #bfdbfe; }
-.cal-cell.today .cal-date { color: #1a73e8; font-weight: 800; }
-.cal-cell.today .cal-today-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; margin-top: 2px; }
-.cal-cell.today .cal-today-meetings { font-size: 12px; color: #555; margin-top: 8px; line-height: 1.5; flex: 1; }
-.cal-cell.today .cal-today-meetings strong { color: #1a73e8; font-weight: 600; }
-.cal-cell.has-brief { background: #fff7ed; cursor: pointer; border: 1.5px solid #fed7aa; }
-.cal-cell.has-brief .cal-date { color: #c2410c; font-weight: 800; }
-.cal-cell.has-brief:hover { background: #fff3e0; border-color: #f97316; box-shadow: 0 4px 12px rgba(249,115,22,0.18); transform: translateY(-2px); }
-.cal-cell.has-brief.today { background: linear-gradient(135deg, #f0f7ff 0%, #fff7ed 100%); border: 2.5px solid #1a73e8; }
-.cal-cell.has-brief.today .cal-date { color: #1a73e8; }
-.cal-cell.has-brief.today .cal-today-label { color: #1a73e8; }
-.cal-mtg-counts { font-size: 13px; color: #888; margin-top: 8px; line-height: 1.5; }
-.cal-mtg-counts .ext-count { color: #7c3aed; font-weight: 600; }
-.cal-mtg-counts .int-count { color: #64748b; }
-.cal-companies { font-size: 12px; color: #c2410c; font-weight: 600; margin-top: 4px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-.cal-no-mtg { font-size: 11px; color: #bbb; font-style: italic; margin-top: 8px; }
-.cal-warn { font-size: 11px; color: #d97706; margin-top: 4px; display: flex; align-items: center; gap: 3px; }
-.cal-warn .warn-icon { flex-shrink: 0; }
-.cal-cell-body { flex: 1; }
-.cal-open { margin-top: auto; padding-top: 8px; display: flex; justify-content: flex-end; }
-.cal-open .open-link { font-size: 12px; color: #1a73e8; font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: #e8f0fe; transition: background 0.15s; white-space: nowrap; }
-.cal-open .open-link:hover { background: #d0e3ff; }
+    .cal-full { margin: 0 auto; padding: 32px 32px 48px; display: none; }
+    .cal-full-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
+    .cal-full-title { display: flex; align-items: center; gap: 8px; }
+    .cal-full-title h2 { font-size: 24px; font-weight: 700; color: var(--text); }
+    .cal-full-link { font-size: 13px; color: #f97316; font-weight: 600; text-decoration: none; padding: 6px 16px; border-radius: 6px; background: var(--tag-morning-bg); transition: background 0.15s; }
+    .cal-full-link:hover { background: var(--tag-morning-color); opacity: 0.8; }
 
-.load-more-wrap { text-align: center; padding: 8px 0 16px; }
-.load-more-btn { background: #f1f3f4; border: 1.5px solid #e0e0e0; border-radius: 10px; padding: 10px 28px; font-size: 13px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.15s; }
-.load-more-btn:hover { background: #e8eaed; border-color: #bbb; color: #1a1a2e; }
+    .cal-month-block { background: var(--cal-month-bg); border: 1px solid var(--cal-month-border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 6px var(--card-shadow); margin-bottom: 28px; }
+    .cal-month-bar { padding: 18px 24px; font-size: 18px; font-weight: 700; color: var(--cal-month-bar-color); background: var(--cal-month-bar-bg); border-bottom: 1px solid var(--cal-month-bar-border); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); padding: 16px 20px 20px; gap: 8px; }
+    .cal-day-hdr { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--cal-day-hdr-color); text-align: center; padding: 12px 0 10px; }
+    .cal-cell { position: relative; min-height: 200px; border-radius: 10px; padding: 14px 16px; font-size: 14px; font-weight: 500; color: var(--cal-cell-date-color); transition: all 0.15s; display: flex; flex-direction: column; }
+    .cal-cell.empty { min-height: 0; }
+    .cal-cell .cal-date { font-size: 22px; font-weight: 800; line-height: 1; }
+    .cal-cell.today .cal-date { color: var(--cal-today-date-color); }
+    .cal-cell.today { background: var(--cal-today-bg); border: 1.5px solid var(--cal-today-border); }
+    .cal-cell.today .cal-date { color: var(--cal-today-date-color); font-weight: 800; }
+    .cal-cell.today .cal-today-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--cal-today-label-color); margin-top: 2px; }
+    .cal-cell.today .cal-today-meetings { font-size: 12px; color: var(--cal-today-mtg-color); margin-top: 8px; line-height: 1.5; flex: 1; }
+    .cal-cell.today .cal-today-meetings strong { color: var(--cal-today-mtg-strong); font-weight: 600; }
+    .cal-cell.has-brief { background: var(--cal-brief-bg); cursor: pointer; border: 1.5px solid var(--cal-brief-border); }
+    .cal-cell.has-brief .cal-date { color: var(--cal-brief-date-color); font-weight: 800; }
+    .cal-cell.has-brief:hover { background: var(--cal-brief-hover-bg); border-color: var(--cal-brief-hover-border); box-shadow: 0 4px 12px var(--cal-brief-hover-shadow); transform: translateY(-2px); }
+    .cal-cell.has-brief.today { background: var(--cal-brief-today-bg); border: 2.5px solid var(--cal-today-border); }
+    .cal-cell.has-brief.today .cal-date { color: var(--cal-today-date-color); }
+    .cal-cell.has-brief.today .cal-today-label { color: var(--cal-today-label-color); }
+    .cal-mtg-counts { font-size: 13px; color: var(--cal-mtg-counts-color); margin-top: 8px; line-height: 1.5; }
+    .cal-mtg-counts .ext-count { color: var(--cal-ext-color); font-weight: 600; }
+    .cal-mtg-counts .int-count { color: var(--cal-int-color); }
+    .cal-companies { font-size: 12px; color: var(--cal-companies-color); font-weight: 600; margin-top: 4px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+    .cal-no-mtg { font-size: 11px; color: var(--cal-no-mtg-color); font-style: italic; margin-top: 8px; }
+    .cal-warn { font-size: 11px; color: var(--cal-warn-color); margin-top: 4px; display: flex; align-items: center; gap: 3px; background: var(--cal-warn-bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--cal-warn-border); }
+    .cal-warn .warn-icon { flex-shrink: 0; }
+    .cal-cell-body { flex: 1; }
+    .cal-open { margin-top: auto; padding-top: 8px; display: flex; justify-content: flex-end; }
+    .cal-open .open-link { font-size: 12px; color: var(--open-link-color); font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: var(--open-link-bg); transition: background 0.15s; white-space: nowrap; }
+    .cal-open .open-link:hover { background: var(--open-link-hover-bg); }
 
-/* ── RETAG ── */
-.retag-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding: 2px 3px; line-height: 1; opacity: 0; transition: opacity 0.15s; }
-.report-card:hover .retag-btn { opacity: 0.4; }
-.retag-btn:hover { opacity: 1 !important; }
-.retag-popover { position: absolute; z-index: 999; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.13); padding: 6px; min-width: 190px; }
-.retag-option { display: block; width: 100%; text-align: left; background: none; border: none; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; color: #333; transition: background 0.1s; }
-.retag-option:hover { background: #f1f3f4; }
-.retag-option.active { background: #e8f0fe; color: #1a73e8; font-weight: 700; }
-.retag-option.retag-reset { color: #888; font-size: 12px; border-top: 1px solid #eee; margin-top: 4px; padding-top: 10px; }
-.retag-option.retag-reset:hover { background: #fff3e0; color: #c2410c; }
-</style>
+    .load-more-wrap { text-align: center; padding: 8px 0 16px; }
+    .load-more-btn { background: var(--load-more-bg); border: 1.5px solid var(--load-more-border); border-radius: 10px; padding: 10px 28px; font-size: 13px; font-weight: 600; color: var(--load-more-color); cursor: pointer; transition: all 0.15s; }
+    .load-more-btn:hover { background: var(--load-more-hover-bg); color: var(--text); }
+
+    .retag-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding: 2px 3px; line-height: 1; opacity: 0; transition: opacity 0.15s; }
+    .report-card:hover .retag-btn { opacity: 0.4; }
+    .retag-btn:hover { opacity: 1 !important; }
+    .retag-popover { position: absolute; z-index: 999; background: var(--retag-bg); border: 1px solid var(--retag-border); border-radius: 10px; box-shadow: 0 8px 24px var(--retag-shadow); padding: 6px; min-width: 190px; }
+    .retag-option { display: block; width: 100%; text-align: left; background: none; border: none; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--retag-option-color); transition: background 0.1s; }
+    .retag-option:hover { background: var(--retag-option-hover-bg); }
+    .retag-option.active { background: var(--retag-active-bg); color: var(--retag-active-color); font-weight: 700; }
+    .retag-option.retag-reset { color: var(--retag-reset-color); font-size: 12px; border-top: 1px solid var(--retag-reset-border); margin-top: 4px; padding-top: 10px; }
+    .retag-option.retag-reset:hover { background: var(--retag-reset-hover-bg); color: var(--retag-reset-hover-color); }
+  </style>
 </head>
-<body>
+<body data-theme="dark">
 
 <div class="header">
   <div class="header-eyebrow">Reports Hub</div>
   <h1>Jason Schklar</h1>
   <div class="header-sub">All reports, briefs, and artifacts — organized by program</div>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></button>
 </div>
 
 <div class="toolbar">
   <div class="tag-filters" id="tagFilters">
-    <button class="tag-btn active" data-tag="all">All</button>
-    <button class="tag-btn tag-star" data-tag="starred">⭐ Starred</button>
-    <button class="tag-btn tag-morning" data-tag="morning">☀️ Morning Briefs</button>
-    <button class="tag-btn tag-accelerator" data-tag="accelerator">🎯 Google Play Accelerator</button>
-    <button class="tag-btn tag-serbia" data-tag="serbia">🇷🇸 Serbia Rising Stars</button>
-    <button class="tag-btn tag-artifacts" data-tag="artifacts">📦 General Artifacts</button>
-    <button class="tag-btn tag-research" data-tag="research">🔬 Research</button>
+    <!-- JS renders buttons from categories JSON -->
   </div>
   <div class="sort-controls" id="sortControls">
     <span class="sort-label">Sort:</span>
@@ -185,22 +283,18 @@ footer a { color: #1a73e8; text-decoration: none; }
   </div>
 </div>
 
-<!-- ── BRIEF PREVIEW ROW (visible on "All" tab) ── -->
 <div class="brief-preview" id="briefPreview">
   <div class="brief-preview-label">☀️ Morning Briefs</div>
-  <div class="brief-preview-row" id="briefPreviewRow">
-    <!-- JS renders: today card, yesterday card, tease card -->
-  </div>
+  <div class="brief-preview-row" id="briefPreviewRow"></div>
 </div>
 
-<!-- ── FULL CALENDAR (visible on "Morning Briefs" tab) ── -->
 <div class="cal-full" id="calFull">
   <div class="cal-full-header">
     <div class="cal-full-title">
       <span style="font-size:22px">☀️</span>
       <h2>Morning Briefs</h2>
     </div>
-    <a class="cal-full-link" href="https://jackalshorns.github.io/daily-briefs/" target="_blank">View all on GitHub →</a>
+    <a class="cal-full-link" id="calFullLink" href="#" target="_blank">View all on GitHub →</a>
   </div>
   <div id="calMonths"></div>
   <div class="load-more-wrap">
@@ -208,113 +302,9 @@ footer a { color: #1a73e8; text-decoration: none; }
   </div>
 </div>
 
-<!-- ── CARD GRID (all non-morning cards) ── -->
 <div class="container" id="cardContainer">
   <div class="results-meta" id="resultsMeta"></div>
-  <div class="cards-grid" id="cardsGrid">
-
-    <!-- ── GOOGLE PLAY ACCELERATOR ── -->
-    <div class="report-card" data-tags="accelerator" data-date="2026-03-10">
-      <div class="card-accent accent-accelerator"></div>
-      <div class="card-body">
-        <div class="card-type">Google Play Accelerator · Program Overview</div>
-        <div class="card-title">Catch-Up Brief — Program Kickoff</div>
-        <div class="card-desc">Role, responsibilities, both companies, 12-week calendar, tools &amp; resources.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-accelerator">🎯 GPA</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="gpa-kickoff" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-10-program-overview.html" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="report-card" data-tags="accelerator" data-date="2026-03-23">
-      <div class="card-accent accent-accelerator"></div>
-      <div class="card-body">
-        <div class="card-type">Google Play Accelerator · Week 3 Update</div>
-        <div class="card-title">Weekly Update — March 23</div>
-        <div class="card-desc">Progress to date, homework for Dev / Ming / Jason, session agendas for Focus Forge &amp; Skarvo.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-accelerator">🎯 GPA</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="gpa-week3-update" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-weekly-update.html" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="report-card" data-tags="accelerator" data-date="2026-03-23">
-      <div class="card-accent accent-accelerator"></div>
-      <div class="card-body">
-        <div class="card-type">Google Play Accelerator · Pre-Meeting Brief</div>
-        <div class="card-title">Pre-Meeting Brief — March 23</div>
-        <div class="card-desc">Quick prep: last session recaps + goals for today's calls with Focus Forge and Skarvo.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-accelerator">🎯 GPA</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="gpa-week3-premeeting" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-pre-meeting.html" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SERBIA RISING STARS ── -->
-    <div class="report-card" data-tags="serbia" data-date="2026-03-23">
-      <div class="card-accent accent-serbia"></div>
-      <div class="card-body">
-        <div class="card-type">Serbia Rising Stars · Advisor Brief</div>
-        <div class="card-title">Tricoman — Post-Meeting Brief</div>
-        <div class="card-desc">Today's session recap, open action items, relationship history, and what they're building (PC RPG, UE5).</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-serbia">🇷🇸 SRS</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="srs-tricoman-mar23" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/serbia-rising-stars/briefs/2026-03-23-tricoman.html" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── GENERAL ARTIFACTS ── -->
-    <div class="report-card" data-tags="artifacts" data-date="2026-01-01">
-      <div class="card-accent accent-artifacts"></div>
-      <div class="card-body">
-        <div class="card-type">General Artifacts · Game Analysis</div>
-        <div class="card-title">Game Sentiment Analysis Reports</div>
-        <div class="card-desc">Sonar-style player sentiment pipeline — Steam, YouTube, Reddit, press → Claude insights. Browse all game reports.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-artifacts">📦 Artifacts</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="artifacts-game-sentiment" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/game-sentiment-analysis/" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="report-card" data-tags="artifacts" data-date="2026-03-25">
-      <div class="card-accent accent-artifacts"></div>
-      <div class="card-body">
-        <div class="card-type">Research · Game UX/UI</div>
-        <div class="card-title">Game UX/UI — Academic Research Digest</div>
-        <div class="card-desc">15 peer-reviewed papers on interface design, HUD cognition, player experience measurement, onboarding, and accessibility — sourced via Consensus.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-artifacts">📦 Artifacts</span></div>
-        <div class="card-actions">
-          <button class="star-btn" data-id="research-game-ux-ui-2026-03-25" title="Star this">⭐</button>
-          <a class="open-link" href="https://jackalshorns.github.io/research/research/game-ux-ui-academic-2026-03-25.html" target="_blank">Open →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- /cards -->
-  </div>
-
+  <div class="cards-grid" id="cardsGrid"></div>
   <div class="empty-state" id="emptyState" style="display:none;">
     <div class="icon">🔍</div>
     <p>No reports match this filter.</p>
@@ -326,518 +316,361 @@ footer a { color: #1a73e8; text-decoration: none; }
 </footer>
 
 <script>
-// ── Morning Briefs Data ──────────────────────────────────────────────────
-// Today's meetings — injected by publish.py or manually.
-// Format: [ { time: "9:00 AM", title: "Meeting Name" }, ... ]
-// Leave empty array for no meetings.
-const TODAY_MEETINGS = [/* TODAY_MEETINGS_DATA */];
+let hubData = null;
+let currentFilter = 'all';
+let currentSort = 'newest';
+let starred = {};
+let retags = {};
+let calendarMonthsLoaded = 3;
 
-// publish.py injects/prunes entries here automatically.
-// Format: "YYYY-MM-DD": { url, "int", "ext", companies[] }
-const MORNING_BRIEFS = {
-  "2026-03-28": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-28.html", "int": 0, "ext": 1, companies: ["AI Agents Workshop"] },
-  "2026-03-27": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-27.html", "int": 3, "ext": 2, companies: ["Company Meeting", "Jaime Sanchez"] },
-  "2026-03-26": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-26.html", "int": 3, "ext": 7, companies: ["Riot TFT", "2K Horizon", "Pokémon TCG", "Jam & Tea"] },
-  "2026-03-25": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-25.html", "int": 0, "ext": 0, companies: [] },
-  "2026-03-24": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-24.html", "int": 1, "ext": 6, companies: ["Tricoman", "Chore Focus", "Skarvo", "2K Horizon"] },
-  "2026-03-23": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-23.html", "int": 0, "ext": 0, companies: [] },
-  "2026-03-22": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-22.html", "int": 0, "ext": 0, companies: [] },
-  "2026-03-21": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-21.html", "int": 1, "ext": 1, companies: ["Irena Pereira"] },
-  "2026-03-20": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-20.html", "int": 0, "ext": 0, companies: [] },
-  "2026-03-19": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-19.html", "int": 5, "ext": 1, companies: ["GPA Squad Meetup"] },
-  "2026-03-18": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-18.html", "int": 4, "ext": 5, companies: ["2K Horizon", "Skarvo", "Jam & Tea", "Scopely"] },
-  "2026-03-17": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-17.html", "int": 2, "ext": 0, companies: [] },
-  "2026-03-16": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-16.html", "int": 1, "ext": 0, companies: [] },
-  "2026-03-15": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-15.html", "int": 3, "ext": 2, companies: ["2K", "Carl Kwoh"] },
-  "2026-03-04": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-04.html", "int": 4, "ext": 5, companies: ["Effecto", "GPA Onboarding", "Corey Dangel", "M42"] },
-  "2026-03-03": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-03.html", "int": 4, "ext": 1, companies: ["Kayla Sachs"] },
-  "2026-03-02": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-02.html", "int": 0, "ext": 1, companies: ["Ric Neil"] },
-  "2026-03-01": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-01.html", "int": 0, "ext": 0, companies: [] },
-  "2026-02-28": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-28.html", "int": 0, "ext": 0, companies: [] },
-  "2026-02-27": { url: "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-27.html", "int": 0, "ext": 0, companies: [] },
-  /* MORNING_BRIEFS_DATA */
-};
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const MONTHS = ['January','February','March','April','May','June',
-                'July','August','September','October','November','December'];
-const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
-function pad(n) { return String(n).padStart(2, '0'); }
-function todayStr() {
-  const t = new Date();
-  return t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
-}
-function dateStr(y, m, d) { return y + '-' + pad(m+1) + '-' + pad(d); }
-function prevDateStr(iso) {
-  const d = new Date(iso + 'T12:00:00');
-  d.setDate(d.getDate() - 1);
-  return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
-}
-function formatDateNice(iso) {
-  const d = new Date(iso + 'T12:00:00');
-  return MONTHS[d.getMonth()] + ' ' + d.getDate();
-}
-function formatDayName(iso) {
-  const d = new Date(iso + 'T12:00:00');
-  return DAY_NAMES[d.getDay()];
+function init(data) {
+  hubData = data;
+  loadPersistence();
+  renderToolbar();
+  renderCards(data.cards, data.categories);
+  renderBriefPreview(data.morningBriefs, data.meta);
+  setupEventListeners();
+  // Set calendar link
+  const calLink = document.getElementById('calFullLink');
+  if (calLink && data.meta.briefsIndexUrl) calLink.href = data.meta.briefsIndexUrl;
 }
 
-// Find most recent N dates with briefs, starting from a given date
-function recentBriefDates(startDate, count) {
-  const results = [];
-  let d = startDate;
-  let safety = 60; // don't search more than 60 days back
-  while (results.length < count && safety-- > 0) {
-    if (MORNING_BRIEFS[d]) results.push(d);
-    d = prevDateStr(d);
+function loadPersistence() {
+  const savedStarred = localStorage.getItem('hub-starred');
+  const savedRetags = localStorage.getItem('hub-retags');
+  const savedTheme = localStorage.getItem('hub-theme');
+
+  if (savedStarred) starred = JSON.parse(savedStarred);
+  if (savedRetags) retags = JSON.parse(savedRetags);
+  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+function savePersistence() {
+  localStorage.setItem('hub-starred', JSON.stringify(starred));
+  localStorage.setItem('hub-retags', JSON.stringify(retags));
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const newTheme = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('hub-theme', newTheme);
+}
+
+function renderToolbar() {
+  const tagFilters = document.getElementById('tagFilters');
+  tagFilters.innerHTML = '';
+
+  const allBtn = document.createElement('button');
+  allBtn.className = 'tag-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => setFilter('all');
+  tagFilters.appendChild(allBtn);
+
+  const starBtn = document.createElement('button');
+  starBtn.className = 'tag-btn tag-star';
+  starBtn.textContent = '⭐ Starred';
+  starBtn.onclick = () => setFilter('starred');
+  tagFilters.appendChild(starBtn);
+
+  Object.entries(hubData.categories).forEach(([key, cat]) => {
+    const btn = document.createElement('button');
+    btn.className = `tag-btn tag-${key}`;
+    btn.textContent = cat.label;
+    btn.onclick = () => setFilter(key);
+    tagFilters.appendChild(btn);
+  });
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
+
+  if (filter === 'all') {
+    document.querySelector('.tag-btn').classList.add('active');
+  } else if (filter === 'starred') {
+    document.querySelector('.tag-star').classList.add('active');
+  } else {
+    const btn = document.querySelector(`.tag-${filter}`);
+    if (btn) btn.classList.add('active');
   }
-  return results;
+
+  // Check if this category has a custom view (e.g. calendar for morning briefs)
+  const cat = hubData.categories[filter];
+  const isCalendarView = cat && cat.view === 'calendar';
+  const isAll = filter === 'all';
+
+  document.getElementById('briefPreview').style.display = isAll ? '' : 'none';
+  document.getElementById('calFull').style.display = isCalendarView ? 'block' : 'none';
+  document.getElementById('cardContainer').style.display = isCalendarView ? 'none' : '';
+  document.getElementById('sortControls').style.display = isCalendarView ? 'none' : '';
+
+  if (isCalendarView) {
+    renderCalendar();
+  } else {
+    renderCards(hubData.cards, hubData.categories);
+  }
 }
 
-// ── Brief Preview Row (All tab) ──────────────────────────────────────────
-function renderBriefPreview() {
+function renderCards(cards, categories) {
+  let filtered = cards;
+
+  if (currentFilter === 'starred') {
+    filtered = cards.filter(card => starred[card.id]);
+  } else if (currentFilter !== 'all') {
+    filtered = cards.filter(card => {
+      const actualTag = retags[card.id] || card.tag;
+      return actualTag === currentFilter;
+    });
+  }
+
+  if (currentSort === 'oldest') {
+    filtered = filtered.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else {
+    filtered = filtered.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  const grid = document.getElementById('cardsGrid');
+  const meta = document.getElementById('resultsMeta');
+  const empty = document.getElementById('emptyState');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    meta.textContent = '';
+    return;
+  }
+
+  empty.style.display = 'none';
+  meta.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+
+  grid.innerHTML = filtered.map(card => {
+    const actualTag = retags[card.id] || card.tag;
+    const cat = categories[actualTag];
+    const accent = `accent-${actualTag}`;
+
+    return `
+      <div class="report-card" data-id="${card.id}" data-tag="${actualTag}">
+        <div class="card-accent ${accent}"></div>
+        <div class="card-body">
+          <div class="card-type">${card.type}</div>
+          <div class="card-title">${card.title}</div>
+          <div class="card-desc">${card.desc}</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag card-tag-${actualTag}">${cat.label}</span>
+          </div>
+          <div class="card-actions">
+            <button class="star-btn ${starred[card.id] ? 'starred' : ''}" data-id="${card.id}" onclick="toggleStar(event)">★</button>
+            <button class="retag-btn" onclick="openRetag(event)">↻</button>
+            <a href="${card.url}" class="open-link" target="_blank">Open</a>
+          </div>
+        </div>
+        <div class="retag-popover" style="display:none;">
+          ${Object.entries(categories).map(([key, cat]) => {
+            const isActive = actualTag === key;
+            return `<button class="retag-option ${isActive ? 'active' : ''}" onclick="retag('${card.id}', '${key}')">${cat.label}</button>`;
+          }).join('')}
+          <button class="retag-option retag-reset" onclick="resetRetag('${card.id}')">Reset to original</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.querySelectorAll('.report-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.open-link') || e.target.closest('.star-btn') || e.target.closest('.retag-btn') || e.target.closest('.retag-popover')) return;
+      const url = card.querySelector('.open-link').href;
+      window.open(url, '_blank');
+    });
+  });
+}
+
+function toggleStar(event) {
+  event.stopPropagation();
+  const btn = event.target;
+  const id = btn.dataset.id;
+  starred[id] = !starred[id];
+  btn.classList.toggle('starred');
+  savePersistence();
+}
+
+function openRetag(event) {
+  event.stopPropagation();
+  const popover = event.target.parentElement.parentElement.querySelector('.retag-popover');
+  popover.style.display = popover.style.display === 'none' ? 'block' : 'none';
+}
+
+function retag(cardId, newTag) {
+  retags[cardId] = newTag;
+  savePersistence();
+  renderCards(hubData.cards, hubData.categories);
+}
+
+function resetRetag(cardId) {
+  delete retags[cardId];
+  savePersistence();
+  renderCards(hubData.cards, hubData.categories);
+}
+
+function renderBriefPreview(morningBriefs, meta) {
+  const dates = Object.keys(morningBriefs).sort().reverse().slice(0, 3);
   const row = document.getElementById('briefPreviewRow');
-  if (!row) return;
-  row.innerHTML = '';
 
-  const today = todayStr();
-  const recent = recentBriefDates(today, 3);
-
-  function makeBriefCard(date) {
-    const brief = MORNING_BRIEFS[date];
-    if (!brief) return null;
-    const a = document.createElement('a');
-    a.className = 'brief-card';
-    a.href = brief.url;
-    a.target = '_blank';
-    const dayName = formatDayName(date);
-    let descParts = [];
-    if (brief.ext > 0 || brief.int > 0) {
-      const mtg = [];
-      if (brief.ext > 0) mtg.push(brief.ext + ' external');
-      if (brief.int > 0) mtg.push(brief.int + ' internal');
-      descParts.push(mtg.join(', ') + (mtg.length > 1 ? ' meetings' : ' meeting' + (brief.ext + brief.int > 1 ? 's' : '')));
-    }
-    if (brief.companies && brief.companies.length > 0) {
-      descParts.push(brief.companies.join(', '));
-    }
-    let descHtml = descParts.length > 0
-      ? '<div class="brief-card-mtg">' + descParts.join('. ') + '</div>'
-      : '<div class="brief-card-empty">No meetings logged</div>';
-    a.innerHTML = '<div class="brief-card-accent"></div>' +
-      '<div class="brief-card-body">' +
-        '<div class="brief-card-type">Morning Brief · ' + dayName + '</div>' +
-        '<div class="brief-card-date">' + formatDateNice(date) + '</div>' +
-        descHtml +
-      '</div>' +
-      '<div class="brief-card-footer">' +
-        '<span class="card-tag">☀️ Morning</span>' +
-        '<span class="open-link">Open →</span>' +
-      '</div>';
-    return a;
+  if (dates.length === 0) {
+    row.innerHTML = '<div class="brief-card-empty">No morning briefs yet.</div>';
+    return;
   }
 
-  recent.forEach(date => {
-    const card = makeBriefCard(date);
-    if (card) row.appendChild(card);
+  row.innerHTML = dates.map(date => {
+    const brief = morningBriefs[date];
+    const dateObj = new Date(date);
+    const formatted = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const hasCompanies = brief.companies && brief.companies.length > 0;
+
+    return `
+      <a href="${brief.url}" class="brief-card" target="_blank">
+        <div class="brief-card-accent"></div>
+        <div class="brief-card-body">
+          <div class="brief-card-type">Morning Brief</div>
+          <div class="brief-card-date">${formatted}</div>
+          ${brief.ext > 0 || brief.int > 0 ? `
+            <div class="brief-card-mtg">
+              <span class="ext">${brief.ext}</span> ext, <span class="int">${brief.int}</span> int
+            </div>
+          ` : ''}
+          ${hasCompanies ? `<div class="brief-card-cos">${brief.companies.join(', ')}</div>` : ''}
+          ${!hasCompanies && brief.ext === 0 && brief.int === 0 ? '<div class="brief-card-empty">No meetings</div>' : ''}
+        </div>
+        <div class="brief-card-footer">
+          <span class="card-tag">☀️ Morning Briefs</span>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+function setupEventListeners() {
+  document.getElementById('sortNewest').addEventListener('click', (e) => {
+    currentSort = 'newest';
+    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('sortNewest').classList.add('active');
+    renderCards(hubData.cards, hubData.categories);
+  });
+
+  document.getElementById('sortOldest').addEventListener('click', (e) => {
+    currentSort = 'oldest';
+    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('sortOldest').classList.add('active');
+    renderCards(hubData.cards, hubData.categories);
   });
 }
 
-// ── Full Calendar View (Morning Briefs tab) ──────────────────────────────
-let calOldestLoaded = null; // track how far back we've loaded
 
-function renderMonth(year, month, container) {
-  const block = document.createElement('div');
-  block.className = 'cal-month-block';
-
-  const bar = document.createElement('div');
-  bar.className = 'cal-month-bar';
-  bar.textContent = MONTHS[month] + ' ' + year;
-  block.appendChild(bar);
-
-  const grid = document.createElement('div');
-  grid.className = 'cal-grid';
-
-  DAYS.forEach(d => {
-    const hdr = document.createElement('div');
-    hdr.className = 'cal-day-hdr';
-    hdr.textContent = d;
-    grid.appendChild(hdr);
-  });
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const today = todayStr();
-
-  for (let i = 0; i < firstDay; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'cal-cell empty';
-    grid.appendChild(cell);
-  }
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const ds = dateStr(year, month, d);
-    const cell = document.createElement('div');
-    cell.className = 'cal-cell';
-
-    const dateEl = document.createElement('div');
-    dateEl.className = 'cal-date';
-    dateEl.textContent = d;
-    cell.appendChild(dateEl);
-
-    if (ds === today) cell.classList.add('today');
-
-    // "TODAY" label
-    if (ds === today) {
-      const todayLabel = document.createElement('div');
-      todayLabel.className = 'cal-today-label';
-      todayLabel.textContent = 'Today';
-      cell.appendChild(todayLabel);
-    }
-
-    // Body wrapper (flex: 1 so Open button stays at bottom-right)
-    const body = document.createElement('div');
-    body.className = 'cal-cell-body';
-
-    const brief = MORNING_BRIEFS[ds];
-    if (brief) {
-      cell.classList.add('has-brief');
-      cell.title = 'Morning Brief — ' + ds;
-      cell.addEventListener('click', () => window.open(brief.url, '_blank'));
-
-      const totalMtg = (brief.int || 0) + (brief.ext || 0);
-      const hasCos = brief.companies && brief.companies.length > 0;
-
-      if (totalMtg > 0) {
-        const counts = document.createElement('div');
-        counts.className = 'cal-mtg-counts';
-        const parts = [];
-        if (brief.ext > 0) parts.push('<span class="ext-count">' + brief.ext + ' ext</span>');
-        if (brief.int > 0) parts.push('<span class="int-count">' + brief.int + ' int</span>');
-        counts.innerHTML = parts.join(' · ');
-        body.appendChild(counts);
-      } else {
-        // Has a brief but zero meetings
-        const noMtg = document.createElement('div');
-        noMtg.className = 'cal-no-mtg';
-        noMtg.textContent = 'No meetings';
-        body.appendChild(noMtg);
-      }
-
-      if (hasCos) {
-        const cos = document.createElement('div');
-        cos.className = 'cal-companies';
-        cos.textContent = brief.companies.join(', ');
-        body.appendChild(cos);
-      }
-
-      // Warning: meetings logged but no companies, or companies but no meetings
-      if (totalMtg > 0 && !hasCos) {
-        const warn = document.createElement('div');
-        warn.className = 'cal-warn';
-        warn.innerHTML = '<svg class="warn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Missing companies';
-        body.appendChild(warn);
-      } else if (totalMtg === 0 && hasCos) {
-        const warn = document.createElement('div');
-        warn.className = 'cal-warn';
-        warn.innerHTML = '<svg class="warn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Missing meeting count';
-        body.appendChild(warn);
-      }
-
-      cell.appendChild(body);
-
-      // "Open →" pill — bottom right
-      const openWrap = document.createElement('div');
-      openWrap.className = 'cal-open';
-      const openPill = document.createElement('span');
-      openPill.className = 'open-link';
-      openPill.textContent = 'Open →';
-      openWrap.appendChild(openPill);
-      cell.appendChild(openWrap);
-    } else {
-      // No brief for this date
-      if (ds === today) {
-        // Today without a brief: show meetings from calendar or "No meetings"
-        if (typeof TODAY_MEETINGS !== 'undefined' && TODAY_MEETINGS.length > 0) {
-          const mtgDiv = document.createElement('div');
-          mtgDiv.className = 'cal-today-meetings';
-          mtgDiv.innerHTML = TODAY_MEETINGS.map(m => '<strong>' + m.time + '</strong> ' + m.title).join('<br>');
-          body.appendChild(mtgDiv);
-        } else {
-          const noMtg = document.createElement('div');
-          noMtg.className = 'cal-no-mtg';
-          noMtg.textContent = 'No meetings';
-          body.appendChild(noMtg);
-        }
-      }
-      cell.appendChild(body);
-    }
-
-    grid.appendChild(cell);
-  }
-
-  block.appendChild(grid);
-  container.appendChild(block);
-}
-
-function initFullCalendar() {
+function renderCalendar() {
   const container = document.getElementById('calMonths');
-  if (!container) return;
   container.innerHTML = '';
 
-  const now = new Date();
-  // Current month
-  renderMonth(now.getFullYear(), now.getMonth(), container);
-  // Previous month
-  let pm = now.getMonth() - 1, py = now.getFullYear();
-  if (pm < 0) { pm = 11; py--; }
-  renderMonth(py, pm, container);
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
 
-  calOldestLoaded = { year: py, month: pm };
-}
+  const monthsToShow = [];
+  const startDate = new Date();
+  startDate.setMonth(startDate.getMonth() - (calendarMonthsLoaded - 1));
 
-function loadMoreMonths() {
-  const container = document.getElementById('calMonths');
-  if (!container || !calOldestLoaded) return;
-
-  for (let i = 0; i < 2; i++) {
-    let m = calOldestLoaded.month - 1;
-    let y = calOldestLoaded.year;
-    if (m < 0) { m = 11; y--; }
-    renderMonth(y, m, container);
-    calOldestLoaded = { year: y, month: m };
-  }
-}
-
-document.getElementById('loadMoreBtn').addEventListener('click', loadMoreMonths);
-
-// ── Storage helpers ──────────────────────────────────────────────────────
-function getStarred() {
-  try { return JSON.parse(localStorage.getItem('hub_starred') || '[]'); } catch { return []; }
-}
-function setStarred(arr) {
-  try { localStorage.setItem('hub_starred', JSON.stringify(arr)); } catch {}
-}
-function getSavedTags() {
-  try { return JSON.parse(localStorage.getItem('hub_retag') || '{}'); } catch { return {}; }
-}
-function setSavedTag(id, tag) {
-  const t = getSavedTags();
-  if (tag === null) delete t[id]; else t[id] = tag;
-  try { localStorage.setItem('hub_retag', JSON.stringify(t)); } catch {}
-}
-
-// ── Tag definitions (mirrors publish.py TAG_META) ────────────────────────
-const TAG_DEFS = {
-  morning:     { label: '☀️ Morning Briefs',       cls: 'morning'     },
-  accelerator: { label: '🎯 GPA',                  cls: 'accelerator' },
-  serbia:      { label: '🇷🇸 Serbia Rising Stars', cls: 'serbia'      },
-  artifacts:   { label: '📦 Artifacts',            cls: 'artifacts'   },
-  research:    { label: '🔬 Research',             cls: 'research'    },
-};
-
-let activeTag  = 'all';
-let sortOrder  = 'newest';
-let activePopover = null;
-
-// ── Retag logic ──────────────────────────────────────────────────────────
-function applyRetag(card, tag) {
-  const def = TAG_DEFS[tag];
-  if (!def) return;
-  card.dataset.tags = tag;
-  const accent = card.querySelector('.card-accent');
-  if (accent) accent.className = 'card-accent accent-' + def.cls;
-  const pill = card.querySelector('.card-tag');
-  if (pill) { pill.className = 'card-tag card-tag-' + def.cls; pill.textContent = def.label; }
-}
-
-function showRetagPopover(card, btn, cardId) {
-  if (activePopover) { activePopover.remove(); activePopover = null; }
-
-  const currentTag = card.dataset.tags;
-  const savedTags  = getSavedTags();
-  const isRetagged = !!savedTags[cardId];
-
-  const pop = document.createElement('div');
-  pop.className = 'retag-popover';
-
-  Object.entries(TAG_DEFS).forEach(([key, def]) => {
-    const opt = document.createElement('button');
-    opt.className = 'retag-option' + (key === currentTag ? ' active' : '');
-    opt.textContent = def.label;
-    opt.addEventListener('click', e => {
-      e.stopPropagation();
-      applyRetag(card, key);
-      setSavedTag(cardId, key);
-      pop.remove(); activePopover = null;
-      applyFilter();
-    });
-    pop.appendChild(opt);
-  });
-
-  if (isRetagged) {
-    const reset = document.createElement('button');
-    reset.className = 'retag-option retag-reset';
-    reset.textContent = '↩ Reset to original';
-    reset.addEventListener('click', e => {
-      e.stopPropagation();
-      setSavedTag(cardId, null);
-      pop.remove(); activePopover = null;
-      location.reload();
-    });
-    pop.appendChild(reset);
+  for (let i = 0; i < calendarMonthsLoaded; i++) {
+    const date = new Date(startDate);
+    date.setMonth(date.getMonth() + i);
+    monthsToShow.push(date);
   }
 
-  document.body.appendChild(pop);
-  activePopover = pop;
+  monthsToShow.forEach(monthDate => {
+    const year = monthDate.getFullYear();
+    const month = monthDate.getMonth();
+    const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfWeek = new Date(year, month, 1).getDay();
 
-  const r = btn.getBoundingClientRect();
-  let top  = r.bottom + window.scrollY + 6;
-  let left = r.left   + window.scrollX;
-  if (left + 200 > window.innerWidth - 12) left = r.right + window.scrollX - 200;
-  pop.style.top  = top  + 'px';
-  pop.style.left = left + 'px';
+    let html = `<div class="cal-month-block"><div class="cal-month-bar">${monthName}</div><div class="cal-grid">`;
 
-  setTimeout(() => document.addEventListener('click', () => {
-    if (activePopover) { activePopover.remove(); activePopover = null; }
-  }, { once: true }), 0);
+    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
+      html += `<div class="cal-day-hdr">${day}</div>`;
+    });
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      html += '<div class="cal-cell empty"></div>';
+    }
+
+    // Day cells
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const brief = hubData.morningBriefs[dateStr];
+      const isBriefDay = !!brief;
+      const isToday = dateStr === todayStr;
+
+      let cellClass = 'cal-cell';
+      if (isToday) cellClass += ' today';
+      if (isBriefDay) cellClass += ' has-brief';
+
+      html += `<div class="${cellClass}" ${isBriefDay ? `onclick="window.open('${brief.url}','_blank')"` : ''}>`;
+      html += `<div class="cal-date">${day}</div>`;
+
+      if (isToday) {
+        html += `<div class="cal-today-label">TODAY</div>`;
+        const ext = brief?.ext || 0;
+        const intMtg = brief?.int || 0;
+        if (ext > 0 || intMtg > 0) {
+          html += `<div class="cal-today-meetings"><strong>${ext}</strong> ext, <strong>${intMtg}</strong> int</div>`;
+        } else {
+          html += `<div class="cal-today-meetings">No meetings</div>`;
+        }
+      } else if (isBriefDay) {
+        const ext = brief.ext || 0;
+        const intMtg = brief.int || 0;
+        if (ext > 0 || intMtg > 0) {
+          html += `<div class="cal-mtg-counts"><span class="ext-count">${ext}</span> ext, <span class="int-count">${intMtg}</span> int</div>`;
+        } else {
+          html += `<div class="cal-no-mtg">No meetings</div>`;
+        }
+        if (brief.companies && brief.companies.length > 0) {
+          html += `<div class="cal-companies">${brief.companies.join(', ')}</div>`;
+        }
+        html += `<div class="cal-open"><a href="${brief.url}" class="open-link" target="_blank" onclick="event.stopPropagation()">Open →</a></div>`;
+      }
+
+      html += '</div>';
+    }
+
+    html += '</div></div>';
+    container.innerHTML += html;
+  });
+
+  document.getElementById('loadMoreBtn').style.display = calendarMonthsLoaded >= 12 ? 'none' : 'block';
 }
 
-// ── Init ─────────────────────────────────────────────────────────────────
-let calInitialized = false;
-
-function init() {
-  const starred   = getStarred();
-  const savedTags = getSavedTags();
-
-  document.querySelectorAll('.report-card').forEach(card => {
-    const actions = card.querySelector('.card-actions');
-    const starBtn = card.querySelector('.star-btn');
-    const cardId  = starBtn?.dataset.id;
-    if (!actions || !cardId) return;
-
-    if (savedTags[cardId]) applyRetag(card, savedTags[cardId]);
-
-    if (starred.includes(cardId)) starBtn.classList.add('starred');
-    starBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      const s = getStarred(), idx = s.indexOf(cardId);
-      if (idx === -1) s.push(cardId); else s.splice(idx, 1);
-      setStarred(s);
-      starBtn.classList.toggle('starred');
-      applyFilter();
-    });
-
-    const retagBtn = document.createElement('button');
-    retagBtn.className = 'retag-btn';
-    retagBtn.title     = 'Move to a different category';
-    retagBtn.textContent = '✏️';
-    retagBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      showRetagPopover(card, retagBtn, cardId);
-    });
-    actions.insertBefore(retagBtn, starBtn);
-  });
-
-  // Sloppy-click: clicking anywhere on a report-card or brief-card opens the link
-  document.querySelectorAll('.report-card').forEach(card => {
-    const link = card.querySelector('.open-link');
-    if (!link) return;
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', e => {
-      // Don't intercept clicks on interactive elements (buttons, links)
-      if (e.target.closest('a, button')) return;
-      window.open(link.href, '_blank');
-    });
-  });
-  document.querySelectorAll('.brief-card').forEach(card => {
-    if (!card.href) return;
-    card.style.cursor = 'pointer';
-    // brief-cards are already <a> tags, but clicks on child elements
-    // may not trigger navigation — ensure the whole card works
-  });
-
-  // Tag filter buttons
-  document.querySelectorAll('.tag-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      activeTag = btn.dataset.tag;
-      document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilter();
-    });
-  });
-
-  // Sort buttons
-  document.getElementById('sortNewest').addEventListener('click', () => {
-    sortOrder = 'newest';
-    document.getElementById('sortNewest').classList.add('active');
-    document.getElementById('sortOldest').classList.remove('active');
-    applyFilter();
-  });
-  document.getElementById('sortOldest').addEventListener('click', () => {
-    sortOrder = 'oldest';
-    document.getElementById('sortOldest').classList.add('active');
-    document.getElementById('sortNewest').classList.remove('active');
-    applyFilter();
-  });
-
-  renderBriefPreview();
-  applyFilter();
-}
-
-function applyFilter() {
-  const briefPreview  = document.getElementById('briefPreview');
-  const calFull       = document.getElementById('calFull');
-  const cardContainer = document.getElementById('cardContainer');
-  const sortControls  = document.getElementById('sortControls');
-  const grid          = document.getElementById('cardsGrid');
-  const cards         = Array.from(grid.querySelectorAll('.report-card'));
-  const starred       = getStarred();
-
-  const isMorning = activeTag === 'morning';
-  const isAll     = activeTag === 'all';
-
-  // Toggle sections
-  briefPreview.style.display  = isAll ? '' : 'none';
-  calFull.style.display       = isMorning ? 'block' : 'none';
-  cardContainer.style.display = isMorning ? 'none' : '';
-  sortControls.style.display  = isMorning ? 'none' : '';
-
-  // Lazy-init full calendar on first view
-  if (isMorning && !calInitialized) {
-    initFullCalendar();
-    calInitialized = true;
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.retag-btn') && !e.target.closest('.retag-popover')) {
+    document.querySelectorAll('.retag-popover').forEach(p => p.style.display = 'none');
   }
+});
 
-  if (!isMorning) {
-    let visible = cards.filter(card => {
-      const tags = card.dataset.tags.split(' ');
-      if (isAll)                     return true;
-      if (activeTag === 'starred')   return starred.includes(card.querySelector('.star-btn')?.dataset.id);
-      return tags.includes(activeTag);
-    });
+document.getElementById('loadMoreBtn')?.addEventListener('click', () => {
+  calendarMonthsLoaded += 3;
+  renderCalendar();
+});
 
-    visible.sort((a, b) => {
-      const da = new Date(a.dataset.date), db = new Date(b.dataset.date);
-      return sortOrder === 'newest' ? db - da : da - db;
-    });
+// calFullLink href is set in init()
 
-    cards.forEach(c => c.classList.add('hidden'));
-    visible.forEach((c, i) => { c.classList.remove('hidden'); c.style.order = i; });
-
-    document.getElementById('emptyState').style.display = visible.length === 0 ? 'block' : 'none';
-
-    const total = cards.length;
-    document.getElementById('resultsMeta').textContent =
-      visible.length === total
-        ? `${total} report${total !== 1 ? 's' : ''}`
-        : `${visible.length} of ${total} reports`;
-  }
-}
-
-init();
+fetch('hub-data.json')
+  .then(r => r.json())
+  .then(init)
+  .catch(err => {
+    console.error('Failed to load hub-data.json:', err);
+    document.getElementById('cardsGrid').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>Failed to load data. Ensure hub-data.json exists.</p></div>';
+  });
 </script>
+
 </body>
 </html>
