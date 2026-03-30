@@ -425,9 +425,17 @@ function renderCards(cards, categories) {
   }
 
   if (currentSort === 'oldest') {
-    filtered = filtered.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+    filtered = filtered.slice().sort((a, b) => {
+      const da = new Date(a.date), db = new Date(b.date);
+      if (da - db !== 0) return da - db;
+      return (a.time || '00:00').localeCompare(b.time || '00:00');
+    });
   } else {
-    filtered = filtered.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+    filtered = filtered.slice().sort((a, b) => {
+      const da = new Date(a.date), db = new Date(b.date);
+      if (db - da !== 0) return db - da;
+      return (b.time || '00:00').localeCompare(a.time || '00:00');
+    });
   }
 
   const grid = document.getElementById('cardsGrid');
@@ -515,20 +523,43 @@ function resetRetag(cardId) {
 }
 
 function renderBriefPreview(morningBriefs, meta) {
-  const dates = Object.keys(morningBriefs).sort().reverse().slice(0, 3);
   const row = document.getElementById('briefPreviewRow');
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-  if (dates.length === 0) {
-    row.innerHTML = '<div class="brief-card-empty">No morning briefs yet.</div>';
-    return;
+  // Always start with today, then fill with most recent published briefs
+  const recentDates = Object.keys(morningBriefs).sort().reverse();
+  const displayDates = [todayStr];
+  for (const d of recentDates) {
+    if (d !== todayStr && displayDates.length < 3) displayDates.push(d);
   }
 
-  row.innerHTML = dates.map(date => {
+  row.innerHTML = displayDates.map(date => {
     const brief = morningBriefs[date];
-    const dateObj = new Date(date);
-    const formatted = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    const hasCompanies = brief.companies && brief.companies.length > 0;
+    const dateObj = new Date(date + 'T12:00:00');
+    const dayName = dayNames[dateObj.getDay()];
+    const monthDay = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+    const formatted = `${dayName}, ${monthDay}`;
 
+    // Not-run state for today if no brief exists
+    if (!brief) {
+      return `
+        <div class="brief-card" style="opacity:0.55; cursor:default;">
+          <div class="brief-card-accent" style="background: linear-gradient(90deg, #888, #aaa);"></div>
+          <div class="brief-card-body">
+            <div class="brief-card-type">Morning Brief</div>
+            <div class="brief-card-date">${formatted}</div>
+            <div class="brief-card-empty" style="font-style:italic; color:var(--muted);">Brief not yet published</div>
+          </div>
+          <div class="brief-card-footer">
+            <span class="card-tag" style="background:var(--tag-btn-bg); color:var(--muted);">☀️ Not run</span>
+          </div>
+        </div>
+      `;
+    }
+
+    const hasCompanies = brief.companies && brief.companies.length > 0;
     return `
       <a href="${brief.url}" class="brief-card" target="_blank">
         <div class="brief-card-accent"></div>
@@ -577,11 +608,11 @@ function renderCalendar() {
 
   const monthsToShow = [];
   const startDate = new Date();
-  startDate.setMonth(startDate.getMonth() - (calendarMonthsLoaded - 1));
 
+  // Render current month first, then older months going back
   for (let i = 0; i < calendarMonthsLoaded; i++) {
     const date = new Date(startDate);
-    date.setMonth(date.getMonth() + i);
+    date.setMonth(date.getMonth() - i);
     monthsToShow.push(date);
   }
 

@@ -40,7 +40,8 @@
       "desc": "Role, responsibilities, both companies, 12-week calendar, tools & resources.",
       "tag": "accelerator",
       "date": "2026-03-10",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-10-program-overview.html"
+      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-10-program-overview.html",
+      "time": "12:00"
     },
     {
       "id": "gpa-week3-update",
@@ -49,7 +50,8 @@
       "desc": "Progress to date, homework for Dev / Ming / Jason, session agendas for Focus Forge & Skarvo.",
       "tag": "accelerator",
       "date": "2026-03-23",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-weekly-update.html"
+      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-weekly-update.html",
+      "time": "09:00"
     },
     {
       "id": "gpa-week3-premeeting",
@@ -58,7 +60,8 @@
       "desc": "Quick prep: last session recaps + goals for today's calls with Focus Forge and Skarvo.",
       "tag": "accelerator",
       "date": "2026-03-23",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-pre-meeting.html"
+      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-pre-meeting.html",
+      "time": "10:00"
     },
     {
       "id": "srs-tricoman-mar23",
@@ -67,7 +70,8 @@
       "desc": "Today's session recap, open action items, relationship history, and what they're building (PC RPG, UE5).",
       "tag": "serbia",
       "date": "2026-03-23",
-      "url": "https://jackalshorns.github.io/serbia-rising-stars/briefs/2026-03-23-tricoman.html"
+      "url": "https://jackalshorns.github.io/serbia-rising-stars/briefs/2026-03-23-tricoman.html",
+      "time": "16:00"
     },
     {
       "id": "artifacts-game-sentiment",
@@ -76,16 +80,18 @@
       "desc": "Sonar-style player sentiment pipeline — Steam, YouTube, Reddit, press → Claude insights. Browse all game reports.",
       "tag": "artifacts",
       "date": "2026-01-01",
-      "url": "https://jackalshorns.github.io/game-sentiment-analysis/"
+      "url": "https://jackalshorns.github.io/game-sentiment-analysis/",
+      "time": "12:00"
     },
     {
       "id": "research-game-ux-ui-2026-03-25",
       "title": "Game UX/UI — Academic Research Digest",
       "type": "Research · Game UX/UI",
       "desc": "15 peer-reviewed papers on interface design, HUD cognition, player experience measurement, onboarding, and accessibility — sourced via Consensus.",
-      "tag": "artifacts",
+      "tag": "research",
       "date": "2026-03-25",
-      "url": "https://jackalshorns.github.io/research/research/game-ux-ui-academic-2026-03-25.html"
+      "url": "https://jackalshorns.github.io/research/research/game-ux-ui-academic-2026-03-25.html",
+      "time": "12:00"
     },
     {
       "id": "weekly-prep-march-30",
@@ -94,15 +100,17 @@
       "desc": "Progress to date, review prep for Focus Forge + Skarvo weeklies, and program goals to stay on track.",
       "tag": "accelerator",
       "date": "2026-03-30",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-30-weekly-prep.html"
+      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-30-weekly-prep.html",
+      "time": "08:00"
     },
     {
-      "id": "post-meeting-summary-march-30",
+      "id": "gpa-post-meeting-march-30",
       "title": "Post-Meeting Summary — March 30",
-      "type": "Google Play Accelerator · Week 3 Post-Meeting",
-      "desc": "Session recaps for Focus Forge and Skarvo, action items, and goals for next week.",
+      "type": "Google Play Accelerator · Post-Meeting Summary",
+      "desc": "Weekly mentor recap covering Focus Forge and Skarvo sessions — UX improvements, AI feature opportunities, and strategic next steps.",
       "tag": "accelerator",
       "date": "2026-03-30",
+      "time": "17:00",
       "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-30-post-meeting.html"
     }
   ],
@@ -272,12 +280,18 @@
         "Google Accelerator",
         "Lingotto"
       ]
+    },
+    "2026-03-29": {
+      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-29.html",
+      "int": 0,
+      "ext": 0,
+      "companies": []
     }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
     "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-03-30T13:44:29.034418"
+    "lastUpdated": "2026-03-30T14:00:00Z"
   }
 }
