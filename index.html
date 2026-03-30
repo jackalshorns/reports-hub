@@ -441,7 +441,7 @@ function renderCards() {
         <div class="card-desc">${escHtml(card.desc)}</div>
       </div>
       <div class="card-footer">
-        <div class="card-tags"><span class="card-tag card-tag-${escHtml(cat.class)}">${cat.label}</span></div>
+        <div class="card-tags"><span class="card-tag card-tag-${escHtml(cat.class)}">${cat.shortLabel || cat.label}</span></div>
         <div class="card-actions">
           <button class="star-btn${starred.includes(card.id) ? ' starred' : ''}" data-id="${escHtml(card.id)}" title="Star this">⭐</button>
           <a class="open-link" href="${escHtml(card.url)}" target="_blank">Open →</a>
@@ -498,7 +498,7 @@ function applyRetag(card, tag) {
   const accent = card.querySelector('.card-accent');
   if (accent) accent.className = 'card-accent accent-' + cat.class;
   const pill = card.querySelector('.card-tag');
-  if (pill) { pill.className = 'card-tag card-tag-' + cat.class; pill.textContent = cat.label; }
+  if (pill) { pill.className = 'card-tag card-tag-' + cat.class; pill.textContent = cat.shortLabel || cat.label; }
 }
 
 function showRetagPopover(card, btn, cardId) {
@@ -560,20 +560,32 @@ function renderBriefPreview() {
   row.innerHTML = '';
 
   const dates = Object.keys(hubData.morningBriefs).sort().reverse();
-  const today = todayStr();
-  const yesterday = (function() {
-    const d = new Date(); d.setDate(d.getDate() - 1);
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  })();
+  const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-  // Show today + yesterday + tease card (matching production behavior)
-  [today, yesterday].forEach(dateKey => {
+  // Show the 3 most recent briefs (matching production)
+  dates.slice(0, 3).forEach(dateKey => {
     const brief = hubData.morningBriefs[dateKey];
     if (!brief) return;
     const d = parseDate(dateKey);
-    const totalMtg = (brief.ext || 0) + (brief.int || 0);
-    const mtgLabel = totalMtg === 0 ? '' : `${totalMtg} Meeting${totalMtg !== 1 ? 's' : ''}`;
+    const dayName = DAYS[d.getDay()];
+
+    // Build meeting description matching production format
+    const ext = brief.ext || 0;
+    const int_ = brief.int || 0;
+    const parts = [];
+    if (ext > 0) parts.push(`${ext} external`);
+    if (int_ > 0) parts.push(`${int_} internal`);
+    const total = ext + int_;
+    let mtgText = '';
+    if (total === 0) {
+      mtgText = '';
+    } else if (total === 1) {
+      mtgText = `${parts.join(', ')} meeting`;
+    } else {
+      mtgText = `${parts.join(', ')} meeting${total !== 1 ? 's' : ''}`;
+    }
     const cos = brief.companies && brief.companies.length > 0 ? brief.companies.join(', ') : '';
+    const bodyText = [mtgText, cos].filter(Boolean).join('. ');
 
     const card = document.createElement('a');
     card.className = 'brief-card';
@@ -582,33 +594,16 @@ function renderBriefPreview() {
     card.innerHTML = `
       <div class="brief-card-accent"></div>
       <div class="brief-card-body">
-        <div class="brief-card-type">Morning Brief</div>
-        <div class="brief-card-date">${d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</div>
-        ${mtgLabel ? `<div class="brief-card-mtg">${mtgLabel}</div>` : '<div class="brief-card-empty">No meetings</div>'}
-        ${cos ? `<div class="brief-card-cos">${cos}</div>` : ''}
+        <div class="brief-card-type">Morning Brief · ${dayName}</div>
+        <div class="brief-card-date">${d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</div>
+        ${bodyText ? `<div class="brief-card-mtg">${bodyText}</div>` : '<div class="brief-card-empty">No meetings</div>'}
       </div>
       <div class="brief-card-footer">
-        <span class="card-tag">☀️ Brief</span>
+        <span class="card-tag">☀️ Morning</span>
+        <a href="${brief.url}" target="_blank" class="open-link" onclick="event.stopPropagation()">Open →</a>
       </div>`;
     row.appendChild(card);
   });
-
-  // Tease card
-  const tease = document.createElement('a');
-  tease.className = 'brief-card';
-  tease.href = hubData.meta.briefsIndexUrl || '#';
-  tease.target = '_blank';
-  tease.innerHTML = `
-    <div class="brief-card-accent"></div>
-    <div class="brief-card-body">
-      <div class="brief-card-type">See all briefs</div>
-      <div class="brief-card-date" style="opacity:0.5">+ ${Math.max(0, dates.length - 2)} more</div>
-      <div class="brief-card-empty">Browse the full archive on GitHub</div>
-    </div>
-    <div class="brief-card-footer">
-      <span class="card-tag">↗ Archive</span>
-    </div>`;
-  row.appendChild(tease);
 }
 
 // ── FULL CALENDAR (Morning Briefs tab) ───────────────────────────────────

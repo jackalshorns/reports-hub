@@ -1,10 +1,10 @@
 {
   "categories": {
-    "morning": { "label": "☀️ Morning Briefs", "class": "morning", "accent": "linear-gradient(90deg, #f97316, #fb923c)", "activeColor": "#f97316", "view": "calendar" },
-    "accelerator": { "label": "🎯 GPA", "class": "accelerator", "accent": "linear-gradient(90deg, #1a73e8, #4285f4)", "activeColor": "#1a73e8" },
-    "serbia": { "label": "🇷🇸 SRS", "class": "serbia", "accent": "linear-gradient(90deg, #7b1fa2, #9c27b0)", "activeColor": "#7b1fa2" },
-    "artifacts": { "label": "📦 Artifacts", "class": "artifacts", "accent": "linear-gradient(90deg, #34a853, #4caf50)", "activeColor": "#34a853" },
-    "research": { "label": "🔬 Research", "class": "research", "accent": "linear-gradient(90deg, #0891b2, #06b6d4)", "activeColor": "#0891b2" }
+    "morning": { "label": "☀️ Morning Briefs", "shortLabel": "☀️ Morning", "class": "morning", "accent": "linear-gradient(90deg, #f97316, #fb923c)", "activeColor": "#f97316", "view": "calendar" },
+    "accelerator": { "label": "🎯 Google Play Accelerator", "shortLabel": "🎯 GPA", "class": "accelerator", "accent": "linear-gradient(90deg, #1a73e8, #4285f4)", "activeColor": "#1a73e8" },
+    "serbia": { "label": "🇷🇸 Serbia Rising Stars", "shortLabel": "🇷🇸 SRS", "class": "serbia", "accent": "linear-gradient(90deg, #7b1fa2, #9c27b0)", "activeColor": "#7b1fa2" },
+    "artifacts": { "label": "📦 General Artifacts", "shortLabel": "📦 Artifacts", "class": "artifacts", "accent": "linear-gradient(90deg, #34a853, #4caf50)", "activeColor": "#34a853" },
+    "research": { "label": "🔬 Research", "shortLabel": "🔬 Research", "class": "research", "accent": "linear-gradient(90deg, #0891b2, #06b6d4)", "activeColor": "#0891b2" }
   },
   "cards": [
     {
@@ -57,7 +57,7 @@
       "title": "Game UX/UI — Academic Research Digest",
       "type": "Research · Game UX/UI",
       "desc": "15 peer-reviewed papers on interface design, HUD cognition, player experience measurement, onboarding, and accessibility — sourced via Consensus.",
-      "tag": "artifacts",
+      "tag": "research",
       "date": "2026-03-25",
       "url": "https://jackalshorns.github.io/research/research/game-ux-ui-academic-2026-03-25.html"
     },
