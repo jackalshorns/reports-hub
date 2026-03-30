@@ -321,7 +321,7 @@ let currentFilter = 'all';
 let currentSort = 'newest';
 let starred = {};
 let retags = {};
-let calendarMonthsLoaded = 3;
+// monthOffset declared inside renderCalendar section
 
 function init(data) {
   hubData = data;
@@ -406,6 +406,7 @@ function setFilter(filter) {
   document.getElementById('sortControls').style.display = isCalendarView ? 'none' : '';
 
   if (isCalendarView) {
+    monthOffset = 0;
     renderCalendar();
   } else {
     renderCards(hubData.cards, hubData.categories);
@@ -568,21 +569,19 @@ function setupEventListeners() {
 }
 
 
+let monthOffset = 0;
+
 function renderCalendar() {
   const container = document.getElementById('calMonths');
-  container.innerHTML = '';
+  if (monthOffset === 0) container.innerHTML = '';
 
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
 
+  // Show months from (current - offset) through (current + 2 - offset), newest first
   const monthsToShow = [];
-  const startDate = new Date();
-  startDate.setMonth(startDate.getMonth() - (calendarMonthsLoaded - 1));
-
-  for (let i = 0; i < calendarMonthsLoaded; i++) {
-    const date = new Date(startDate);
-    date.setMonth(date.getMonth() + i);
-    monthsToShow.push(date);
+  for (let i = -monthOffset; i < 3 - monthOffset; i++) {
+    monthsToShow.push(new Date(today.getFullYear(), today.getMonth() + i, 1));
   }
 
   monthsToShow.forEach(monthDate => {
@@ -647,7 +646,7 @@ function renderCalendar() {
     container.innerHTML += html;
   });
 
-  document.getElementById('loadMoreBtn').style.display = calendarMonthsLoaded >= 12 ? 'none' : 'block';
+  document.getElementById('loadMoreBtn').style.display = monthOffset >= 9 ? 'none' : 'block';
 }
 
 document.addEventListener('click', (e) => {
@@ -657,7 +656,7 @@ document.addEventListener('click', (e) => {
 });
 
 document.getElementById('loadMoreBtn')?.addEventListener('click', () => {
-  calendarMonthsLoaded += 3;
+  monthOffset += 3;
   renderCalendar();
 });
 
