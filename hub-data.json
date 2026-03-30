@@ -72,16 +72,31 @@
     }
   ],
   "morningBriefs": {
-    "2026-03-28": { "url": "https://jackalshorns.github.io/daily-briefs/2026-03-28.html", "int": 0, "ext": 2, "companies": ["Focus Forge", "Skarvo"] },
-    "2026-03-27": { "url": "https://jackalshorns.github.io/daily-briefs/2026-03-27.html", "int": 0, "ext": 0, "companies": [] },
-    "2026-03-26": { "url": "https://jackalshorns.github.io/daily-briefs/2026-03-26.html", "int": 0, "ext": 1, "companies": ["Skarvo"] },
-    "2026-03-25": { "url": "https://jackalshorns.github.io/daily-briefs/2026-03-25.html", "int": 0, "ext": 2, "companies": ["Skarvo", "Tricoman"] },
-    "2026-03-24": { "url": "https://jackalshorns.github.io/daily-briefs/2026-03-24.html", "int": 0, "ext": 0, "companies": [] }
+    "2026-03-28": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-28.html", "int": 0, "ext": 1, "companies": ["AI Agents Workshop"] },
+    "2026-03-27": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-27.html", "int": 3, "ext": 2, "companies": ["Company Meeting", "Jaime Sanchez"] },
+    "2026-03-26": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-26.html", "int": 3, "ext": 7, "companies": ["Riot TFT", "2K Horizon", "Pokémon TCG", "Jam & Tea"] },
+    "2026-03-25": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-25.html", "int": 0, "ext": 0, "companies": [] },
+    "2026-03-24": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-24.html", "int": 1, "ext": 6, "companies": ["Tricoman", "Chore Focus", "Skarvo", "2K Horizon"] },
+    "2026-03-23": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-23.html", "int": 0, "ext": 0, "companies": [] },
+    "2026-03-22": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-22.html", "int": 0, "ext": 0, "companies": [] },
+    "2026-03-21": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-21.html", "int": 0, "ext": 0, "companies": [] },
+    "2026-03-20": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-20.html", "int": 3, "ext": 3, "companies": ["Chore Focus", "Carl Kwoh", "Tricoman"] },
+    "2026-03-19": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-19.html", "int": 2, "ext": 4, "companies": ["Skarvo", "Focus Forge", "Scopely", "Riot TFT"] },
+    "2026-03-18": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-18.html", "int": 4, "ext": 5, "companies": ["2K Horizon", "Skarvo", "Jam & Tea", "Scopely"] },
+    "2026-03-17": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-17.html", "int": 2, "ext": 0, "companies": [] },
+    "2026-03-16": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-16.html", "int": 1, "ext": 0, "companies": [] },
+    "2026-03-15": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-15.html", "int": 3, "ext": 2, "companies": ["2K", "Carl Kwoh"] },
+    "2026-03-04": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-04.html", "int": 4, "ext": 5, "companies": ["Effecto", "GPA Onboarding", "Corey Dangel", "M42"] },
+    "2026-03-03": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-03.html", "int": 4, "ext": 1, "companies": ["Kayla Sachs"] },
+    "2026-03-02": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-02.html", "int": 0, "ext": 1, "companies": ["Ric Neil"] },
+    "2026-03-01": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-01.html", "int": 0, "ext": 0, "companies": [] },
+    "2026-02-28": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-28.html", "int": 0, "ext": 0, "companies": [] },
+    "2026-02-27": { "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-27.html", "int": 0, "ext": 0, "companies": [] }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
     "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-03-29T00:00:00Z"
+    "lastUpdated": "2026-03-30T00:00:00Z"
   }
 }

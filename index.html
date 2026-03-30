@@ -316,358 +316,516 @@
 </footer>
 
 <script>
+// ── STATE ────────────────────────────────────────────────────────────────
 let hubData = null;
-let currentFilter = 'all';
-let currentSort = 'newest';
-let starred = {};
-let retags = {};
-// monthOffset declared inside renderCalendar section
+let activeTag = 'all';
+let sortOrder = 'newest';
+let activePopover = null;
+let calInitialized = false;
+let monthOffset = 0;
 
+// ── HELPERS ──────────────────────────────────────────────────────────────
+// Parse "YYYY-MM-DD" without timezone shift (avoids UTC→local off-by-one)
+function parseDate(str) {
+  const [y, m, d] = str.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+function formatDateLocal(str) {
+  const d = parseDate(str);
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+function todayStr() {
+  const t = new Date();
+  return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+}
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ── LOCAL STORAGE ────────────────────────────────────────────────────────
+function getStarred()   { try { return JSON.parse(localStorage.getItem('hubStarred') || '[]'); } catch { return []; } }
+function setStarred(s)  { localStorage.setItem('hubStarred', JSON.stringify(s)); }
+function getSavedTags()  { try { return JSON.parse(localStorage.getItem('hubTags') || '{}'); } catch { return {}; } }
+function setSavedTag(id, tag) {
+  const tags = getSavedTags();
+  if (tag) tags[id] = tag; else delete tags[id];
+  localStorage.setItem('hubTags', JSON.stringify(tags));
+}
+
+// ── THEME TOGGLE ─────────────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('hub_theme', html.dataset.theme);
+}
+(function() {
+  const saved = localStorage.getItem('hub_theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+})();
+
+// ── INIT ─────────────────────────────────────────────────────────────────
 function init(data) {
   hubData = data;
-  loadPersistence();
-  renderToolbar();
-  renderCards(data.cards, data.categories);
-  renderBriefPreview(data.morningBriefs, data.meta);
-  setupEventListeners();
-  // Set calendar link
-  const calLink = document.getElementById('calFullLink');
-  if (calLink && data.meta.briefsIndexUrl) calLink.href = data.meta.briefsIndexUrl;
-}
 
-function loadPersistence() {
-  const savedStarred = localStorage.getItem('hub-starred');
-  const savedRetags = localStorage.getItem('hub-retags');
-  const savedTheme = localStorage.getItem('hub-theme');
-
-  if (savedStarred) starred = JSON.parse(savedStarred);
-  if (savedRetags) retags = JSON.parse(savedRetags);
-  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-}
-
-function savePersistence() {
-  localStorage.setItem('hub-starred', JSON.stringify(starred));
-  localStorage.setItem('hub-retags', JSON.stringify(retags));
-}
-
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  const newTheme = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('hub-theme', newTheme);
-}
-
-function renderToolbar() {
+  // Build toolbar buttons from categories
   const tagFilters = document.getElementById('tagFilters');
   tagFilters.innerHTML = '';
 
-  const allBtn = document.createElement('button');
-  allBtn.className = 'tag-btn active';
-  allBtn.textContent = 'All';
-  allBtn.onclick = () => setFilter('all');
-  tagFilters.appendChild(allBtn);
-
-  const starBtn = document.createElement('button');
-  starBtn.className = 'tag-btn tag-star';
-  starBtn.textContent = '⭐ Starred';
-  starBtn.onclick = () => setFilter('starred');
-  tagFilters.appendChild(starBtn);
-
-  Object.entries(hubData.categories).forEach(([key, cat]) => {
+  function makeBtn(cls, text, tag) {
     const btn = document.createElement('button');
-    btn.className = `tag-btn tag-${key}`;
-    btn.textContent = cat.label;
-    btn.onclick = () => setFilter(key);
+    btn.className = cls;
+    btn.dataset.tag = tag;
+    btn.textContent = text;
     tagFilters.appendChild(btn);
+    return btn;
+  }
+  makeBtn('tag-btn active', 'All', 'all');
+  makeBtn('tag-btn tag-star', '⭐ Starred', 'starred');
+  Object.entries(data.categories).forEach(([key, cat]) => {
+    makeBtn(`tag-btn tag-${key}`, cat.label, key);
   });
+
+  // Set calendar link
+  const calLink = document.getElementById('calFullLink');
+  if (calLink && data.meta.briefsIndexUrl) calLink.href = data.meta.briefsIndexUrl;
+
+  // Wire up tag filter clicks
+  tagFilters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.tag-btn');
+    if (!btn) return;
+    activeTag = btn.dataset.tag;
+    tagFilters.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
+  });
+
+  // Wire up sort buttons
+  document.getElementById('sortNewest').addEventListener('click', () => {
+    sortOrder = 'newest';
+    document.getElementById('sortNewest').classList.add('active');
+    document.getElementById('sortOldest').classList.remove('active');
+    applyFilter();
+  });
+  document.getElementById('sortOldest').addEventListener('click', () => {
+    sortOrder = 'oldest';
+    document.getElementById('sortOldest').classList.add('active');
+    document.getElementById('sortNewest').classList.remove('active');
+    applyFilter();
+  });
+
+  // Load more months button
+  document.getElementById('loadMoreBtn').addEventListener('click', () => {
+    monthOffset += 3;
+    renderCalendarMonths();
+  });
+
+  // Build cards and brief preview
+  renderCards();
+  renderBriefPreview();
+  applyFilter();
 }
 
-function setFilter(filter) {
-  currentFilter = filter;
-  document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
-
-  if (filter === 'all') {
-    document.querySelector('.tag-btn').classList.add('active');
-  } else if (filter === 'starred') {
-    document.querySelector('.tag-star').classList.add('active');
-  } else {
-    const btn = document.querySelector(`.tag-${filter}`);
-    if (btn) btn.classList.add('active');
-  }
-
-  // Check if this category has a custom view (e.g. calendar for morning briefs)
-  const cat = hubData.categories[filter];
-  const isCalendarView = cat && cat.view === 'calendar';
-  const isAll = filter === 'all';
-
-  document.getElementById('briefPreview').style.display = isAll ? '' : 'none';
-  document.getElementById('calFull').style.display = isCalendarView ? 'block' : 'none';
-  document.getElementById('cardContainer').style.display = isCalendarView ? 'none' : '';
-  document.getElementById('sortControls').style.display = isCalendarView ? 'none' : '';
-
-  if (isCalendarView) {
-    monthOffset = 0;
-    renderCalendar();
-  } else {
-    renderCards(hubData.cards, hubData.categories);
-  }
-}
-
-function renderCards(cards, categories) {
-  let filtered = cards;
-
-  if (currentFilter === 'starred') {
-    filtered = cards.filter(card => starred[card.id]);
-  } else if (currentFilter !== 'all') {
-    filtered = cards.filter(card => {
-      const actualTag = retags[card.id] || card.tag;
-      return actualTag === currentFilter;
-    });
-  }
-
-  if (currentSort === 'oldest') {
-    filtered = filtered.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
-  } else {
-    filtered = filtered.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
-  }
-
+// ── CARD RENDERING ───────────────────────────────────────────────────────
+function renderCards() {
   const grid = document.getElementById('cardsGrid');
-  const meta = document.getElementById('resultsMeta');
-  const empty = document.getElementById('emptyState');
+  const starred = getStarred();
+  const savedTags = getSavedTags();
 
-  if (filtered.length === 0) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    meta.textContent = '';
-    return;
-  }
-
-  empty.style.display = 'none';
-  meta.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
-
-  grid.innerHTML = filtered.map(card => {
-    const actualTag = retags[card.id] || card.tag;
-    const cat = categories[actualTag];
-    const accent = `accent-${actualTag}`;
-
+  grid.innerHTML = hubData.cards.map(card => {
+    const actualTag = savedTags[card.id] || card.tag;
+    const cat = hubData.categories[actualTag] || { label: actualTag, class: actualTag };
     return `
-      <div class="report-card" data-id="${card.id}" data-tag="${actualTag}">
-        <div class="card-accent ${accent}"></div>
-        <div class="card-body">
-          <div class="card-type">${card.type}</div>
-          <div class="card-title">${card.title}</div>
-          <div class="card-desc">${card.desc}</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag card-tag-${actualTag}">${cat.label}</span>
-          </div>
-          <div class="card-actions">
-            <button class="star-btn ${starred[card.id] ? 'starred' : ''}" data-id="${card.id}" onclick="toggleStar(event)">★</button>
-            <button class="retag-btn" onclick="openRetag(event)">↻</button>
-            <a href="${card.url}" class="open-link" target="_blank">Open</a>
-          </div>
-        </div>
-        <div class="retag-popover" style="display:none;">
-          ${Object.entries(categories).map(([key, cat]) => {
-            const isActive = actualTag === key;
-            return `<button class="retag-option ${isActive ? 'active' : ''}" onclick="retag('${card.id}', '${key}')">${cat.label}</button>`;
-          }).join('')}
-          <button class="retag-option retag-reset" onclick="resetRetag('${card.id}')">Reset to original</button>
+    <div class="report-card" data-tags="${escHtml(actualTag)}" data-date="${escHtml(card.date)}">
+      <div class="card-accent accent-${escHtml(cat.class)}"></div>
+      <div class="card-body">
+        <div class="card-type">${escHtml(card.type)}</div>
+        <div class="card-title">${escHtml(card.title)}</div>
+        <div class="card-desc">${escHtml(card.desc)}</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-tags"><span class="card-tag card-tag-${escHtml(cat.class)}">${cat.label}</span></div>
+        <div class="card-actions">
+          <button class="star-btn${starred.includes(card.id) ? ' starred' : ''}" data-id="${escHtml(card.id)}" title="Star this">⭐</button>
+          <a class="open-link" href="${escHtml(card.url)}" target="_blank">Open →</a>
         </div>
       </div>
-    `;
-  }).join('');
+    </div>`;
+  }).join('\n');
 
-  document.querySelectorAll('.report-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.open-link') || e.target.closest('.star-btn') || e.target.closest('.retag-btn') || e.target.closest('.retag-popover')) return;
-      const url = card.querySelector('.open-link').href;
-      window.open(url, '_blank');
+  // Wire up star buttons, retag buttons, sloppy-click
+  grid.querySelectorAll('.report-card').forEach(card => {
+    const starBtn = card.querySelector('.star-btn');
+    const cardId = starBtn?.dataset.id;
+    if (!cardId) return;
+
+    // Star toggle
+    starBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const s = getStarred();
+      const idx = s.indexOf(cardId);
+      if (idx === -1) s.push(cardId); else s.splice(idx, 1);
+      setStarred(s);
+      starBtn.classList.toggle('starred');
+      applyFilter();
     });
+
+    // Add retag button
+    const retagBtn = document.createElement('button');
+    retagBtn.className = 'retag-btn';
+    retagBtn.title = 'Move to a different category';
+    retagBtn.textContent = '✏️';
+    retagBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showRetagPopover(card, retagBtn, cardId);
+    });
+    card.querySelector('.card-actions').insertBefore(retagBtn, starBtn);
+
+    // Sloppy-click: anywhere on card opens the link
+    const link = card.querySelector('.open-link');
+    if (link) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a, button')) return;
+        window.open(link.href, '_blank');
+      });
+    }
   });
 }
 
-function toggleStar(event) {
-  event.stopPropagation();
-  const btn = event.target;
-  const id = btn.dataset.id;
-  starred[id] = !starred[id];
-  btn.classList.toggle('starred');
-  savePersistence();
+// ── RETAG ────────────────────────────────────────────────────────────────
+function applyRetag(card, tag) {
+  const cat = hubData.categories[tag];
+  if (!cat) return;
+  card.dataset.tags = tag;
+  const accent = card.querySelector('.card-accent');
+  if (accent) accent.className = 'card-accent accent-' + cat.class;
+  const pill = card.querySelector('.card-tag');
+  if (pill) { pill.className = 'card-tag card-tag-' + cat.class; pill.textContent = cat.label; }
 }
 
-function openRetag(event) {
-  event.stopPropagation();
-  const popover = event.target.parentElement.parentElement.querySelector('.retag-popover');
-  popover.style.display = popover.style.display === 'none' ? 'block' : 'none';
-}
+function showRetagPopover(card, btn, cardId) {
+  if (activePopover) { activePopover.remove(); activePopover = null; }
 
-function retag(cardId, newTag) {
-  retags[cardId] = newTag;
-  savePersistence();
-  renderCards(hubData.cards, hubData.categories);
-}
+  const currentTag = card.dataset.tags;
+  const savedTags = getSavedTags();
+  const isRetagged = !!savedTags[cardId];
 
-function resetRetag(cardId) {
-  delete retags[cardId];
-  savePersistence();
-  renderCards(hubData.cards, hubData.categories);
-}
+  const pop = document.createElement('div');
+  pop.className = 'retag-popover';
 
-function renderBriefPreview(morningBriefs, meta) {
-  const dates = Object.keys(morningBriefs).sort().reverse().slice(0, 3);
-  const row = document.getElementById('briefPreviewRow');
+  Object.entries(hubData.categories).forEach(([key, cat]) => {
+    const opt = document.createElement('button');
+    opt.className = 'retag-option' + (key === currentTag ? ' active' : '');
+    opt.textContent = cat.label;
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyRetag(card, key);
+      setSavedTag(cardId, key);
+      pop.remove(); activePopover = null;
+      applyFilter();
+    });
+    pop.appendChild(opt);
+  });
 
-  if (dates.length === 0) {
-    row.innerHTML = '<div class="brief-card-empty">No morning briefs yet.</div>';
-    return;
+  if (isRetagged) {
+    const reset = document.createElement('button');
+    reset.className = 'retag-option retag-reset';
+    reset.textContent = '↩ Reset to original';
+    reset.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setSavedTag(cardId, null);
+      pop.remove(); activePopover = null;
+      location.reload();
+    });
+    pop.appendChild(reset);
   }
 
-  row.innerHTML = dates.map(date => {
-    const brief = morningBriefs[date];
-    const dateObj = new Date(date);
-    const formatted = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    const hasCompanies = brief.companies && brief.companies.length > 0;
+  document.body.appendChild(pop);
+  activePopover = pop;
 
-    return `
-      <a href="${brief.url}" class="brief-card" target="_blank">
-        <div class="brief-card-accent"></div>
-        <div class="brief-card-body">
-          <div class="brief-card-type">Morning Brief</div>
-          <div class="brief-card-date">${formatted}</div>
-          ${brief.ext > 0 || brief.int > 0 ? `
-            <div class="brief-card-mtg">
-              <span class="ext">${brief.ext}</span> ext, <span class="int">${brief.int}</span> int
-            </div>
-          ` : ''}
-          ${hasCompanies ? `<div class="brief-card-cos">${brief.companies.join(', ')}</div>` : ''}
-          ${!hasCompanies && brief.ext === 0 && brief.int === 0 ? '<div class="brief-card-empty">No meetings</div>' : ''}
-        </div>
-        <div class="brief-card-footer">
-          <span class="card-tag">☀️ Morning Briefs</span>
-        </div>
-      </a>
-    `;
-  }).join('');
+  const r = btn.getBoundingClientRect();
+  let top = r.bottom + window.scrollY + 6;
+  let left = r.left + window.scrollX;
+  if (left + 200 > window.innerWidth - 12) left = r.right + window.scrollX - 200;
+  pop.style.top = top + 'px';
+  pop.style.left = left + 'px';
+
+  setTimeout(() => document.addEventListener('click', () => {
+    if (activePopover) { activePopover.remove(); activePopover = null; }
+  }, { once: true }), 0);
 }
 
-function setupEventListeners() {
-  document.getElementById('sortNewest').addEventListener('click', (e) => {
-    currentSort = 'newest';
-    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('sortNewest').classList.add('active');
-    renderCards(hubData.cards, hubData.categories);
+// ── BRIEF PREVIEW (All tab) ─────────────────────────────────────────────
+function renderBriefPreview() {
+  const row = document.getElementById('briefPreviewRow');
+  if (!row || !hubData.morningBriefs) return;
+  row.innerHTML = '';
+
+  const dates = Object.keys(hubData.morningBriefs).sort().reverse();
+  const today = todayStr();
+  const yesterday = (function() {
+    const d = new Date(); d.setDate(d.getDate() - 1);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  })();
+
+  // Show today + yesterday + tease card (matching production behavior)
+  [today, yesterday].forEach(dateKey => {
+    const brief = hubData.morningBriefs[dateKey];
+    if (!brief) return;
+    const d = parseDate(dateKey);
+    const totalMtg = (brief.ext || 0) + (brief.int || 0);
+    const mtgLabel = totalMtg === 0 ? '' : `${totalMtg} Meeting${totalMtg !== 1 ? 's' : ''}`;
+    const cos = brief.companies && brief.companies.length > 0 ? brief.companies.join(', ') : '';
+
+    const card = document.createElement('a');
+    card.className = 'brief-card';
+    card.href = brief.url;
+    card.target = '_blank';
+    card.innerHTML = `
+      <div class="brief-card-accent"></div>
+      <div class="brief-card-body">
+        <div class="brief-card-type">Morning Brief</div>
+        <div class="brief-card-date">${d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</div>
+        ${mtgLabel ? `<div class="brief-card-mtg">${mtgLabel}</div>` : '<div class="brief-card-empty">No meetings</div>'}
+        ${cos ? `<div class="brief-card-cos">${cos}</div>` : ''}
+      </div>
+      <div class="brief-card-footer">
+        <span class="card-tag">☀️ Brief</span>
+      </div>`;
+    row.appendChild(card);
   });
 
-  document.getElementById('sortOldest').addEventListener('click', (e) => {
-    currentSort = 'oldest';
-    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('sortOldest').classList.add('active');
-    renderCards(hubData.cards, hubData.categories);
-  });
+  // Tease card
+  const tease = document.createElement('a');
+  tease.className = 'brief-card';
+  tease.href = hubData.meta.briefsIndexUrl || '#';
+  tease.target = '_blank';
+  tease.innerHTML = `
+    <div class="brief-card-accent"></div>
+    <div class="brief-card-body">
+      <div class="brief-card-type">See all briefs</div>
+      <div class="brief-card-date" style="opacity:0.5">+ ${Math.max(0, dates.length - 2)} more</div>
+      <div class="brief-card-empty">Browse the full archive on GitHub</div>
+    </div>
+    <div class="brief-card-footer">
+      <span class="card-tag">↗ Archive</span>
+    </div>`;
+  row.appendChild(tease);
 }
 
+// ── FULL CALENDAR (Morning Briefs tab) ───────────────────────────────────
+function initFullCalendar() {
+  monthOffset = 0;
+  renderCalendarMonths();
+}
 
-let monthOffset = 0;
-
-function renderCalendar() {
+function renderCalendarMonths() {
   const container = document.getElementById('calMonths');
   if (monthOffset === 0) container.innerHTML = '';
 
-  const today = new Date();
-  const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  const now = new Date();
+  const tStr = todayStr();
 
-  // Show months from (current - offset) through (current + 2 - offset), newest first
-  const monthsToShow = [];
+  // Show 3 months at a time, going backward with "Previous months"
+  const months = [];
   for (let i = -monthOffset; i < 3 - monthOffset; i++) {
-    monthsToShow.push(new Date(today.getFullYear(), today.getMonth() + i, 1));
+    months.push(new Date(now.getFullYear(), now.getMonth() + i, 1));
   }
 
-  monthsToShow.forEach(monthDate => {
-    const year = monthDate.getFullYear();
-    const month = monthDate.getMonth();
-    const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfWeek = new Date(year, month, 1).getDay();
-
-    let html = `<div class="cal-month-block"><div class="cal-month-bar">${monthName}</div><div class="cal-grid">`;
-
-    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
-      html += `<div class="cal-day-hdr">${day}</div>`;
-    });
-
-    // Empty cells before first day
-    for (let i = 0; i < firstDayOfWeek; i++) {
-      html += '<div class="cal-cell empty"></div>';
-    }
-
-    // Day cells
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      const brief = hubData.morningBriefs[dateStr];
-      const isBriefDay = !!brief;
-      const isToday = dateStr === todayStr;
-
-      let cellClass = 'cal-cell';
-      if (isToday) cellClass += ' today';
-      if (isBriefDay) cellClass += ' has-brief';
-
-      html += `<div class="${cellClass}" ${isBriefDay ? `onclick="window.open('${brief.url}','_blank')"` : ''}>`;
-      html += `<div class="cal-date">${day}</div>`;
-
-      if (isToday) {
-        html += `<div class="cal-today-label">TODAY</div>`;
-        const ext = brief?.ext || 0;
-        const intMtg = brief?.int || 0;
-        if (ext > 0 || intMtg > 0) {
-          html += `<div class="cal-today-meetings"><strong>${ext}</strong> ext, <strong>${intMtg}</strong> int</div>`;
-        } else {
-          html += `<div class="cal-today-meetings">No meetings</div>`;
-        }
-      } else if (isBriefDay) {
-        const ext = brief.ext || 0;
-        const intMtg = brief.int || 0;
-        if (ext > 0 || intMtg > 0) {
-          html += `<div class="cal-mtg-counts"><span class="ext-count">${ext}</span> ext, <span class="int-count">${intMtg}</span> int</div>`;
-        } else {
-          html += `<div class="cal-no-mtg">No meetings</div>`;
-        }
-        if (brief.companies && brief.companies.length > 0) {
-          html += `<div class="cal-companies">${brief.companies.join(', ')}</div>`;
-        }
-        html += `<div class="cal-open"><a href="${brief.url}" class="open-link" target="_blank" onclick="event.stopPropagation()">Open →</a></div>`;
-      }
-
-      html += '</div>';
-    }
-
-    html += '</div></div>';
-    container.innerHTML += html;
+  months.forEach(monthDate => {
+    const block = createMonthBlock(monthDate, tStr);
+    container.appendChild(block);
   });
 
-  document.getElementById('loadMoreBtn').style.display = monthOffset >= 9 ? 'none' : 'block';
+  document.getElementById('loadMoreBtn').style.display = monthOffset >= 9 ? 'none' : '';
 }
 
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.retag-btn') && !e.target.closest('.retag-popover')) {
-    document.querySelectorAll('.retag-popover').forEach(p => p.style.display = 'none');
+function createMonthBlock(monthDate, tStr) {
+  const block = document.createElement('div');
+  block.className = 'cal-month-block';
+
+  const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const bar = document.createElement('div');
+  bar.className = 'cal-month-bar';
+  bar.textContent = monthName;
+  block.appendChild(bar);
+
+  const grid = document.createElement('div');
+  grid.className = 'cal-grid';
+
+  // Day headers
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(day => {
+    const hdr = document.createElement('div');
+    hdr.className = 'cal-day-hdr';
+    hdr.textContent = day;
+    grid.appendChild(hdr);
+  });
+
+  const year = monthDate.getFullYear();
+  const month = monthDate.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Empty cells before first day
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell empty';
+    grid.appendChild(cell);
   }
-});
 
-document.getElementById('loadMoreBtn')?.addEventListener('click', () => {
-  monthOffset += 3;
-  renderCalendar();
-});
+  // Day cells
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const brief = hubData.morningBriefs[dateStr];
+    const isToday = dateStr === tStr;
 
-// calFullLink href is set in init()
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell' + (isToday ? ' today' : '') + (brief ? ' has-brief' : '');
 
+    if (brief) {
+      cell.style.cursor = 'pointer';
+      cell.addEventListener('click', () => window.open(brief.url, '_blank'));
+    }
+
+    // Date number
+    const dateEl = document.createElement('div');
+    dateEl.className = 'cal-date';
+    dateEl.textContent = day;
+    cell.appendChild(dateEl);
+
+    if (isToday) {
+      const label = document.createElement('div');
+      label.className = 'cal-today-label';
+      label.textContent = 'Today';
+      cell.appendChild(label);
+
+      // Show meeting info if we have a brief for today
+      if (brief) {
+        const mtgDiv = document.createElement('div');
+        mtgDiv.className = 'cal-today-meetings';
+        const ext = brief.ext || 0;
+        const intm = brief.int || 0;
+        if (ext > 0 || intm > 0) {
+          let parts = [];
+          if (ext > 0) parts.push(`<strong>${ext}</strong> external`);
+          if (intm > 0) parts.push(`<strong>${intm}</strong> internal`);
+          mtgDiv.innerHTML = parts.join(', ') + ' meeting' + ((ext + intm) !== 1 ? 's' : '');
+          if (brief.companies && brief.companies.length > 0) {
+            mtgDiv.innerHTML += '<br>' + brief.companies.join(', ');
+          }
+        } else {
+          mtgDiv.textContent = 'No meetings';
+        }
+        cell.appendChild(mtgDiv);
+      } else {
+        const mtgDiv = document.createElement('div');
+        mtgDiv.className = 'cal-today-meetings';
+        mtgDiv.textContent = 'No brief yet';
+        cell.appendChild(mtgDiv);
+      }
+    } else if (brief) {
+      // Meeting counts
+      const ext = brief.ext || 0;
+      const intm = brief.int || 0;
+      if (ext > 0 || intm > 0) {
+        const counts = document.createElement('div');
+        counts.className = 'cal-mtg-counts';
+        let parts = [];
+        if (ext > 0) parts.push(`<span class="ext-count">${ext}</span> ext`);
+        if (intm > 0) parts.push(`<span class="int-count">${intm}</span> int`);
+        counts.innerHTML = parts.join(', ');
+        cell.appendChild(counts);
+      } else {
+        const noMtg = document.createElement('div');
+        noMtg.className = 'cal-no-mtg';
+        noMtg.textContent = 'No meetings';
+        cell.appendChild(noMtg);
+      }
+
+      // Companies
+      if (brief.companies && brief.companies.length > 0) {
+        const cos = document.createElement('div');
+        cos.className = 'cal-companies';
+        cos.textContent = brief.companies.join(', ');
+        cell.appendChild(cos);
+      }
+
+      // Open link
+      const openDiv = document.createElement('div');
+      openDiv.className = 'cal-open';
+      openDiv.innerHTML = `<a class="open-link" href="${brief.url}" target="_blank" onclick="event.stopPropagation()">Open →</a>`;
+      cell.appendChild(openDiv);
+    }
+
+    grid.appendChild(cell);
+  }
+
+  block.appendChild(grid);
+  return block;
+}
+
+// ── FILTER / VIEW TOGGLE ─────────────────────────────────────────────────
+function applyFilter() {
+  const briefPreview  = document.getElementById('briefPreview');
+  const calFull       = document.getElementById('calFull');
+  const cardContainer = document.getElementById('cardContainer');
+  const sortControls  = document.getElementById('sortControls');
+  const grid          = document.getElementById('cardsGrid');
+  const cards         = Array.from(grid.querySelectorAll('.report-card'));
+  const starred       = getStarred();
+
+  // Check if the active category has a custom view
+  const cat = hubData.categories[activeTag];
+  const isMorning = cat && cat.view === 'calendar';
+  const isAll     = activeTag === 'all';
+
+  // Toggle sections
+  briefPreview.style.display  = isAll ? '' : 'none';
+  calFull.style.display       = isMorning ? 'block' : 'none';
+  cardContainer.style.display = isMorning ? 'none' : '';
+  sortControls.style.display  = isMorning ? 'none' : '';
+
+  // Lazy-init full calendar on first view
+  if (isMorning && !calInitialized) {
+    initFullCalendar();
+    calInitialized = true;
+  } else if (isMorning) {
+    monthOffset = 0;
+    renderCalendarMonths();
+  }
+
+  if (!isMorning) {
+    let visible = cards.filter(card => {
+      const tags = card.dataset.tags.split(' ');
+      if (isAll)                     return true;
+      if (activeTag === 'starred')   return starred.includes(card.querySelector('.star-btn')?.dataset.id);
+      return tags.includes(activeTag);
+    });
+
+    visible.sort((a, b) => {
+      const da = new Date(a.dataset.date), db = new Date(b.dataset.date);
+      return sortOrder === 'newest' ? db - da : da - db;
+    });
+
+    cards.forEach(c => c.classList.add('hidden'));
+    visible.forEach((c, i) => { c.classList.remove('hidden'); c.style.order = i; });
+
+    document.getElementById('emptyState').style.display = visible.length === 0 ? 'block' : 'none';
+
+    const total = cards.length;
+    document.getElementById('resultsMeta').textContent =
+      visible.length === total
+        ? `${total} report${total !== 1 ? 's' : ''}`
+        : `${visible.length} of ${total} reports`;
+  }
+}
+
+// ── BOOT ─────────────────────────────────────────────────────────────────
 fetch('hub-data.json')
   .then(r => r.json())
   .then(init)
   .catch(err => {
     console.error('Failed to load hub-data.json:', err);
-    document.getElementById('cardsGrid').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>Failed to load data. Ensure hub-data.json exists.</p></div>';
+    document.getElementById('cardsGrid').innerHTML =
+      '<div class="empty-state"><div class="icon">⚠️</div><p>Failed to load data. Ensure hub-data.json exists.</p></div>';
   });
 </script>
 
