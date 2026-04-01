@@ -253,24 +253,6 @@
         "Ric Neil"
       ]
     },
-    "2026-03-01": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-01.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-02-28": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-28.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-02-27": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-02-27.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
     "2026-03-30": {
       "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-30.html",
       "int": 8,
@@ -286,12 +268,23 @@
       "int": 0,
       "ext": 0,
       "companies": []
+    },
+    "2026-04-01": {
+      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-01.html",
+      "int": 5,
+      "ext": 6,
+      "companies": [
+        "Levellr",
+        "EA XDI",
+        "Scopely",
+        "Amazon"
+      ]
     }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
     "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-03-30T14:00:00Z"
+    "lastUpdated": "2026-04-01T06:26:28.067439"
   }
 }
