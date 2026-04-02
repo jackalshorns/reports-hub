@@ -245,14 +245,6 @@
         "Kayla Sachs"
       ]
     },
-    "2026-03-02": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-02.html",
-      "int": 0,
-      "ext": 1,
-      "companies": [
-        "Ric Neil"
-      ]
-    },
     "2026-03-30": {
       "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-30.html",
       "int": 8,
@@ -279,12 +271,23 @@
         "Scopely",
         "Amazon"
       ]
+    },
+    "2026-04-02": {
+      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-02.html",
+      "int": 6,
+      "ext": 2,
+      "companies": [
+        "Amazon",
+        "Bungie",
+        "Riot",
+        "Scopely"
+      ]
     }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
     "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-04-01T06:26:28.067439"
+    "lastUpdated": "2026-04-02T06:28:34.353014"
   }
 }
