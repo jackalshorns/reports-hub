@@ -226,17 +226,6 @@
         "Carl Kwoh"
       ]
     },
-    "2026-03-04": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-04.html",
-      "int": 4,
-      "ext": 5,
-      "companies": [
-        "Effecto",
-        "GPA Onboarding",
-        "Corey Dangel",
-        "M42"
-      ]
-    },
     "2026-03-30": {
       "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-30.html",
       "int": 8,
@@ -284,12 +273,18 @@
         "Ric Neil",
         "Brian Tanner"
       ]
+    },
+    "2026-04-04": {
+      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-04.html",
+      "int": 0,
+      "ext": 0,
+      "companies": []
     }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
     "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-04-03T06:30:53.563867"
+    "lastUpdated": "2026-04-04T06:27:18.936671"
   }
 }
