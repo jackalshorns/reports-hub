@@ -279,12 +279,18 @@
       "int": 0,
       "ext": 0,
       "companies": []
+    },
+    "2026-04-05": {
+      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-05.html",
+      "int": 0,
+      "ext": 0,
+      "companies": []
     }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
     "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-04-04T06:27:18.936671"
+    "lastUpdated": "2026-04-05T06:27:23.859391"
   }
 }
