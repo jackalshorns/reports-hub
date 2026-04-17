@@ -553,13 +553,20 @@ a:hover { text-decoration: underline; }
 .source-debug strong { color: #e8eaef; }
 
 /* ═══════════════════════════════════════════
-   INLINE EDIT (hosted v1)
+   SOURCE CHIPS — partial state split (v1.1)
    ═══════════════════════════════════════════ */
-[data-editable="true"] { cursor: pointer; position: relative; }
-[data-editable="true"]:hover { outline: 2px dashed #6366f1; outline-offset: 2px; border-radius: 4px; }
-.edit-textarea { width: 100%; min-height: 80px; padding: 12px; border: 2px solid #6366f1; border-radius: 10px; font-size: 18px; font-family: inherit; line-height: 1.75; background: #1e1e2e; color: #e8eaef; resize: vertical; box-sizing: border-box; }
-.edit-actions { display: flex; gap: 8px; margin-top: 6px; }
-.edit-save { background: #6366f1; color: #fff; border: 2px solid transparent; border-radius: 10px; padding: 14px 26px; min-height: 52px; cursor: pointer; font-size: 16px; font-weight: 700; }
-.edit-cancel { background: transparent; color: #b8bcd0; border: 2px solid #2a2f3e; border-radius: 10px; padding: 14px 20px; min-height: 52px; cursor: pointer; font-size: 16px; }
-#sync-float-btn { position: fixed; bottom: 24px; right: 24px; background: #6366f1; color: #fff; border: none; border-radius: 99px; padding: 14px 28px; min-height: 52px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(99,102,241,0.4); display: none; z-index: 9999; }
-#sync-toast { position: fixed; bottom: 80px; right: 24px; background: #1e1e2e; color: #a5b4fc; padding: 12px 20px; border-radius: 10px; font-size: 16px; opacity: 0; pointer-events: none; z-index: 9998; transition: opacity 0.3s; border: 1px solid #2a2a3e; }
+/* partial-fallback: primary MCP failed, fallback succeeded, data is COMPLETE (trust it). */
+.source-chip.partial-fallback { background: #10222e; color: #4eb8d9; border: 1px solid #1a3a4a; }
+/* partial-coverage: same provider, GAPS exist (don't trust absence-of-signal). Amber. */
+.source-chip.partial-coverage { background: #2e2510; color: #f0b429; border: 1px solid #4a3a10; }
+
+/* ═══════════════════════════════════════════
+   TAB-LEVEL WARNING BANNER (reusable)
+   ═══════════════════════════════════════════ */
+.tab-warning {
+  font-size: 15px; line-height: 1.6; color: #c07400;
+  background: rgba(192,116,0,0.12); border: 1px solid rgba(192,116,0,0.3);
+  border-radius: 8px; padding: 10px 14px; margin-bottom: 16px;
+}
+.tab-warning strong { color: #e8a040; }
+.tab-warning a { color: #e8a040; text-decoration: underline; }
