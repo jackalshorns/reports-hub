@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morning Brief - April 1, 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0f0f1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-title h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .header-title p {
+            color: #999;
+            font-size: 1.1em;
+        }
+
+        .date-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .date-nav a {
+            padding: 8px 14px;
+            background: #1a1a2e;
+            border: 1px solid #333;
+            color: #6366f1;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .date-nav a:hover {
+            background: #252540;
+            border-color: #6366f1;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-tile {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px 20px;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .stat-tile .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        .stat-tile .label {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #999;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 1em;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #6366f1;
+            border-bottom-color: #6366f1;
+        }
+
+        .tab-btn:hover {
+            color: #e0e0e0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: #6366f1;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);
+        }
+
+        .card.dns {
+            opacity: 0.6;
+            background: #151525;
+            border-color: #2a2a3e;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #fff;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .card-meta {
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-red {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .badge-amber {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .badge-green {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .badge-indigo {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+        }
+
+        .badge-gray {
+            background: rgba(107, 114, 128, 0.2);
+            color: #6b7280;
+        }
+
+        .card-content {
+            color: #ccc;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .card-content p {
+            margin-bottom: 8px;
+        }
+
+        .action-items {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+        }
+
+        .action-items h4 {
+            font-size: 0.9em;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .action-items ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .action-items li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+            font-size: 0.9em;
+        }
+
+        .action-items li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #6366f1;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+
+        .collapsible-btn {
+            background: none;
+            border: none;
+            color: #6366f1;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        .collapsible-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+        }
+
+        .collapsible-content.show {
+            display: block;
+        }
+
+        /* Meeting cards */
+        .meeting-row {
+            display: flex;
+            gap: 10px;
+            align-items: start;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2a2a3e;
+        }
+
+        .meeting-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .meeting-time {
+            font-size: 0.85em;
+            color: #999;
+            min-width: 80px;
+            font-weight: 600;
+        }
+
+        .meeting-info {
+            flex: 1;
+        }
+
+        .meeting-title {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .meeting-attendees {
+            font-size: 0.8em;
+            color: #999;
+        }
+
+        /* Email cards */
+        .email-subject {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .email-from {
+            font-size: 0.85em;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        /* Deal channels */
+        .deal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .deal-table th {
+            background: #252540;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #333;
+        }
+
+        .deal-table td {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+        }
+
+        .deal-table tr:hover {
+            background: #202030;
+        }
+
+        .channel-name {
+            font-family: 'Courier New', monospace;
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        /* Tasks */
+        .task-list {
+            list-style: none;
+        }
+
+        .task-list li {
+            padding: 12px;
+            background: #0f0f1a;
+            border: 1px solid #2a2a3e;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+
+        .task-checkbox {
+            margin-top: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .task-text {
+            flex: 1;
+        }
+
+        /* CoWork */
+        .cowork-section {
+            margin-bottom: 30px;
+        }
+
+        .cowork-section h3 {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .skill-tag {
+            background: #252540;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #3a3a52;
+            text-align: center;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .skill-tag:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+
+        /* Focus Topics */
+        .focus-topics {
+            margin: 20px 0;
+        }
+
+        .focus-topics textarea {
+            width: 100%;
+            min-height: 120px;
+            background: #0f0f1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #e0e0e0;
+            padding: 12px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .focus-topics textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 5px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Gmail Drafts */
+        .gmail-drafts {
+            background: #0f0f1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .gmail-drafts-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .gmail-draft-count {
+            font-size: 2em;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        .gmail-draft-info {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .deal-table {
+                font-size: 0.85em;
+            }
+
+            .deal-table th, .deal-table td {
+                padding: 8px;
+            }
+        }
+
+        /* Lookback filter */
+        .lookback-btn {
+            padding: 6px 12px;
+            background: #252540;
+            border: 1px solid #3a3a52;
+            color: #999;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-right: 8px;
+            transition: all 0.2s;
+        }
+
+        .lookback-btn.active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+
+        .lookback-btn:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+
+        .lookback-bar {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        /* Inline edit */
+        .editable {
+            cursor: text;
+            position: relative;
+        }
+
+        .editable:hover {
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 4px;
+        }
+
+        .editable.editing {
+            background: rgba(99, 102, 241, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-title">
+                <h1>☀️ Morning Brief</h1>
+                <p>Wednesday, April 1, 2026</p>
+            </div>
+            <div class="date-nav">
+                <a onclick="goToDate('2026-03-31')">← Previous</a>
+                <a onclick="goToDate('2026-04-02')">Next →</a>
+            </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-tile">
+                <div class="number">8</div>
+                <div class="label">Meetings Today</div>
+            </div>
+            <div class="stat-tile">
+                <div class="number">11</div>
+                <div class="label">Meetings Yesterday</div>
+            </div>
+            <div class="stat-tile">
+                <div class="number">11</div>
+                <div class="label">Active Deals</div>
+            </div>
+            <div class="stat-tile">
+                <div class="number">30</div>
+                <div class="label">Gmail Drafts</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'today')">☀️ Today</button>
+            <button class="tab-btn" onclick="switchTab(event, 'yesterday')">📼 Yesterday</button>
+            <button class="tab-btn" onclick="switchTab(event, 'meetings')">📅 Meetings</button>
+            <button class="tab-btn" onclick="switchTab(event, 'updates')">📬 Updates</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tasks')">✅ Tasks</button>
+            <button class="tab-btn" onclick="switchTab(event, 'cowork')">🛠 CoWork</button>
+            <button class="tab-btn" onclick="switchTab(event, 'appendix')">📋 Appendix</button>
+        </div>
+
+        <!-- TODAY TAB -->
+        <div id="today" class="tab-content active">
+            <h2 style="margin-bottom: 20px; color: #fff;">Today's Focus</h2>
+
+            <!-- Focus Topics -->
+            <div class="focus-topics">
+                <label style="display: block; margin-bottom: 8px; color: #999; font-size: 0.9em;">Focus Topics (auto-saved)</label>
+                <textarea id="focusTopics" placeholder="What are your top priorities today?"></textarea>
+            </div>
+
+            <!-- Critical Actions -->
+            <div class="card" style="border-color: #ef4444; background: rgba(239, 68, 68, 0.05);">
+                <div class="card-header">
+                    <div class="card-title">🚨 Critical Actions</div>
+                    <span class="badge badge-red">URGENT</span>
+                </div>
+                <div class="card-content">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 8px 0 8px 20px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #ef4444;">●</span>
+                            <strong>Sign DocuSign for Unreal Fest Chicago sponsorship</strong> — Epic Games Legal via BizDev
+                        </li>
+                        <li style="padding: 8px 0 8px 20px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #ef4444;">●</span>
+                            <strong>Pokémon TCG Live contract renewal</strong> — SoW due EOD yesterday, contract expiring soon
+                        </li>
+                        <li style="padding: 8px 0 8px 20px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #ef4444;">●</span>
+                            <strong>Approve timecard</strong> — Rippling (3/16-3/31) past due
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tax Return Info -->
+            <div class="card" style="border-color: #f59e0b; background: rgba(245, 158, 11, 0.05);">
+                <div class="card-header">
+                    <div class="card-title">⚠️ Tax Return Info Request</div>
+                    <span class="badge badge-amber">REPLY NEEDED</span>
+                </div>
+                <div class="card-content">
+                    <p><strong>From:</strong> Kaleigh Hollowell (PriceKubecka)</p>
+                    <p>Need to provide: consulting income and home office expenses for 2025 Individual Return</p>
+                    <p><strong>Reminder:</strong> Taxes due in 14 days</p>
+                </div>
+            </div>
+
+            <!-- Today's Calendar -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📅 Today's Calendar (8 Meetings)</div>
+                </div>
+                <div class="card-content">
+                    <div style="font-size: 0.9em;">
+                        <div class="meeting-row">
+                            <div class="meeting-time">7:30-7:55 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">30 mins of Su (DNS)</div>
+                                <div class="meeting-attendees">Self — Do Not Schedule block</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">8:00-8:25 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">30 mins Sprint (DNS)</div>
+                                <div class="meeting-attendees">Self — Do Not Schedule block</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">8:30-10:20 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Exec Time (DNS)</div>
+                                <div class="meeting-attendees">Self — Do Not Schedule block</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">9:00-9:25 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Levellr Call and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> GDC follow-up from Tom</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">10:30-10:55 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Dave / Jason Weekly</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> with Dave Inscore</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">11:00-11:30 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Jason & Ash - Biz Dev Appointments (Dave Boileau)</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Dave Boileau (gamebreaking.com) — GDC Follow-up</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">11:30-12:20 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Mike / Jason</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> with Mike McMahon</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">11:30-11:55 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Quick AMZN sync</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> 4 attendees</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">12:30-1:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Abbey (EA XDI) / Ashley (UX is Fine)</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> EA XDI — NHL UX/tutorial needs</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">1:00-1:30 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Biz Dev Staffing Prep</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Ashley organized — 3 attendees</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">2:00-3:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Staffing is Fine</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Aaron organized — 11 attendees</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">4:00-4:45 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">AMZN // UX is Fine</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> 5 attendees</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Warnings -->
+            <div class="card" style="border-color: #f59e0b;">
+                <div class="card-header">
+                    <div class="card-title">⚡ Important Notes</div>
+                </div>
+                <div class="card-content">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 6px 0;">⏰ <strong>Riot League Live engagement ends Thursday</strong> — Extension status unknown, check with Jerome</li>
+                        <li style="padding: 6px 0;">📋 <strong>Odin Law rescheduled</strong> — Michele available Wed/Thu preferred — Confirm with Pam Driver</li>
+                        <li style="padding: 6px 0;">🎮 <strong>Multiple deal channels active</strong> — 11 active deal channels requiring attention (see Deal Channels tab)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- YESTERDAY TAB -->
+        <div id="yesterday" class="tab-content">
+            <h2 style="margin-bottom: 20px; color: #fff;">Yesterday's Recap (March 31, 2026)</h2>
+
+            <div class="lookback-bar">
+                <button class="lookback-btn active" onclick="filterByDate('2026-03-31')">Show March 31</button>
+                <button class="lookback-btn" onclick="filterByDate(null)">Show All</button>
+            </div>
+
+            <!-- Meetings Summary -->
+            <div class="card" data-date="2026-03-31">
+                <div class="card-header">
+                    <div class="card-title">12 Meetings Yesterday</div>
+                    <span class="badge badge-green">COMPLETED</span>
+                </div>
+                <div class="card-content">
+                    <div style="font-size: 0.9em;">
+                        <div class="meeting-row">
+                            <div class="meeting-time">7:53 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">1:1 with Dave</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Jason Schklar, Dave Inscore</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Jason kick off video project with Sophie</li>
+                                            <li>Dave sync with Kat about Sophie</li>
+                                            <li>Dave set up Sophie for video production</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">8:00 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Michele K. Robichaux (Odin Law) and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Jason Schklar</div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">8:30 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Harry Young and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Jason Schklar</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Speaker to pass Jason's details to delegate team</li>
+                                            <li>Jason to register for ticket</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">9:00 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Irena Pereira and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Jason Schklar</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Speaker to reach out to Chris Armbraser</li>
+                                            <li>Jason to prepare panel topic one-sheet</li>
+                                            <li>Speaker to introduce Jason to Jane</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">10:45 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">[Google Play Apps Accelerator] UX/UI</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Jason, Ariel Calliste, Shiri Sivan</div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">12:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Nemco and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Jason, Chris Nemcosky</div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">12:30 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Meet with Yassi</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Jason Schklar</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Jason review availability for April 22 advisory board</li>
+                                            <li>Jason identify colleagues as mentors</li>
+                                            <li>Speaker to send calendar invite</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">1:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Scopely | UX is Fine</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> Ashley, Ivan Chan, Travis Schau, Jason, Ryan</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Jason discuss budget with Ivan</li>
+                                            <li>Ashley send follow-up proposal</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">1:45 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Post Scopely Call Internal Sync</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Ashley, Jason, Ryan</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Ashley unpack staffing table</li>
+                                            <li>Ryan create process deck</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">2:08 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Leadership Sync – Ops & Staffing</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Jason, Dave Inscore, Cat Chapman Smith</div>
+                                <button class="collapsible-btn" onclick="toggleMtg(this)">Details ↓</button>
+                                <div class="collapsible-content">
+                                    <div class="action-items">
+                                        <h4>Action Items:</h4>
+                                        <ul>
+                                            <li>Cat send Sarah gift</li>
+                                            <li>Dave prepare Aaron transition message</li>
+                                            <li>Dave schedule Aaron conversation Thursday</li>
+                                            <li>Jason inform Cat about Mike's equity</li>
+                                            <li>Cat work up Aaron's transition runway</li>
+                                            <li>Dave follow up with Zora</li>
+                                            <li>Jason call lawyers re operating agreement</li>
+                                            <li>Dave start network outreach for production hire</li>
+                                            <li>Jason reach out to 2K contacts</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-row">
+                            <div class="meeting-time">3:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">UX is Fine <> Interpret</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Jason, Ashley</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEETINGS TAB -->
+        <div id="meetings" class="tab-content">
+            <h2 style="margin-bottom: 20px; color: #fff;">All Meetings</h2>
+
+            <div style="background: #1a1a2e; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                <div style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Filter by date:</div>
+                <div class="lookback-bar">
+                    <button class="lookback-btn" onclick="filterByDate('2026-03-31')">March 31 (11)</button>
+                    <button class="lookback-btn" onclick="filterByDate('2026-04-01')">April 1 (8)</button>
+                    <button class="lookback-btn active" onclick="filterByDate(null)">All</button>
+                </div>
+            </div>
+
+            <!-- April 1 -->
+            <div class="card" data-date="2026-04-01">
+                <div class="card-header">
+                    <div class="card-title">Wednesday, April 1 — 8 Meetings</div>
+                </div>
+                <div class="card-content">
+                    <div style="font-size: 0.9em;">
+                        <div class="meeting-row">
+                            <div class="meeting-time">9:00 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Levellr Call</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> GDC follow-up</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">10:30 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Dave / Jason Weekly</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Dave Inscore</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">11:00 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Biz Dev (Dave Boileau)</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> gamebreaking.com — GDC Follow-up</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">11:30 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Mike / Jason</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Mike McMahon</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">11:30 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Quick AMZN sync</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> 4 attendees</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">12:30 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Abbey (EA XDI) / Ashley (UX is Fine)</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> EA XDI — NHL UX/tutorial needs</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">1:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Biz Dev Staffing Prep</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> 3 attendees</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">2:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Staffing is Fine</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> 11 attendees</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">4:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">AMZN // UX is Fine</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span> 5 attendees</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- March 31 -->
+            <div class="card" data-date="2026-03-31">
+                <div class="card-header">
+                    <div class="card-title">Tuesday, March 31 — 11 Meetings</div>
+                </div>
+                <div class="card-content">
+                    <div style="font-size: 0.9em;">
+                        <div class="meeting-row">
+                            <div class="meeting-time">7:53 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">1:1 with Dave</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span> Dave Inscore</div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">8:00 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Michele K. Robichaux (Odin Law)</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">8:30 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Harry Young and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">9:00 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Irena Pereira and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">10:45 AM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">[Google Play Apps Accelerator] UX/UI</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">12:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Nemco and Jason Schklar</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">12:30 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Meet with Yassi</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">1:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Scopely | UX is Fine</div>
+                                <div class="meeting-attendees"><span class="badge badge-indigo">EXTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">1:45 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Post Scopely Call Internal Sync</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">2:08 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">Leadership Sync – Ops & Staffing</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span></div>
+                            </div>
+                        </div>
+                        <div class="meeting-row">
+                            <div class="meeting-time">3:00 PM</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">UX is Fine <> Interpret</div>
+                                <div class="meeting-attendees"><span class="badge badge-green">INTERNAL</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPDATES TAB -->
+        <div id="updates" class="tab-content">
+            <h2 style="margin-bottom: 20px; color: #fff;">Email Updates & Key Messages</h2>
+
+            <!-- DocuSign -->
+            <div class="card" style="border-color: #ef4444;">
+                <div class="card-header">
+                    <div class="card-title">📋 DocuSign: Unreal Fest Sponsorship</div>
+                    <span class="badge badge-red">ACTION REQUIRED</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Epic Games Legal via BizDev</div>
+                    <p>Sponsorship agreement for Unreal Fest Chicago ready for signature.</p>
+                    <button class="cta-button">Sign DocuSign</button>
+                </div>
+            </div>
+
+            <!-- Taxes -->
+            <div class="card" style="border-color: #f59e0b;">
+                <div class="card-header">
+                    <div class="card-title">💰 2025 Individual Return Info Request</div>
+                    <span class="badge badge-amber">REPLY NEEDED</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Kaleigh Hollowell, PriceKubecka</div>
+                    <p>Need consulting income and home office expense information for 2025 tax return.</p>
+                    <p><strong>Deadline: Taxes due in 14 days</strong></p>
+                </div>
+            </div>
+
+            <!-- Outstanding Tasks -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📝 Outstanding Tasks for Gather Request</div>
+                    <span class="badge badge-amber">ACTION NEEDED</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">PriceKubecka</div>
+                    <p>Complete remaining tax documentation items.</p>
+                </div>
+            </div>
+
+            <!-- Odin Law -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📞 Odin Law Reschedule</div>
+                    <span class="badge badge-amber">CONFIRM</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Pam Driver</div>
+                    <p>Michele K. Robichaux available Wednesday or Thursday, Wednesday preferred.</p>
+                    <button class="cta-button">Confirm Wednesday</button>
+                </div>
+            </div>
+
+            <!-- Jam & Tea Contract -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">✍️ Jam & Tea Contract Redline</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Kevin Dong via BizDev</div>
+                    <p>Updated contract language received. Key changes: mutual indemnification and limitation of liability clauses updated.</p>
+                </div>
+            </div>
+
+            <!-- Zynga Feedback -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🎮 Zynga Windfall UI Test Feedback</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Jeong Keum</div>
+                    <p>Test wrapped early with positive feedback. Team appreciated communication and requesting changes for second pass.</p>
+                </div>
+            </div>
+
+            <!-- UCSC Advisory Board -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🎓 UCSC Advisory Board Invite</div>
+                    <span class="badge badge-indigo">EVENT</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Monique Zhou</div>
+                    <p><strong>Date:</strong> April 22, 10 AM-1 PM</p>
+                    <p><strong>Location:</strong> UCSC Silicon Valley Campus</p>
+                </div>
+            </div>
+
+            <!-- Skarvo Gemma Meeting Prep -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📊 Skarvo Gemma Meeting Prep</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Suhail Ahmad</div>
+                    <p>Updated document with questions prepared for Ian. Doc: https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit</p>
+                </div>
+            </div>
+
+            <!-- FRG-UXisFine Co-Dev -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🤝 FRG-UXisFine Co-Dev</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Ashley Conley</div>
+                    <p>Following up on Free Range Games co-development opportunity.</p>
+                </div>
+            </div>
+
+            <!-- Supersaurus Website Contract -->
+            <div class="card" style="border-color: #22c55e;">
+                <div class="card-header">
+                    <div class="card-title">✅ Supersaurus Website Contract</div>
+                    <span class="badge badge-green">APPROVED</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Garrett Martini</div>
+                    <p>"Looks good!" — Contract approved.</p>
+                </div>
+            </div>
+
+            <!-- Google AI Studio -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🤖 Google AI Studio Tier Change</div>
+                </div>
+                <div class="card-content">
+                    <p>New automated tiers starting April 1, 2026.</p>
+                </div>
+            </div>
+
+            <!-- ChatGPT Business Renewal -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">💬 ChatGPT Business Renewal</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">OpenAI</div>
+                    <p>Renews April 7, 2026 — 4 seats</p>
+                </div>
+            </div>
+
+            <!-- Timecard Approval -->
+            <div class="card" style="border-color: #ef4444;">
+                <div class="card-header">
+                    <div class="card-title">⏰ Timecard Approval Past Due</div>
+                    <span class="badge badge-red">URGENT</span>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Rippling</div>
+                    <p>Timecard for 3/16-3/31 awaiting approval.</p>
+                    <button class="cta-button">Approve Timecard</button>
+                </div>
+            </div>
+
+            <!-- Advocu Mentor -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🎯 Advocu Mentor Support</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Ariel Calliste</div>
+                    <p>Platform issue with your mentor availability settings. Support team is working on resolution.</p>
+                </div>
+            </div>
+
+            <!-- Vestwell 401k -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">💼 Vestwell 401k</div>
+                </div>
+                <div class="card-content">
+                    <div class="email-from">Cat</div>
+                    <p>No action needed — just authentication reminder.</p>
+                </div>
+            </div>
+
+            <!-- Gmail Drafts Widget -->
+            <div class="gmail-drafts">
+                <div class="gmail-drafts-title">✉️ Gmail Drafts</div>
+                <div class="gmail-draft-count">30</div>
+                <div class="gmail-draft-info">Unsent drafts waiting for review</div>
+            </div>
+        </div>
+
+        <!-- TASKS TAB -->
+        <div id="tasks" class="tab-content">
+            <h2 style="margin-bottom: 20px; color: #fff;">Open Tasks (31)</h2>
+
+            <div style="background: #1a1a2e; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                <p style="color: #999; font-size: 0.9em;">31 work/business development tasks tracked in Copper CRM. Review and prioritize for this week.</p>
+            </div>
+
+            <!-- Task Categories -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Task Categories</div>
+                </div>
+                <div class="card-content">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid #333;">
+                            <strong>Work/Biz Dev</strong> — Majority of tasks (28+)
+                        </li>
+                        <li style="padding: 10px 0;">
+                            <strong>Action Items</strong> — From yesterday's meetings (9 total assigned)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- High Priority from Yesterday's Meetings -->
+            <div class="card" style="border-color: #ef4444;">
+                <div class="card-header">
+                    <div class="card-title">🚨 From Yesterday's Leadership Sync</div>
+                </div>
+                <div class="card-content">
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Inform Cat about Mike's equity</div>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Call lawyers re operating agreement</div>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Reach out to 2K contacts</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- From Sophie/Video Project -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📹 Sophie Video Project (from 1:1 with Dave)</div>
+                </div>
+                <div class="card-content">
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Kick off video project with Sophie</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- From Scopely Meeting -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🎮 Scopely Deal (from 1:00 PM meeting)</div>
+                </div>
+                <div class="card-content">
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Discuss budget with Ivan Chan</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- From Yassi Meeting -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📋 UCSC Advisory Board (from Yassi meeting)</div>
+                </div>
+                <div class="card-content">
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Review availability for April 22 advisory board</div>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Identify colleagues as mentors</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- From Irena Meeting -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📋 Panel Discussion (from Irena Pereira meeting)</div>
+                </div>
+                <div class="card-content">
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Prepare panel topic one-sheet</div>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">Register for ticket</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- COWORK TAB -->
+        <div id="cowork" class="tab-content">
+            <h2 style="margin-bottom: 20px; color: #fff;">CoWork Tools & Skills</h2>
+
+            <!-- Skills -->
+            <div class="cowork-section">
+                <h3>Available Skills (20)</h3>
+                <div class="skills-grid">
+                    <div class="skill-tag">morning-brief</div>
+                    <div class="skill-tag">search</div>
+                    <div class="skill-tag">copper-crm</div>
+                    <div class="skill-tag">people-brief</div>
+                    <div class="skill-tag">process-krisp-meeting</div>
+                    <div class="skill-tag">qual-summary</div>
+                    <div class="skill-tag">game-analysis</div>
+                    <div class="skill-tag">deliver</div>
+                    <div class="skill-tag">github-publish</div>
+                    <div class="skill-tag">gdoc-to-markdown</div>
+                    <div class="skill-tag">onboard-mentee</div>
+                    <div class="skill-tag">krisp-to-copper</div>
+                    <div class="skill-tag">skill-creator</div>
+                    <div class="skill-tag">list-skills</div>
+                    <div class="skill-tag">docx</div>
+                    <div class="skill-tag">pptx</div>
+                    <div class="skill-tag">pdf</div>
+                    <div class="skill-tag">xlsx</div>
+                    <div class="skill-tag">schedule</div>
+                    <div class="skill-tag">youtube-scrape</div>
+                </div>
+            </div>
+
+            <!-- Scheduled Tasks -->
+            <div class="cowork-section">
+                <h3>Scheduled Tasks</h3>
+                <table class="deal-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Schedule</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>morning-brief</strong></td>
+                            <td>Daily at 6:20 AM</td>
+                            <td><span class="badge badge-green">ACTIVE</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Google Drive Documents -->
+            <div class="cowork-section">
+                <h3>Recently Modified Docs</h3>
+                <table class="deal-table">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Modified By</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ai why us</strong></td>
+                            <td>Jason</td>
+                            <td><a href="https://docs.google.com/document/d/1pd8KvAysmMKm1Drf2y_eU03UIYdephtFz6qTByz7DJU/edit" style="color: #6366f1; text-decoration: none;">Open Doc</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notes - Gemma Skarvo consult</strong></td>
+                            <td>Suhail</td>
+                            <td><a href="https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit" style="color: #6366f1; text-decoration: none;">Open Doc</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Active Slack Channels -->
+            <div class="cowork-section">
+                <h3>Active Deal Channels (Last 72h)</h3>
+                <p style="color: #999; margin-bottom: 15px; font-size: 0.9em;">11 active out of 45 total deal channels</p>
+                <table class="deal-table">
+                    <thead>
+                        <tr>
+                            <th>Channel</th>
+                            <th>Latest Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="channel-name">#deal-bungie-uxui</span></td>
+                            <td>Ryan finishing Bungie deck in Figma, Jason gave feedback</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-scopely-poe-ui</span></td>
+                            <td>Ashley added Ryan to requirements call</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-codenamered-tbd</span></td>
+                            <td>Jason outlined UI/UX problems approach; Ashley shared qual report</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-nexon-uxresearch</span></td>
+                            <td>Ashley researching Interpret/Sago/NRG pricing</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-pokemon-tcglive-198pok</span></td>
+                            <td><span class="badge badge-red">URGENT</span> Contract renewal, SoW due EOD</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-riot-tft-unreal-197rio</span></td>
+                            <td>Riot created UMG Validation Slack channel</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-riot-league-live-195rio</span></td>
+                            <td><span class="badge badge-amber">WARNING</span> Extension status unknown, ends Thursday</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-netflix</span></td>
+                            <td>1-month GTKEO engagement, requesting designer profiles</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-luna-games-ux-prototyping</span></td>
+                            <td>Budget too small for min viable team</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-yojoyco-studios-poglings</span></td>
+                            <td>UI redesign by late July, Ashley working on proposal</td>
+                        </tr>
+                        <tr>
+                            <td><span class="channel-name">#deal-2k-horizon-rfp</span></td>
+                            <td><span class="badge badge-amber">UNCERTAIN</span> Ashley posted crying emoji</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- APPENDIX TAB -->
+        <div id="appendix" class="tab-content">
+            <h2 style="margin-bottom: 20px; color: #fff;">Deal Channels Overview</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Active & Silent Deal Channels (45 total)</div>
+                </div>
+                <div class="card-content">
+                    <h3 style="color: #fff; margin: 15px 0 10px 0; font-size: 1.1em;">Active Channels (11)</h3>
+                    <table class="deal-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Channel</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="channel-name">#deal-bungie-uxui</span></td>
+                                <td>In Progress — Ryan finishing deck</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-scopely-poe-ui</span></td>
+                                <td>In Progress — Requirements gathering</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-codenamered-tbd</span></td>
+                                <td>In Progress — Design work</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-nexon-uxresearch</span></td>
+                                <td>In Progress — Research scoping</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-pokemon-tcglive-198pok</span></td>
+                                <td style="color: #ef4444;"><strong>URGENT — Contract renewal due</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-riot-tft-unreal-197rio</span></td>
+                                <td>In Progress — Positive signal</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-riot-league-live-195rio</span></td>
+                                <td style="color: #f59e0b;"><strong>WARNING — Ends Thursday</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-netflix</span></td>
+                                <td>Proposal phase</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-luna-games-ux-prototyping</span></td>
+                                <td>Go/No-go decision</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-yojoyco-studios-poglings</span></td>
+                                <td>Proposal phase</td>
+                            </tr>
+                            <tr>
+                                <td><span class="channel-name">#deal-2k-horizon-rfp</span></td>
+                                <td style="color: #f59e0b;"><strong>Uncertain status</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 style="color: #fff; margin: 25px 0 10px 0; font-size: 1.1em;">Silent Channels (34)</h3>
+                    <p style="color: #999; margin-bottom: 15px; font-size: 0.9em;">No activity in last 72 hours</p>
+                    <table class="deal-table">
+                        <thead>
+                            <tr>
+                                <th>Channels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="channel-name">#jam-and-tea</span>,
+                                    <span class="channel-name">#ea-nhl</span>,
+                                    <span class="channel-name">#zynga</span>,
+                                    <span class="channel-name">#epic</span>,
+                                    <span class="channel-name">#supersaurus</span>,
+                                    <span class="channel-name">#amazon-prototypes</span>,
+                                    <span class="channel-name">#nintendo</span>,
+                                    <span class="channel-name">#mission42</span>,
+                                    <span class="channel-name">#xbox</span>,
+                                    <span class="channel-name">#behaviour-rfp</span>,
+                                    <span class="channel-name">#pocketsizedhands</span>,
+                                    <span class="channel-name">#respawn-apex2</span>,
+                                    <span class="channel-name">#riot-project-c</span>,
+                                    <span class="channel-name">#turtlerock</span>,
+                                    <span class="channel-name">#koboio</span>,
+                                    <span class="channel-name">#frima</span>,
+                                    <span class="channel-name">#wb-breakaway</span>,
+                                    <span class="channel-name">#probably-monsters</span>,
+                                    <span class="channel-name">#sony-labs</span>,
+                                    <span class="channel-name">#pietrap</span>,
+                                    <span class="channel-name">#dead-monkey</span>,
+                                    <span class="channel-name">#magicsoup</span>,
+                                    <span class="channel-name">#playformant</span>,
+                                    <span class="channel-name">#csi-decarb</span>,
+                                    <span class="channel-name">#sony-mobile</span>,
+                                    <span class="channel-name">#focus-ux</span>,
+                                    <span class="channel-name">#yellowbrick</span>,
+                                    <span class="channel-name">#gg-sparkle</span>,
+                                    <span class="channel-name">#looknorthworld</span>,
+                                    <span class="channel-name">#seconddive</span>,
+                                    <span class="channel-name">#nomadroid</span>,
+                                    <span class="channel-name">#solis-games</span>,
+                                    <span class="channel-name">#perfect-day</span>,
+                                    <span class="channel-name">#strangers-trailblazers</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inline Edit Framework -->
+    <div id="inline-edit-container" style="display: none;"></div>
+
+    <script>
+        // Tab switching
+        function switchTab(event, tabName) {
+            event.preventDefault();
+
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Collapsible meeting details
+        function toggleMtg(button) {
+            const content = button.nextElementSibling;
+            if (content && content.classList.contains('collapsible-content')) {
+                content.classList.toggle('show');
+                button.textContent = content.classList.contains('show') ? 'Details ↑' : 'Details ↓';
+            }
+        }
+
+        // Date navigation
+        function goToDate(date) {
+            const baseUrl = 'https://jackalshorns.github.io/daily-briefs/briefs/';
+            window.location.href = baseUrl + 'morning-brief-' + date + '.html';
+        }
+
+        // Lookback filter
+        function filterByDate(date) {
+            const buttons = document.querySelectorAll('.lookback-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Find the clicked button and mark it active
+            event.target.classList.add('active');
+
+            // Show/hide cards based on date
+            const cards = document.querySelectorAll('[data-date]');
+            if (date === null) {
+                cards.forEach(card => card.style.display = 'block');
+            } else {
+                cards.forEach(card => {
+                    card.style.display = card.dataset.date === date ? 'block' : 'none';
+                });
+            }
+        }
+
+        // Focus Topics - localStorage
+        const focusTopicsEl = document.getElementById('focusTopics');
+        if (focusTopicsEl) {
+            // Load saved content
+            const saved = localStorage.getItem('focusTopics');
+            if (saved) {
+                focusTopicsEl.value = saved;
+            }
+
+            // Save on input
+            focusTopicsEl.addEventListener('input', () => {
+                localStorage.setItem('focusTopics', focusTopicsEl.value);
+            });
+        }
+
+        // CTA Button handlers
+        document.querySelectorAll('.cta-button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.textContent;
+                if (text.includes('DocuSign')) {
+                    alert('Opening DocuSign for Unreal Fest sponsorship...');
+                } else if (text.includes('Confirm')) {
+                    alert('Confirming Wednesday meeting with Odin Law...');
+                } else if (text.includes('Approve')) {
+                    alert('Approving timecard...');
+                } else {
+                    alert('Action: ' + text);
+                }
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') document.querySelector('[onclick="switchTab(event, \'today\')"]').click();
+            if (e.key === '2') document.querySelector('[onclick="switchTab(event, \'yesterday\')"]').click();
+            if (e.key === '3') document.querySelector('[onclick="switchTab(event, \'meetings\')"]').click();
+            if (e.key === '4') document.querySelector('[onclick="switchTab(event, \'updates\')"]').click();
+            if (e.key === '5') document.querySelector('[onclick="switchTab(event, \'tasks\')"]').click();
+            if (e.key === '6') document.querySelector('[onclick="switchTab(event, \'cowork\')"]').click();
+            if (e.key === '7') document.querySelector('[onclick="switchTab(event, \'appendix\')"]').click();
+        });
+
+        // Initialize
+        console.log('Morning Brief loaded for April 1, 2026');
+    </script>
+</body>
+</html>

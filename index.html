@@ -1,280 +1,419 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light dark">
   <title>Jason Schklar — Reports Hub</title>
   <style>
-    /* ===== THEME VARIABLES ===== */
-    :root[data-theme="dark"] {
-      --bg: #0f1117; --surface: #1a1d27; --surface-2: #222633; --border: #2a2d3a;
-      --text: #e2e4ea; --text-secondary: #b0b3c0; --muted: #8b8fa3;
-      --accent: #6c8aff; --accent-dim: #3d5299;
-      --header-bg-1: #12122a; --header-bg-2: #1e1e3a;
-      --toolbar-bg: #1a1d27; --toolbar-border: #2a2d3a; --toolbar-shadow: rgba(0,0,0,0.3);
-      --tag-btn-bg: #2a2d3a; --tag-btn-color: #b0b3c0; --tag-btn-hover-bg: #333748;
-      --tag-btn-active-bg: #6c8aff; --tag-btn-active-color: #fff;
-      --card-bg: #1a1d27; --card-border: #2a2d3a; --card-shadow: rgba(0,0,0,0.2);
-      --card-hover-shadow: rgba(0,0,0,0.4);
-      --card-type-color: #8b8fa3; --card-title-color: #e2e4ea; --card-desc-color: #b0b3c0;
-      --open-link-bg: #2a3560; --open-link-color: #8ab4ff; --open-link-hover-bg: #3a4570;
-      --star-opacity: 0.4;
-      --footer-bg: transparent; --footer-border: #2a2d3a; --footer-color: #555;
-      --footer-link-color: #6c8aff;
-      --sort-btn-bg: #2a2d3a; --sort-btn-color: #b0b3c0;
-      --results-meta-color: #8b8fa3;
-      --empty-color: #8b8fa3;
-      --index-card-bg: #1a1d27; --index-card-border: #2a2d3a;
-      --index-card-hover-bg: #222633; --index-card-hover-border: #6c8aff;
-      --brief-card-bg: #1a1d27; --brief-card-border: #2a2d3a;
-      --brief-card-hover-shadow: rgba(0,0,0,0.4);
-      --brief-type-color: #8b8fa3; --brief-date-color: #e2e4ea;
-      --brief-mtg-color: #b0b3c0; --brief-empty-color: #555;
-      --brief-footer-tag-bg: #3a2a10; --brief-footer-tag-color: #fb923c;
-      --cal-month-bg: #1a1d27; --cal-month-border: #2a2d3a;
-      --cal-month-bar-bg: #222633; --cal-month-bar-color: #e2e4ea; --cal-month-bar-border: #2a2d3a;
-      --cal-day-hdr-color: #8b8fa3;
-      --cal-cell-date-color: #555;
-      --cal-today-bg: #1a2540; --cal-today-border: #2a3a60; --cal-today-date-color: #6c8aff;
-      --cal-today-label-color: #6c8aff;
-      --cal-today-mtg-color: #b0b3c0; --cal-today-mtg-strong: #6c8aff;
-      --cal-brief-bg: #2a2010; --cal-brief-border: #4a3510; --cal-brief-date-color: #fb923c;
-      --cal-brief-hover-bg: #3a2a10; --cal-brief-hover-border: #fb923c;
-      --cal-brief-hover-shadow: rgba(249,115,22,0.18);
-      --cal-brief-today-bg: linear-gradient(135deg, #1a2540 0%, #2a2010 100%);
-      --cal-mtg-counts-color: #8b8fa3; --cal-ext-color: #a78bfa; --cal-int-color: #94a3b8;
-      --cal-companies-color: #fb923c; --cal-no-mtg-color: #555;
-      --cal-warn-bg: rgba(217,119,6,0.1); --cal-warn-border: rgba(217,119,6,0.3); --cal-warn-color: #d97706;
-      --load-more-bg: #2a2d3a; --load-more-border: #3a3d4a; --load-more-color: #b0b3c0;
-      --load-more-hover-bg: #333748;
-      --retag-bg: #222633; --retag-border: #2a2d3a; --retag-shadow: rgba(0,0,0,0.4);
-      --retag-option-color: #e2e4ea; --retag-option-hover-bg: #2a2d3a;
-      --retag-active-bg: #2a3560; --retag-active-color: #6c8aff;
-      --retag-reset-color: #8b8fa3; --retag-reset-border: #2a2d3a;
-      --retag-reset-hover-bg: #3a2a10; --retag-reset-hover-color: #fb923c;
-      --tag-morning-bg: #3a2a10; --tag-morning-color: #fb923c;
-      --tag-accelerator-bg: #1a2a50; --tag-accelerator-color: #6c8aff;
-      --tag-serbia-bg: #2a1a3a; --tag-serbia-color: #c084fc;
-      --tag-artifacts-bg: #1a2e1a; --tag-artifacts-color: #4ade80;
-      --tag-research-bg: #1a2a3a; --tag-research-color: #22d3ee;
-      --toggle-icon: "☀️"; --toggle-bg: #2a2d3a;
-    }
-    :root[data-theme="light"] {
-      --bg: #f8f9fa; --surface: #ffffff; --surface-2: #fafafa; --border: #e8eaed;
-      --text: #1a1a2e; --text-secondary: #555; --muted: #999;
-      --accent: #1a73e8; --accent-dim: #d0e3ff;
-      --header-bg-1: #1a1a2e; --header-bg-2: #2d3561;
-      --toolbar-bg: #ffffff; --toolbar-border: #e8eaed; --toolbar-shadow: rgba(0,0,0,0.06);
-      --tag-btn-bg: #f1f3f4; --tag-btn-color: #555; --tag-btn-hover-bg: #e8eaed;
-      --tag-btn-active-bg: #1a1a2e; --tag-btn-active-color: #fff;
-      --card-bg: #ffffff; --card-border: #e8eaed; --card-shadow: rgba(0,0,0,0.05);
-      --card-hover-shadow: rgba(0,0,0,0.1);
-      --card-type-color: #999; --card-title-color: #1a1a2e; --card-desc-color: #666;
-      --open-link-bg: #e8f0fe; --open-link-color: #1a73e8; --open-link-hover-bg: #d0e3ff;
-      --star-opacity: 0.3;
-      --footer-bg: transparent; --footer-border: #e8eaed; --footer-color: #ccc;
-      --footer-link-color: #1a73e8;
-      --sort-btn-bg: #f1f3f4; --sort-btn-color: #555;
-      --results-meta-color: #999;
-      --empty-color: #999;
-      --index-card-bg: #f8f9fa; --index-card-border: #dadce0;
-      --index-card-hover-bg: #f0f4ff; --index-card-hover-border: #1a73e8;
-      --brief-card-bg: #ffffff; --brief-card-border: #e8eaed;
-      --brief-card-hover-shadow: rgba(0,0,0,0.1);
-      --brief-type-color: #999; --brief-date-color: #1a1a2e;
-      --brief-mtg-color: #666; --brief-empty-color: #bbb;
-      --brief-footer-tag-bg: #fff3e0; --brief-footer-tag-color: #c2410c;
-      --cal-month-bg: #ffffff; --cal-month-border: #e8eaed;
-      --cal-month-bar-bg: #fafafa; --cal-month-bar-color: #1a1a2e; --cal-month-bar-border: #f0f0f0;
-      --cal-day-hdr-color: #999;
-      --cal-cell-date-color: #bbb;
-      --cal-today-bg: #f0f7ff; --cal-today-border: #bfdbfe; --cal-today-date-color: #1a73e8;
-      --cal-today-label-color: #1a73e8;
-      --cal-today-mtg-color: #555; --cal-today-mtg-strong: #1a73e8;
-      --cal-brief-bg: #fff7ed; --cal-brief-border: #fed7aa; --cal-brief-date-color: #c2410c;
-      --cal-brief-hover-bg: #fff3e0; --cal-brief-hover-border: #f97316;
-      --cal-brief-hover-shadow: rgba(249,115,22,0.18);
-      --cal-brief-today-bg: linear-gradient(135deg, #f0f7ff 0%, #fff7ed 100%);
-      --cal-mtg-counts-color: #888; --cal-ext-color: #7c3aed; --cal-int-color: #64748b;
-      --cal-companies-color: #c2410c; --cal-no-mtg-color: #bbb;
-      --cal-warn-bg: #fff8e8; --cal-warn-border: #f5c842; --cal-warn-color: #856404;
-      --load-more-bg: #f1f3f4; --load-more-border: #e0e0e0; --load-more-color: #555;
-      --load-more-hover-bg: #e8eaed;
-      --retag-bg: #fff; --retag-border: #e0e0e0; --retag-shadow: rgba(0,0,0,0.13);
-      --retag-option-color: #333; --retag-option-hover-bg: #f1f3f4;
-      --retag-active-bg: #e8f0fe; --retag-active-color: #1a73e8;
-      --retag-reset-color: #888; --retag-reset-border: #eee;
-      --retag-reset-hover-bg: #fff3e0; --retag-reset-hover-color: #c2410c;
-      --tag-morning-bg: #fff3e0; --tag-morning-color: #c2410c;
-      --tag-accelerator-bg: #e8f0fe; --tag-accelerator-color: #1558d6;
-      --tag-serbia-bg: #f3e8ff; --tag-serbia-color: #6b21a8;
-      --tag-artifacts-bg: #e6f4ea; --tag-artifacts-color: #15803d;
-      --tag-research-bg: #ecfeff; --tag-research-color: #0e7490;
-      --toggle-icon: "🌙"; --toggle-bg: #e2e4ea;
-    }
+/* Reports Hub — Canonical Stylesheet (dark theme)
+   Source of truth: ~/Claude/_system/skills/reports-hub/reports-hub.css
+   Last updated: 2026-04-11
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+   Accessibility: "Maximum" values applied
+   Reference: _system/skills/accessibility-style-guide/SKILL.md
 
-    .header { background: linear-gradient(135deg, var(--header-bg-1) 0%, var(--header-bg-2) 100%); color: white; padding: 40px 48px 36px; position: relative; }
-    .header-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px; }
-    .header h1 { font-size: 30px; font-weight: 700; margin-bottom: 4px; }
-    .header-sub { font-size: 14px; opacity: 0.6; }
+   IMPORTANT: When rendering the reports hub HTML, use this file as the CSS source.
+   Read this file and embed its contents in the <style> block verbatim.
+   Do NOT write CSS from scratch or copy from previous HTML outputs.
+*/
 
-    .theme-toggle { position: absolute; top: 40px; right: 48px; background: var(--toggle-bg); border: 1px solid var(--border); border-radius: 8px; width: 38px; height: 38px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-    .theme-toggle:hover { border-color: var(--accent); }
-    .theme-toggle::after { content: var(--toggle-icon); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .toolbar { background: var(--toolbar-bg); border-bottom: 1px solid var(--toolbar-border); padding: 0 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px var(--toolbar-shadow); transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; }
-    .tag-filters { display: flex; align-items: center; gap: 6px; padding: 14px 0; flex-wrap: wrap; }
-    .tag-btn { background: var(--tag-btn-bg); border: 1.5px solid transparent; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: var(--tag-btn-color); cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap; }
-    .tag-btn:hover { background: var(--tag-btn-hover-bg); color: var(--text); }
-    .tag-btn.active { background: var(--tag-btn-active-bg); color: var(--tag-btn-active-color); border-color: var(--tag-btn-active-bg); }
-    .tag-btn.active.tag-star { background: #f59e0b; border-color: #f59e0b; }
-    .tag-btn.active.tag-morning { background: #f97316; border-color: #f97316; }
-    .tag-btn.active.tag-accelerator { background: #1a73e8; border-color: #1a73e8; }
-    .tag-btn.active.tag-serbia { background: #7b1fa2; border-color: #7b1fa2; }
-    .tag-btn.active.tag-artifacts { background: #34a853; border-color: #34a853; }
-    .tag-btn.active.tag-research  { background: #0891b2; border-color: #0891b2; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #141828; color: #e8eaef; min-height: 100vh;
+  font-size: 18px; line-height: 1.75; font-weight: 480;
+}
 
-    .sort-controls { display: flex; align-items: center; gap: 8px; padding: 14px 0; }
-    .sort-label { font-size: 12px; color: var(--muted); font-weight: 500; }
-    .sort-btn { background: var(--sort-btn-bg); border: 1.5px solid transparent; border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--sort-btn-color); cursor: pointer; transition: all 0.15s; }
-    .sort-btn:hover { background: var(--tag-btn-hover-bg); }
-    .sort-btn.active { background: var(--tag-btn-active-bg); color: var(--tag-btn-active-color); border-color: var(--tag-btn-active-bg); }
+/* ═══════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════ */
 
-    .brief-preview { max-width: 1100px; margin: 0 auto; padding: 28px 24px 0; }
-    .brief-preview-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-    .brief-preview-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .brief-card { background: var(--brief-card-bg); border: 1px solid var(--brief-card-border); border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; box-shadow: 0 1px 3px var(--card-shadow); transition: box-shadow 0.15s, transform 0.15s; }
-    .brief-card:hover { box-shadow: 0 4px 16px var(--brief-card-hover-shadow); transform: translateY(-2px); }
-    .brief-card-accent { height: 4px; background: linear-gradient(90deg, #f97316, #fb923c); }
-    .brief-card-body { padding: 16px 18px 12px; flex: 1; }
-    .brief-card-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--brief-type-color); margin-bottom: 5px; }
-    .brief-card-date { font-size: 15px; font-weight: 700; color: var(--brief-date-color); margin-bottom: 6px; line-height: 1.35; }
-    .brief-card-mtg { font-size: 12px; color: var(--brief-mtg-color); line-height: 1.55; margin-bottom: 4px; }
-    .brief-card-mtg .ext { color: #7c3aed; font-weight: 600; }
-    .brief-card-mtg .int { color: #64748b; }
-    .brief-card-cos { font-size: 12px; color: var(--brief-mtg-color); line-height: 1.55; }
-    .brief-card-empty { font-size: 12px; color: var(--brief-empty-color); font-style: italic; }
-    .brief-card-footer { padding: 10px 18px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .brief-card-footer .card-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; background: var(--tag-morning-bg); color: var(--tag-morning-color); }
+.header {
+  background: #1c2042; border-bottom: 1px solid #2a2d50;
+  padding: 16px 24px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.header-title { font-size: 22px; font-weight: 700; color: #f4f5fa; }
+.header-sub { font-size: 14px; color: #b8bcd0; margin-top: 2px; }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
-    .results-meta { font-size: 12px; color: var(--results-meta-color); margin-bottom: 16px; font-weight: 500; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+/* ═══════════════════════════════════════
+   TOOLBAR — Tag Filters + Sort
+   ═══════════════════════════════════════ */
 
-    .report-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px var(--card-shadow); display: flex; flex-direction: column; transition: box-shadow 0.15s, transform 0.15s; position: relative; cursor: pointer; }
-    .report-card:hover { box-shadow: 0 4px 16px var(--card-hover-shadow); transform: translateY(-2px); }
-    .report-card.hidden { display: none; }
+.toolbar {
+  background: #1c2042; border-bottom: 1px solid #2a2d50;
+  padding: 0 24px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  position: sticky; top: 76px; z-index: 99;
+}
+.tag-filters {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 0; flex-wrap: wrap;
+}
+.tag-btn {
+  background: #1c2042; border: 2px solid #2a2d50; border-radius: 10px;
+  padding: 12px 20px; font-size: 16px; font-weight: 600; color: #b8bcd0;
+  cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap;
+  min-height: 52px; display: inline-flex; align-items: center;
+}
+.tag-btn:hover { background: #252a4a; color: #e8eaef; }
+.tag-btn.active { background: #6366f1; color: #fff; border-color: #6366f1; font-weight: 700; }
+.tag-btn.active.tag-exec { background: #6366f1; border-color: #6366f1; }
+.tag-btn.active.tag-star { background: #f59e0b; border-color: #f59e0b; color: #000; }
+.tag-btn.active.tag-morning { background: #f97316; border-color: #f97316; }
+.tag-btn.active.tag-accelerator { background: #3b82f6; border-color: #3b82f6; }
+.tag-btn.active.tag-serbia { background: #a855f7; border-color: #a855f7; }
+.tag-btn.active.tag-artifacts { background: #22c55e; border-color: #22c55e; color: #000; }
+.tag-btn.active.tag-research { background: #06b6d4; border-color: #06b6d4; color: #000; }
+.tag-btn.active.tag-tags { background: #64748b; border-color: #64748b; }
 
-    .card-accent { height: 4px; flex-shrink: 0; }
-    .accent-morning { background: linear-gradient(90deg, #f97316, #fb923c); }
-    .accent-accelerator { background: linear-gradient(90deg, #1a73e8, #4285f4); }
-    .accent-serbia { background: linear-gradient(90deg, #7b1fa2, #9c27b0); }
-    .accent-artifacts { background: linear-gradient(90deg, #34a853, #4caf50); }
-    .accent-research  { background: linear-gradient(90deg, #0891b2, #06b6d4); }
+.sort-controls { display: flex; align-items: center; gap: 8px; padding: 12px 0; }
+.sort-label { font-size: 16px; color: #b8bcd0; font-weight: 500; }
+.sort-btn {
+  background: #1c2042; border: 2px solid #2a2d50; border-radius: 10px;
+  padding: 12px 20px; font-size: 16px; font-weight: 600; color: #b8bcd0;
+  cursor: pointer; transition: all 0.15s; min-height: 52px;
+  display: inline-flex; align-items: center;
+}
+.sort-btn:hover { background: #252a4a; }
+.sort-btn.active { background: #6366f1; color: #fff; border-color: #6366f1; font-weight: 700; }
 
-    .card-body { padding: 16px 18px 12px; flex: 1; }
-    .card-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--card-type-color); margin-bottom: 5px; }
-    .card-title { font-size: 15px; font-weight: 700; color: var(--card-title-color); margin-bottom: 6px; line-height: 1.35; }
-    .card-desc { font-size: 12px; color: var(--card-desc-color); line-height: 1.55; }
+/* ═══════════════════════════════════════
+   MAIN GRID
+   ═══════════════════════════════════════ */
 
-    .card-footer { padding: 10px 18px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
-    .card-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; }
-    .card-tag-morning { background: var(--tag-morning-bg); color: var(--tag-morning-color); }
-    .card-tag-accelerator { background: var(--tag-accelerator-bg); color: var(--tag-accelerator-color); }
-    .card-tag-serbia { background: var(--tag-serbia-bg); color: var(--tag-serbia-color); }
-    .card-tag-artifacts { background: var(--tag-artifacts-bg); color: var(--tag-artifacts-color); }
-    .card-tag-research  { background: var(--tag-research-bg); color: var(--tag-research-color); }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
+.results-meta { font-size: 14px; color: #b8bcd0; margin-bottom: 16px; font-weight: 500; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 
-    .card-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .star-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 2px; line-height: 1; opacity: var(--star-opacity); transition: opacity 0.15s, transform 0.15s; }
-    .star-btn:hover { opacity: 0.7; transform: scale(1.2); }
-    .star-btn.starred { opacity: 1; }
-    .open-link { font-size: 12px; color: var(--open-link-color); font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: var(--open-link-bg); transition: background 0.15s; white-space: nowrap; }
-    .open-link:hover { background: var(--open-link-hover-bg); }
+/* ═══════════════════════════════════════
+   REPORT CARD (sloppy-click: whole card is clickable)
+   ═══════════════════════════════════════ */
 
-    .empty-state { text-align: center; padding: 64px 24px; color: var(--empty-color); }
-    .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
-    .empty-state p { font-size: 14px; }
+.report-card {
+  background: #1c2042; border: 1px solid #2a2d50; border-radius: 12px;
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+  position: relative; cursor: pointer;
+}
+.report-card:hover { box-shadow: 0 4px 20px rgba(99,102,241,0.08); transform: translateY(-2px); border-color: #3a3f6e; }
+.report-card:focus-visible { outline: 3px solid #6366f1; outline-offset: 2px; }
+.report-card.hidden { display: none; }
 
-    .index-link-card { background: var(--index-card-bg); border: 1.5px dashed var(--index-card-border); border-radius: 12px; padding: 18px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; transition: border-color 0.15s, background 0.15s; }
-    .index-link-card:hover { background: var(--index-card-hover-bg); border-color: var(--index-card-hover-border); }
-    .index-link-card .icon { font-size: 22px; flex-shrink: 0; }
-    .index-link-card strong { font-size: 13px; font-weight: 600; display: block; }
-    .index-link-card span { font-size: 12px; color: var(--card-desc-color); }
+.card-accent { height: 3px; flex-shrink: 0; }
+.accent-morning { background: linear-gradient(90deg, #f97316, #fb923c); }
+.accent-accelerator { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.accent-serbia { background: linear-gradient(90deg, #a855f7, #c084fc); }
+.accent-artifacts { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.accent-research { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
 
-    footer { text-align: center; color: var(--footer-color); font-size: 12px; padding: 24px; border-top: 1px solid var(--footer-border); margin-top: 0; }
-    footer a { color: var(--footer-link-color); text-decoration: none; }
+.card-body { padding: 20px 20px 14px; flex: 1; }
+.card-type { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #b8bcd0; margin-bottom: 6px; }
+.card-title { font-size: 18px; font-weight: 700; color: #f4f5fa; margin-bottom: 8px; line-height: 1.4; }
+.card-desc { font-size: 16px; color: #b8bcd0; line-height: 1.6; }
 
-    .cal-full { margin: 0 auto; padding: 32px 32px 48px; display: none; }
-    .cal-full-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
-    .cal-full-title { display: flex; align-items: center; gap: 8px; }
-    .cal-full-title h2 { font-size: 24px; font-weight: 700; color: var(--text); }
-    .cal-full-link { font-size: 13px; color: #f97316; font-weight: 600; text-decoration: none; padding: 6px 16px; border-radius: 6px; background: var(--tag-morning-bg); transition: background 0.15s; }
-    .cal-full-link:hover { background: var(--tag-morning-color); opacity: 0.8; }
+.card-footer {
+  padding: 14px 20px 16px; display: flex; align-items: center;
+  justify-content: space-between; gap: 8px; border-top: 1px solid #2a2d50;
+}
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+.card-tag {
+  display: inline-flex; align-items: center;
+  font-size: 13px; font-weight: 700; padding: 6px 16px;
+  border-radius: 6px; letter-spacing: 0.3px;
+}
+.card-tag-morning { background: rgba(249,115,22,0.15); color: #fb923c; }
+.card-tag-accelerator { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.card-tag-serbia { background: rgba(168,85,247,0.15); color: #c084fc; }
+.card-tag-artifacts { background: rgba(34,197,94,0.15); color: #4ade80; }
+.card-tag-research { background: rgba(6,182,212,0.15); color: #22d3ee; }
 
-    .cal-month-block { background: var(--cal-month-bg); border: 1px solid var(--cal-month-border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 6px var(--card-shadow); margin-bottom: 28px; }
-    .cal-month-bar { padding: 18px 24px; font-size: 18px; font-weight: 700; color: var(--cal-month-bar-color); background: var(--cal-month-bar-bg); border-bottom: 1px solid var(--cal-month-bar-border); }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); padding: 16px 20px 20px; gap: 8px; }
-    .cal-day-hdr { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--cal-day-hdr-color); text-align: center; padding: 12px 0 10px; }
-    .cal-cell { position: relative; min-height: 200px; border-radius: 10px; padding: 14px 16px; font-size: 14px; font-weight: 500; color: var(--cal-cell-date-color); transition: all 0.15s; display: flex; flex-direction: column; }
-    .cal-cell.empty { min-height: 0; }
-    .cal-cell .cal-date { font-size: 22px; font-weight: 800; line-height: 1; }
-    .cal-cell.today .cal-date { color: var(--cal-today-date-color); }
-    .cal-cell.today { background: var(--cal-today-bg); border: 1.5px solid var(--cal-today-border); }
-    .cal-cell.today .cal-date { color: var(--cal-today-date-color); font-weight: 800; }
-    .cal-cell.today .cal-today-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--cal-today-label-color); margin-top: 2px; }
-    .cal-cell.today .cal-today-meetings { font-size: 12px; color: var(--cal-today-mtg-color); margin-top: 8px; line-height: 1.5; flex: 1; }
-    .cal-cell.today .cal-today-meetings strong { color: var(--cal-today-mtg-strong); font-weight: 600; }
-    .cal-cell.has-brief { background: var(--cal-brief-bg); cursor: pointer; border: 1.5px solid var(--cal-brief-border); }
-    .cal-cell.has-brief .cal-date { color: var(--cal-brief-date-color); font-weight: 800; }
-    .cal-cell.has-brief:hover { background: var(--cal-brief-hover-bg); border-color: var(--cal-brief-hover-border); box-shadow: 0 4px 12px var(--cal-brief-hover-shadow); transform: translateY(-2px); }
-    .cal-cell.has-brief.today { background: var(--cal-brief-today-bg); border: 2.5px solid var(--cal-today-border); }
-    .cal-cell.has-brief.today .cal-date { color: var(--cal-today-date-color); }
-    .cal-cell.has-brief.today .cal-today-label { color: var(--cal-today-label-color); }
-    .cal-mtg-counts { font-size: 13px; color: var(--cal-mtg-counts-color); margin-top: 8px; line-height: 1.5; }
-    .cal-mtg-counts .ext-count { color: var(--cal-ext-color); font-weight: 600; }
-    .cal-mtg-counts .int-count { color: var(--cal-int-color); }
-    .cal-companies { font-size: 12px; color: var(--cal-companies-color); font-weight: 600; margin-top: 4px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-    .cal-no-mtg { font-size: 11px; color: var(--cal-no-mtg-color); font-style: italic; margin-top: 8px; }
-    .cal-warn { font-size: 11px; color: var(--cal-warn-color); margin-top: 4px; display: flex; align-items: center; gap: 3px; background: var(--cal-warn-bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--cal-warn-border); }
-    .cal-warn .warn-icon { flex-shrink: 0; }
-    .cal-cell-body { flex: 1; }
-    .cal-open { margin-top: auto; padding-top: 8px; display: flex; justify-content: flex-end; }
-    .cal-open .open-link { font-size: 12px; color: var(--open-link-color); font-weight: 600; text-decoration: none; padding: 4px 10px; border-radius: 6px; background: var(--open-link-bg); transition: background 0.15s; white-space: nowrap; }
-    .cal-open .open-link:hover { background: var(--open-link-hover-bg); }
+.card-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.star-btn {
+  background: none; border: none; cursor: pointer; font-size: 20px;
+  padding: 0; line-height: 1; opacity: 0.25; transition: opacity 0.15s, transform 0.15s;
+  min-width: 52px; min-height: 52px; display: inline-flex;
+  align-items: center; justify-content: center;
+}
+.star-btn:hover { opacity: 0.7; transform: scale(1.15); }
+.star-btn.starred { opacity: 1; }
 
-    .load-more-wrap { text-align: center; padding: 8px 0 16px; }
-    .load-more-btn { background: var(--load-more-bg); border: 1.5px solid var(--load-more-border); border-radius: 10px; padding: 10px 28px; font-size: 13px; font-weight: 600; color: var(--load-more-color); cursor: pointer; transition: all 0.15s; }
-    .load-more-btn:hover { background: var(--load-more-hover-bg); color: var(--text); }
+/* ═══════════════════════════════════════
+   STARRED LIST VIEW (compact rows)
+   ═══════════════════════════════════════ */
 
-    .retag-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding: 2px 3px; line-height: 1; opacity: 0; transition: opacity 0.15s; }
-    .report-card:hover .retag-btn { opacity: 0.4; }
-    .retag-btn:hover { opacity: 1 !important; }
-    .retag-popover { position: absolute; z-index: 999; background: var(--retag-bg); border: 1px solid var(--retag-border); border-radius: 10px; box-shadow: 0 8px 24px var(--retag-shadow); padding: 6px; min-width: 190px; }
-    .retag-option { display: block; width: 100%; text-align: left; background: none; border: none; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--retag-option-color); transition: background 0.1s; }
-    .retag-option:hover { background: var(--retag-option-hover-bg); }
-    .retag-option.active { background: var(--retag-active-bg); color: var(--retag-active-color); font-weight: 700; }
-    .retag-option.retag-reset { color: var(--retag-reset-color); font-size: 12px; border-top: 1px solid var(--retag-reset-border); margin-top: 4px; padding-top: 10px; }
-    .retag-option.retag-reset:hover { background: var(--retag-reset-hover-bg); color: var(--retag-reset-hover-color); }
-  </style>
+.starred-list { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; display: flex; flex-direction: column; gap: 4px; }
+.starred-row {
+  display: flex; align-items: center; gap: 12px;
+  background: #1c2042; border: 1px solid #2a2d50; border-radius: 10px;
+  padding: 12px 20px; cursor: pointer; transition: all 0.15s;
+  min-height: 52px;
+}
+.starred-row:hover { border-color: #3a3f6e; background: #252a4a; }
+.starred-row:focus-visible { outline: 3px solid #6366f1; outline-offset: 2px; }
+.starred-title {
+  flex: 1; font-size: 16px; font-weight: 600; color: #f4f5fa;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.starred-date { font-size: 14px; color: #b8bcd0; white-space: nowrap; }
+.starred-tag { flex-shrink: 0; }
+.starred-empty { text-align: center; padding: 64px 24px; color: #b8bcd0; font-size: 18px; }
+
+/* ═══════════════════════════════════════
+   EXEC SUMMARY VIEW
+   ═══════════════════════════════════════ */
+
+.exec-summary { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
+.exec-section-title {
+  font-size: 14px; font-weight: 700; color: #b8bcd0; text-transform: uppercase;
+  letter-spacing: 0.8px; margin-bottom: 12px; margin-top: 24px;
+}
+.exec-section-title:first-child { margin-top: 0; }
+
+.exec-kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }
+.exec-kpi {
+  background: #1c2042; border: 1px solid #2a2d50; border-radius: 12px;
+  padding: 20px; text-align: center;
+}
+.exec-kpi-value { font-size: 32px; font-weight: 700; color: #f4f5fa; }
+.exec-kpi-label { font-size: 14px; color: #b8bcd0; margin-top: 4px; }
+.exec-kpi-trend { font-size: 14px; margin-top: 4px; }
+.exec-kpi-trend.up { color: #4ade80; }
+.exec-kpi-trend.down { color: #f87171; }
+.exec-kpi-trend.flat { color: #b8bcd0; }
+
+.exec-flags { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.exec-flag {
+  padding: 14px 20px; border-radius: 10px; font-size: 16px; font-weight: 600;
+  min-height: 52px; display: flex; align-items: center;
+}
+.exec-flag.warn { background: rgba(245,158,11,0.12); color: #fbbf24; border-left: 4px solid #f59e0b; }
+.exec-flag.info { background: rgba(99,102,241,0.12); color: #a8c0ff; border-left: 4px solid #6366f1; }
+.exec-flag.critical { background: rgba(248,113,113,0.12); color: #f87171; border-left: 4px solid #ef4444; }
+
+.exec-initiatives { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.exec-initiative {
+  background: #1c2042; border: 1px solid #2a2d50; border-radius: 10px;
+  padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+  min-height: 52px;
+}
+.exec-initiative-title { flex: 1; font-size: 16px; font-weight: 600; color: #f4f5fa; }
+.exec-initiative-detail { font-size: 14px; color: #b8bcd0; flex: 2; }
+.exec-status {
+  font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 6px;
+  text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+}
+.exec-status.on-track { background: rgba(34,197,94,0.15); color: #4ade80; }
+.exec-status.at-risk { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.exec-status.blocked { background: rgba(248,113,113,0.15); color: #f87171; }
+
+.exec-empty { text-align: center; padding: 64px 24px; color: #b8bcd0; font-size: 18px; }
+
+/* ═══════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════ */
+
+.empty-state { text-align: center; padding: 64px 24px; color: #b8bcd0; }
+.empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state p { font-size: 18px; }
+
+/* ═══════════════════════════════════════
+   MORNING BRIEFS SECTION
+   ═══════════════════════════════════════ */
+
+.mb-section { max-width: 1100px; margin: 0 auto; padding: 32px 24px 0; }
+.mb-section h3 { font-size: 18px; font-weight: 700; color: #f4f5fa; margin-bottom: 16px; }
+
+.mb-recent { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.mb-day-card {
+  background: #1c2042; border: 1px solid #2a2d50; border-radius: 10px;
+  padding: 16px; text-decoration: none; color: inherit; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 8px;
+  min-height: 52px;
+}
+.mb-day-card:hover { border-color: #6366f1; box-shadow: 0 4px 16px rgba(99,102,241,0.1); transform: translateY(-1px); }
+.mb-day-card.today { border-color: #6366f1; box-shadow: 0 0 0 1px rgba(99,102,241,0.3); }
+
+.mb-day-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #b8bcd0; }
+.mb-day-label .today-badge { background: #6366f1; color: #fff; padding: 2px 8px; border-radius: 99px; font-size: 12px; margin-left: 6px; letter-spacing: 0; text-transform: none; font-weight: 700; }
+.mb-day-date { font-size: 22px; font-weight: 700; color: #f4f5fa; }
+.mb-day-stats { display: flex; gap: 12px; font-size: 14px; color: #b8bcd0; }
+.mb-day-stats .stat-int { color: #818cf8; }
+.mb-day-stats .stat-ext { color: #fb923c; }
+
+/* Calendar grid */
+.mb-cal-wrap { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #2a2d50; }
+.mb-cal-month { margin-bottom: 20px; }
+.mb-cal-month-label { font-size: 14px; font-weight: 700; color: #b8bcd0; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.mb-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.mb-cal-hdr { font-size: 13px; font-weight: 700; color: #b8bcd0; text-align: center; padding: 4px 0; }
+
+.mb-cal-cell {
+  border-radius: 8px; padding: 8px 4px; display: flex; flex-direction: column;
+  align-items: center; gap: 4px; font-size: 14px; font-weight: 500;
+  color: #6b7280; background: #141828; border: 1px solid transparent;
+  text-decoration: none; transition: all 0.15s;
+  min-width: 52px; min-height: 52px; justify-content: center;
+}
+.mb-cal-cell.empty { background: transparent; min-height: 0; justify-content: flex-start; }
+.mb-cal-cell.has-brief { background: #1c2042; border-color: #2a2d50; color: #e8eaef; cursor: pointer; text-decoration: none; }
+.mb-cal-cell.has-brief:hover { border-color: #6366f1; background: #252a4a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99,102,241,0.1); }
+.mb-cal-cell.is-today { border-color: #6366f1; box-shadow: 0 0 0 1px #6366f1; }
+.mb-cal-cell .cell-day { font-size: 14px; font-weight: 700; line-height: 1; }
+.mb-cal-cell .cell-count { font-size: 12px; color: #b8bcd0; }
+.mb-cal-cell .cell-dots { display: flex; gap: 3px; }
+.mb-cal-cell .cdot { width: 7px; height: 7px; border-radius: 50%; }
+.cdot-int { background: #6366f1; }
+.cdot-ext { background: #f97316; }
+
+.mb-cal-legend { display: flex; gap: 16px; margin-top: 8px; }
+.mb-cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #b8bcd0; }
+.mb-cal-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.cell-open {
+  display: inline-block; font-size: 13px; font-weight: 700; color: #a8c0ff;
+  text-decoration: none; padding: 4px 10px; border-radius: 6px;
+  background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.2);
+  transition: all 0.15s; white-space: nowrap;
+  position: absolute; bottom: 6px; right: 6px;
+}
+.cell-open:hover { background: rgba(99,102,241,0.25); border-color: rgba(99,102,241,0.4); }
+
+.mb-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.mb-breadcrumb a {
+  font-size: 16px; color: #a8c0ff; text-decoration: none; font-weight: 700;
+  display: flex; align-items: center; gap: 4px;
+  min-height: 52px;
+}
+.mb-breadcrumb a:hover { color: #c4d6ff; }
+
+/* ═══════════════════════════════════════
+   RETAG POPOVER
+   ═══════════════════════════════════════ */
+
+.retag-btn {
+  background: none; border: none; cursor: pointer; font-size: 16px;
+  padding: 0; line-height: 1; opacity: 0; transition: opacity 0.15s;
+  min-width: 52px; min-height: 52px; display: inline-flex;
+  align-items: center; justify-content: center;
+}
+.report-card:hover .retag-btn { opacity: 0.4; }
+.retag-btn:hover { opacity: 1 !important; }
+
+.retag-popover {
+  position: absolute; z-index: 999; background: #1c2042;
+  border: 1px solid #2a2d50; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4); padding: 6px; min-width: 220px;
+}
+.retag-option {
+  display: block; width: 100%; text-align: left; background: none; border: none;
+  padding: 14px 16px; border-radius: 8px; font-size: 16px; font-weight: 500;
+  cursor: pointer; color: #e8eaef; transition: background 0.1s;
+  min-height: 52px;
+}
+.retag-option:hover { background: #252a4a; }
+.retag-option.active { background: rgba(99,102,241,0.15); color: #a8c0ff; font-weight: 700; }
+.retag-option.retag-reset {
+  color: #b8bcd0; font-size: 14px; border-top: 1px solid #2a2d50;
+  margin-top: 4px; padding-top: 14px;
+}
+.retag-option.retag-reset:hover { background: rgba(249,115,22,0.1); color: #fb923c; }
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+
+/* ═══════════════════════════════════════
+   TAG MEMORY CARDS (Tags tab)
+   ═══════════════════════════════════════ */
+
+.tag-memory-card {
+  background: #1e2140; border: 1px solid #2a2d50; border-radius: 12px;
+  padding: 20px; margin-bottom: 16px;
+}
+.tag-memory-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px;
+}
+.tag-memory-label { font-size: 20px; font-weight: 700; color: #e8eaef; }
+.tag-memory-count { font-size: 14px; color: #6b7280; }
+.tag-memory-summary {
+  font-size: 17px; line-height: 1.75; color: #b8bcd0; margin: 0 0 14px;
+}
+.tag-memory-entries {
+  border-top: 1px solid #2a2d50; padding-top: 12px; margin-bottom: 14px;
+}
+.tag-memory-entry {
+  font-size: 17px; line-height: 1.75; color: #c8cad8; padding: 6px 0;
+  border-bottom: 1px solid rgba(42, 45, 80, 0.5);
+}
+.tag-memory-date {
+  color: #6b7280; font-size: 14px; font-weight: 600; margin-right: 8px;
+}
+.tag-memory-empty {
+  color: #6b7280; font-size: 16px; font-style: italic; padding: 8px 0;
+}
+.tag-memory-input { display: flex; gap: 10px; align-items: flex-start; }
+.tag-memory-textarea {
+  flex: 1; background: #141828; color: #e8eaef; border: 1px solid #2a2d50;
+  border-radius: 8px; padding: 10px 12px; font-size: 17px; line-height: 1.6;
+  font-family: inherit; resize: vertical; min-height: 52px;
+}
+.tag-memory-textarea:focus {
+  outline: 3px solid #6366f1; outline-offset: 2px; border-color: #6366f1;
+}
+.tag-memory-save {
+  background: #6366f1; color: #fff; border: none; border-radius: 8px;
+  padding: 10px 18px; font-size: 16px; font-weight: 700; cursor: pointer;
+  min-height: 52px; min-width: 52px; white-space: nowrap;
+}
+.tag-memory-save:hover { background: #818cf8; }
+.tag-memory-save:focus { outline: 3px solid #6366f1; outline-offset: 2px; }
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+
+footer {
+  text-align: center; color: #6b7280; font-size: 13px;
+  padding: 24px; border-top: 1px solid #2a2d50; margin-top: 0;
+}
+footer a { color: #a8c0ff; text-decoration: none; }
+footer a:hover { color: #c4d6ff; }
+
+</style>
 </head>
-<body data-theme="dark">
+<body>
 
 <div class="header">
-  <div class="header-eyebrow">Reports Hub</div>
-  <h1>Jason Schklar</h1>
-  <div class="header-sub">All reports, briefs, and artifacts — organized by program</div>
-  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></button>
+  <div class="header-left">
+    <div class="header-logo">📊</div>
+    <div>
+      <div class="header-title">Jason Schklar</div>
+      <div class="header-sub">All reports, briefs, and artifacts — organized by program</div>
+    </div>
+  </div>
 </div>
 
 <div class="toolbar">
   <div class="tag-filters" id="tagFilters">
-    <!-- JS renders buttons from categories JSON -->
+    <button class="tag-btn tag-exec active" data-tag="all">📋 Overview</button>
+    <button class="tag-btn tag-star" data-tag="starred">⭐ Starred</button>
+    <button class="tag-btn tag-morning" data-tag="morning">☀️ Briefs</button>
+    <button class="tag-btn tag-accelerator" data-tag="accelerator">🎯 GPA</button>
+    <button class="tag-btn tag-serbia" data-tag="serbia">🇷🇸 SRS</button>
+    <button class="tag-btn tag-artifacts" data-tag="artifacts">📦 Artifacts</button>
+    <button class="tag-btn tag-research" data-tag="research">🔬 Research</button>
+    <button class="tag-btn tag-tags" data-tag="tags">🏷️ Tags</button>
   </div>
   <div class="sort-controls" id="sortControls">
     <span class="sort-label">Sort:</span>
@@ -283,25 +422,23 @@
   </div>
 </div>
 
-<div class="brief-preview" id="briefPreview">
-  <div class="brief-preview-label">☀️ Morning Briefs</div>
-  <div class="brief-preview-row" id="briefPreviewRow"></div>
+<!-- Exec Summary view (default tab) -->
+<div class="exec-summary" id="execSummaryView"></div>
+
+<!-- Starred list view -->
+<div id="starredList" class="starred-list" style="display:none;"></div>
+
+<!-- Tags memory view -->
+<div id="tagsView" style="display:none;"></div>
+
+<!-- Morning Briefs section (calendar + recent cards) -->
+<div class="mb-section" id="mbSection" style="display:none;">
+  <h3>☀️ Morning Briefs</h3>
+  <div class="mb-recent" id="mbRecent"></div>
+  <div class="mb-cal-wrap" id="mbCalWrap"></div>
 </div>
 
-<div class="cal-full" id="calFull">
-  <div class="cal-full-header">
-    <div class="cal-full-title">
-      <span style="font-size:22px">☀️</span>
-      <h2>Morning Briefs</h2>
-    </div>
-    <a class="cal-full-link" id="calFullLink" href="#" target="_blank">View all on GitHub →</a>
-  </div>
-  <div id="calMonths"></div>
-  <div class="load-more-wrap">
-    <button class="load-more-btn" id="loadMoreBtn">← Previous months</button>
-  </div>
-</div>
-
+<!-- Card grid (for category tabs) -->
 <div class="container" id="cardContainer">
   <div class="results-meta" id="resultsMeta"></div>
   <div class="cards-grid" id="cardsGrid"></div>
@@ -312,395 +449,772 @@
 </div>
 
 <footer>
-  Jason Schklar · <a href="https://github.com/jackalshorns" target="_blank">github.com/jackalshorns</a> · Auto-maintained by Cowork
+  Jason Schklar · <a href="https://uxisfine.com" target="_blank">uxisfine.com</a> · Auto-maintained by Claude Code
 </footer>
 
 <script>
-let hubData = null;
-let currentFilter = 'all';
-let currentSort = 'newest';
-let starred = {};
-let retags = {};
-let calendarMonthsLoaded = 3;
+/* Reports Hub — Canonical JavaScript (dark theme)
+   Source of truth: ~/Claude/_system/skills/reports-hub/reports-hub.js
+   Last updated: 2026-04-11
 
-function init(data) {
-  hubData = data;
-  loadPersistence();
-  renderToolbar();
-  renderCards(data.cards, data.categories);
-  renderBriefPreview(data.morningBriefs, data.meta);
-  setupEventListeners();
-  // Set calendar link
-  const calLink = document.getElementById('calFullLink');
-  if (calLink && data.meta.briefsIndexUrl) calLink.href = data.meta.briefsIndexUrl;
+   IMPORTANT: When rendering the reports hub HTML, use this file as the JS source.
+   Read this file and embed its contents in the <script> block VERBATIM.
+   Do NOT write JavaScript from scratch or copy from previous HTML outputs,
+   as they will have drifted from this canonical version.
+
+   No config tokens needed — hub JS is fully static.
+*/
+
+// ── Global state ──────────────────────────────────────────────────────────
+var HUB_DATA = null;
+var BRIEF_DATA = {};
+var activeTag = 'all';
+var sortOrder = 'newest';
+var activePopover = null;
+
+// ── Storage helpers ────────────────────────────────────────────────────────
+function getStarred() {
+  try { return JSON.parse(localStorage.getItem('hub_starred') || '[]'); } catch(e) { return []; }
+}
+function setStarred(arr) {
+  try { localStorage.setItem('hub_starred', JSON.stringify(arr)); } catch(e) {}
+}
+function getStarredId(entry) {
+  return (typeof entry === 'string') ? entry : entry.id;
+}
+function isStarred(itemId) {
+  var starred = getStarred();
+  for (var i = 0; i < starred.length; i++) {
+    if (getStarredId(starred[i]) === itemId) return true;
+  }
+  return false;
+}
+function toggleStar(itemId, meta) {
+  var starred = getStarred();
+  var idx = -1;
+  for (var i = 0; i < starred.length; i++) {
+    if (getStarredId(starred[i]) === itemId) { idx = i; break; }
+  }
+  if (idx !== -1) {
+    starred.splice(idx, 1);
+  } else {
+    starred.push(meta || itemId);
+  }
+  setStarred(starred);
+}
+function getSavedTags() {
+  try { return JSON.parse(localStorage.getItem('hub_retag') || '{}'); } catch(e) { return {}; }
+}
+function setSavedTag(id, tag) {
+  var t = getSavedTags();
+  if (tag === null) delete t[id]; else t[id] = tag;
+  try { localStorage.setItem('hub_retag', JSON.stringify(t)); } catch(e) {}
 }
 
-function loadPersistence() {
-  const savedStarred = localStorage.getItem('hub-starred');
-  const savedRetags = localStorage.getItem('hub-retags');
-  const savedTheme = localStorage.getItem('hub-theme');
-
-  if (savedStarred) starred = JSON.parse(savedStarred);
-  if (savedRetags) retags = JSON.parse(savedRetags);
-  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+// ── Tag Memory (per-tag notes, localStorage) ───────────────────────────
+function getTagMemory(tag) {
+  try { return JSON.parse(localStorage.getItem('hub_tag_memory_' + tag) || '[]'); } catch(e) { return []; }
+}
+function addTagMemoryEntry(tag, text) {
+  var entries = getTagMemory(tag);
+  entries.push({ date: new Date().toISOString().slice(0, 10), text: text });
+  try { localStorage.setItem('hub_tag_memory_' + tag, JSON.stringify(entries)); } catch(e) {}
 }
 
-function savePersistence() {
-  localStorage.setItem('hub-starred', JSON.stringify(starred));
-  localStorage.setItem('hub-retags', JSON.stringify(retags));
-}
+// ── Tag definitions ─────────────────────────────────────────────────────
+var TAG_DEFS = {
+  morning:     { label: '\u2600\uFE0F Morning Briefs',   cls: 'morning'     },
+  accelerator: { label: '\uD83C\uDFAF GPA',              cls: 'accelerator' },
+  serbia:      { label: '\uD83C\uDDF7\uD83C\uDDF8 SRS',  cls: 'serbia'      },
+  artifacts:   { label: '\uD83D\uDCE6 Artifacts',        cls: 'artifacts'   },
+  research:    { label: '\uD83D\uDD2C Research',          cls: 'research'    }
+};
 
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  const newTheme = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('hub-theme', newTheme);
-}
+// ── Render cards from hub-data.json (sloppy click — whole card opens) ─────
+function renderCards(cards) {
+  var grid = document.getElementById('cardsGrid');
+  if (!grid || !cards || !cards.length) return;
 
-function renderToolbar() {
-  const tagFilters = document.getElementById('tagFilters');
-  tagFilters.innerHTML = '';
+  cards.forEach(function(card) {
+    var def = TAG_DEFS[card.tag] || TAG_DEFS.artifacts;
+    var el = document.createElement('div');
+    el.className = 'report-card';
+    el.dataset.tags = card.tag;
+    el.dataset.date = card.date;
+    el.dataset.url = card.url;
+    el.setAttribute('role', 'link');
+    el.setAttribute('tabindex', '0');
 
-  const allBtn = document.createElement('button');
-  allBtn.className = 'tag-btn active';
-  allBtn.textContent = 'All';
-  allBtn.onclick = () => setFilter('all');
-  tagFilters.appendChild(allBtn);
+    el.innerHTML =
+      '<div class="card-accent accent-' + def.cls + '"></div>' +
+      '<div class="card-body">' +
+        '<div class="card-type">' + escapeHtml(card.type) + '</div>' +
+        '<div class="card-title">' + escapeHtml(card.title) + '</div>' +
+        '<div class="card-desc">' + escapeHtml(card.desc) + '</div>' +
+      '</div>' +
+      '<div class="card-footer">' +
+        '<div class="card-tags"><span class="card-tag card-tag-' + def.cls + '">' + def.label + '</span></div>' +
+        '<div class="card-actions">' +
+          '<button class="star-btn" data-id="' + escapeHtml(card.id) + '" title="Star this">\u2B50</button>' +
+        '</div>' +
+      '</div>';
 
-  const starBtn = document.createElement('button');
-  starBtn.className = 'tag-btn tag-star';
-  starBtn.textContent = '⭐ Starred';
-  starBtn.onclick = () => setFilter('starred');
-  tagFilters.appendChild(starBtn);
+    // Sloppy click: whole card opens URL
+    el.addEventListener('click', function() {
+      window.location.href = card.url;
+    });
+    // Keyboard: Enter/Space also opens
+    el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.href = card.url;
+      }
+    });
 
-  Object.entries(hubData.categories).forEach(([key, cat]) => {
-    const btn = document.createElement('button');
-    btn.className = `tag-btn tag-${key}`;
-    btn.textContent = cat.label;
-    btn.onclick = () => setFilter(key);
-    tagFilters.appendChild(btn);
+    grid.appendChild(el);
   });
 }
 
-function setFilter(filter) {
-  currentFilter = filter;
-  document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
-
-  if (filter === 'all') {
-    document.querySelector('.tag-btn').classList.add('active');
-  } else if (filter === 'starred') {
-    document.querySelector('.tag-star').classList.add('active');
-  } else {
-    const btn = document.querySelector(`.tag-${filter}`);
-    if (btn) btn.classList.add('active');
-  }
-
-  // Check if this category has a custom view (e.g. calendar for morning briefs)
-  const cat = hubData.categories[filter];
-  const isCalendarView = cat && cat.view === 'calendar';
-  const isAll = filter === 'all';
-
-  document.getElementById('briefPreview').style.display = isAll ? '' : 'none';
-  document.getElementById('calFull').style.display = isCalendarView ? 'block' : 'none';
-  document.getElementById('cardContainer').style.display = isCalendarView ? 'none' : '';
-  document.getElementById('sortControls').style.display = isCalendarView ? 'none' : '';
-
-  if (isCalendarView) {
-    renderCalendar();
-  } else {
-    renderCards(hubData.cards, hubData.categories);
-  }
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function renderCards(cards, categories) {
-  let filtered = cards;
+// ── Retag logic ────────────────────────────────────────────────────────────
+function applyRetag(card, tag) {
+  var def = TAG_DEFS[tag];
+  if (!def) return;
+  card.dataset.tags = tag;
+  var accent = card.querySelector('.card-accent');
+  if (accent) accent.className = 'card-accent accent-' + def.cls;
+  var pill = card.querySelector('.card-tag');
+  if (pill) { pill.className = 'card-tag card-tag-' + def.cls; pill.textContent = def.label; }
+}
 
-  if (currentFilter === 'starred') {
-    filtered = cards.filter(card => starred[card.id]);
-  } else if (currentFilter !== 'all') {
-    filtered = cards.filter(card => {
-      const actualTag = retags[card.id] || card.tag;
-      return actualTag === currentFilter;
+function showRetagPopover(card, btn, cardId) {
+  if (activePopover) { activePopover.remove(); activePopover = null; }
+
+  var currentTag = card.dataset.tags;
+  var savedTags  = getSavedTags();
+  var isRetagged = !!savedTags[cardId];
+
+  var pop = document.createElement('div');
+  pop.className = 'retag-popover';
+
+  Object.keys(TAG_DEFS).forEach(function(key) {
+    var def = TAG_DEFS[key];
+    var opt = document.createElement('button');
+    opt.className = 'retag-option' + (key === currentTag ? ' active' : '');
+    opt.textContent = def.label;
+    opt.addEventListener('click', function(e) {
+      e.stopPropagation();
+      applyRetag(card, key);
+      setSavedTag(cardId, key);
+      pop.remove(); activePopover = null;
+      applyFilter();
     });
+    pop.appendChild(opt);
+  });
+
+  if (isRetagged) {
+    var reset = document.createElement('button');
+    reset.className = 'retag-option retag-reset';
+    reset.textContent = '\u21A9 Reset to original';
+    reset.addEventListener('click', function(e) {
+      e.stopPropagation();
+      setSavedTag(cardId, null);
+      pop.remove(); activePopover = null;
+      location.reload();
+    });
+    pop.appendChild(reset);
   }
 
-  if (currentSort === 'oldest') {
-    filtered = filtered.slice().sort((a, b) => {
-      const da = new Date(a.date), db = new Date(b.date);
-      if (da - db !== 0) return da - db;
-      return (a.time || '00:00').localeCompare(b.time || '00:00');
-    });
-  } else {
-    filtered = filtered.slice().sort((a, b) => {
-      const da = new Date(a.date), db = new Date(b.date);
-      if (db - da !== 0) return db - da;
-      return (b.time || '00:00').localeCompare(a.time || '00:00');
-    });
-  }
+  document.body.appendChild(pop);
+  activePopover = pop;
 
-  const grid = document.getElementById('cardsGrid');
-  const meta = document.getElementById('resultsMeta');
-  const empty = document.getElementById('emptyState');
+  var r = btn.getBoundingClientRect();
+  var top  = r.bottom + window.scrollY + 6;
+  var left = r.left   + window.scrollX;
+  if (left + 220 > window.innerWidth - 12) left = r.right + window.scrollX - 220;
+  pop.style.top  = top  + 'px';
+  pop.style.left = left + 'px';
 
-  if (filtered.length === 0) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    meta.textContent = '';
+  setTimeout(function() {
+    document.addEventListener('click', function() {
+      if (activePopover) { activePopover.remove(); activePopover = null; }
+    }, { once: true });
+  }, 0);
+}
+
+// ── Exec Summary rendering ────────────────────────────────────────────────
+function renderExecSummary() {
+  var container = document.getElementById('execSummaryView');
+  if (!container) return;
+  container.innerHTML = '';
+
+  var exec = (HUB_DATA && HUB_DATA.execSummary) ? HUB_DATA.execSummary : {};
+  var hasKpis = exec.kpis && exec.kpis.length > 0;
+  var hasFlags = exec.flags && exec.flags.length > 0;
+  var hasInitiatives = exec.initiatives && exec.initiatives.length > 0;
+
+  if (!hasKpis && !hasFlags && !hasInitiatives) {
+    container.innerHTML = '<div class="exec-empty">Exec summary data will appear here as reports are published.</div>';
     return;
   }
 
-  empty.style.display = 'none';
-  meta.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+  // KPIs
+  if (hasKpis) {
+    var kpiTitle = document.createElement('div');
+    kpiTitle.className = 'exec-section-title';
+    kpiTitle.textContent = 'Key Metrics';
+    container.appendChild(kpiTitle);
 
-  grid.innerHTML = filtered.map(card => {
-    const actualTag = retags[card.id] || card.tag;
-    const cat = categories[actualTag];
-    const accent = `accent-${actualTag}`;
-
-    return `
-      <div class="report-card" data-id="${card.id}" data-tag="${actualTag}">
-        <div class="card-accent ${accent}"></div>
-        <div class="card-body">
-          <div class="card-type">${card.type}</div>
-          <div class="card-title">${card.title}</div>
-          <div class="card-desc">${card.desc}</div>
-        </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="card-tag card-tag-${actualTag}">${cat.label}</span>
-          </div>
-          <div class="card-actions">
-            <button class="star-btn ${starred[card.id] ? 'starred' : ''}" data-id="${card.id}" onclick="toggleStar(event)">★</button>
-            <button class="retag-btn" onclick="openRetag(event)">↻</button>
-            <a href="${card.url}" class="open-link" target="_blank">Open</a>
-          </div>
-        </div>
-        <div class="retag-popover" style="display:none;">
-          ${Object.entries(categories).map(([key, cat]) => {
-            const isActive = actualTag === key;
-            return `<button class="retag-option ${isActive ? 'active' : ''}" onclick="retag('${card.id}', '${key}')">${cat.label}</button>`;
-          }).join('')}
-          <button class="retag-option retag-reset" onclick="resetRetag('${card.id}')">Reset to original</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  document.querySelectorAll('.report-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.open-link') || e.target.closest('.star-btn') || e.target.closest('.retag-btn') || e.target.closest('.retag-popover')) return;
-      const url = card.querySelector('.open-link').href;
-      window.open(url, '_blank');
+    var kpiGrid = document.createElement('div');
+    kpiGrid.className = 'exec-kpis';
+    exec.kpis.forEach(function(kpi) {
+      var trendArrow = kpi.trend === 'up' ? '\u2191' : kpi.trend === 'down' ? '\u2193' : '\u2192';
+      var card = document.createElement('div');
+      card.className = 'exec-kpi';
+      card.innerHTML =
+        '<div class="exec-kpi-value">' + escapeHtml(String(kpi.value)) + '</div>' +
+        '<div class="exec-kpi-label">' + escapeHtml(kpi.label) + '</div>' +
+        '<div class="exec-kpi-trend ' + escapeHtml(kpi.trend || 'flat') + '">' + trendArrow + '</div>';
+      kpiGrid.appendChild(card);
     });
-  });
-}
-
-function toggleStar(event) {
-  event.stopPropagation();
-  const btn = event.target;
-  const id = btn.dataset.id;
-  starred[id] = !starred[id];
-  btn.classList.toggle('starred');
-  savePersistence();
-}
-
-function openRetag(event) {
-  event.stopPropagation();
-  const popover = event.target.parentElement.parentElement.querySelector('.retag-popover');
-  popover.style.display = popover.style.display === 'none' ? 'block' : 'none';
-}
-
-function retag(cardId, newTag) {
-  retags[cardId] = newTag;
-  savePersistence();
-  renderCards(hubData.cards, hubData.categories);
-}
-
-function resetRetag(cardId) {
-  delete retags[cardId];
-  savePersistence();
-  renderCards(hubData.cards, hubData.categories);
-}
-
-function renderBriefPreview(morningBriefs, meta) {
-  const row = document.getElementById('briefPreviewRow');
-  const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
-  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
-  // Always start with today, then fill with most recent published briefs
-  const recentDates = Object.keys(morningBriefs).sort().reverse();
-  const displayDates = [todayStr];
-  for (const d of recentDates) {
-    if (d !== todayStr && displayDates.length < 3) displayDates.push(d);
+    container.appendChild(kpiGrid);
   }
 
-  row.innerHTML = displayDates.map(date => {
-    const brief = morningBriefs[date];
-    const dateObj = new Date(date + 'T12:00:00');
-    const dayName = dayNames[dateObj.getDay()];
-    const monthDay = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-    const formatted = `${dayName}, ${monthDay}`;
+  // Flags
+  if (hasFlags) {
+    var flagTitle = document.createElement('div');
+    flagTitle.className = 'exec-section-title';
+    flagTitle.textContent = 'Flags';
+    container.appendChild(flagTitle);
 
-    // Not-run state for today if no brief exists
-    if (!brief) {
-      return `
-        <div class="brief-card" style="opacity:0.55; cursor:default;">
-          <div class="brief-card-accent" style="background: linear-gradient(90deg, #888, #aaa);"></div>
-          <div class="brief-card-body">
-            <div class="brief-card-type">Morning Brief</div>
-            <div class="brief-card-date">${formatted}</div>
-            <div class="brief-card-empty" style="font-style:italic; color:var(--muted);">Brief not yet published</div>
-          </div>
-          <div class="brief-card-footer">
-            <span class="card-tag" style="background:var(--tag-btn-bg); color:var(--muted);">☀️ Not run</span>
-          </div>
-        </div>
-      `;
-    }
+    var flagWrap = document.createElement('div');
+    flagWrap.className = 'exec-flags';
+    exec.flags.forEach(function(flag) {
+      var row = document.createElement('div');
+      row.className = 'exec-flag ' + escapeHtml(flag.level || 'info');
+      row.textContent = flag.text;
+      flagWrap.appendChild(row);
+    });
+    container.appendChild(flagWrap);
+  }
 
-    const hasCompanies = brief.companies && brief.companies.length > 0;
-    return `
-      <a href="${brief.url}" class="brief-card" target="_blank">
-        <div class="brief-card-accent"></div>
-        <div class="brief-card-body">
-          <div class="brief-card-type">Morning Brief</div>
-          <div class="brief-card-date">${formatted}</div>
-          ${brief.ext > 0 || brief.int > 0 ? `
-            <div class="brief-card-mtg">
-              <span class="ext">${brief.ext}</span> ext, <span class="int">${brief.int}</span> int
-            </div>
-          ` : ''}
-          ${hasCompanies ? `<div class="brief-card-cos">${brief.companies.join(', ')}</div>` : ''}
-          ${!hasCompanies && brief.ext === 0 && brief.int === 0 ? '<div class="brief-card-empty">No meetings</div>' : ''}
-        </div>
-        <div class="brief-card-footer">
-          <span class="card-tag">☀️ Morning Briefs</span>
-        </div>
-      </a>
-    `;
-  }).join('');
+  // Initiatives
+  if (hasInitiatives) {
+    var initTitle = document.createElement('div');
+    initTitle.className = 'exec-section-title';
+    initTitle.textContent = 'Strategic Initiatives';
+    container.appendChild(initTitle);
+
+    var initWrap = document.createElement('div');
+    initWrap.className = 'exec-initiatives';
+    exec.initiatives.forEach(function(init) {
+      var row = document.createElement('div');
+      row.className = 'exec-initiative';
+      row.innerHTML =
+        '<span class="exec-status ' + escapeHtml(init.status || 'on-track') + '">' + escapeHtml(init.status || 'on-track') + '</span>' +
+        '<span class="exec-initiative-title">' + escapeHtml(init.title) + '</span>' +
+        '<span class="exec-initiative-detail">' + escapeHtml(init.detail || '') + '</span>';
+      initWrap.appendChild(row);
+    });
+    container.appendChild(initWrap);
+  }
 }
 
-function setupEventListeners() {
-  document.getElementById('sortNewest').addEventListener('click', (e) => {
-    currentSort = 'newest';
-    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('sortNewest').classList.add('active');
-    renderCards(hubData.cards, hubData.categories);
-  });
-
-  document.getElementById('sortOldest').addEventListener('click', (e) => {
-    currentSort = 'oldest';
-    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('sortOldest').classList.add('active');
-    renderCards(hubData.cards, hubData.categories);
-  });
-}
-
-
-function renderCalendar() {
-  const container = document.getElementById('calMonths');
+// ── Starred List rendering (compact rows) ─────────────────────────────────
+function renderStarredList() {
+  var container = document.getElementById('starredList');
+  if (!container) return;
   container.innerHTML = '';
 
-  const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
-
-  const monthsToShow = [];
-  const startDate = new Date();
-  startDate.setDate(1); // Pin to 1st to avoid month overflow (e.g. Mar 30 - 1mo = Feb 30 = Mar 2)
-
-  // Render current month first, then older months going back
-  for (let i = 0; i < calendarMonthsLoaded; i++) {
-    const date = new Date(startDate.getFullYear(), startDate.getMonth() - i, 1);
-    monthsToShow.push(date);
+  var starred = getStarred();
+  if (!starred.length) {
+    container.innerHTML = '<div class="starred-empty">No starred items yet. Star any card to see it here.</div>';
+    return;
   }
 
-  monthsToShow.forEach(monthDate => {
-    const year = monthDate.getFullYear();
-    const month = monthDate.getMonth();
-    const monthName = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfWeek = new Date(year, month, 1).getDay();
+  // Merge hub-data.json starred with localStorage starred
+  var jsonStarred = (HUB_DATA && HUB_DATA.starred) ? HUB_DATA.starred : [];
+  var mergedIds = {};
+  var mergedList = [];
 
-    let html = `<div class="cal-month-block"><div class="cal-month-bar">${monthName}</div><div class="cal-grid">`;
+  // Add all from localStorage
+  starred.forEach(function(entry) {
+    var id = getStarredId(entry);
+    if (!mergedIds[id]) { mergedIds[id] = true; mergedList.push(entry); }
+  });
+  // Add any from hub-data.json not already present
+  jsonStarred.forEach(function(entry) {
+    var id = getStarredId(entry);
+    if (!mergedIds[id]) { mergedIds[id] = true; mergedList.push(entry); }
+  });
 
-    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
-      html += `<div class="cal-day-hdr">${day}</div>`;
+  // Resolve each starred entry to { id, title, date, tag, url }
+  var resolved = [];
+  mergedList.forEach(function(entry) {
+    var id = getStarredId(entry);
+    var item = resolveStarredItem(id, entry);
+    if (item) resolved.push(item);
+  });
+
+  // Sort newest first
+  resolved.sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
+
+  if (!resolved.length) {
+    container.innerHTML = '<div class="starred-empty">No starred items could be resolved.</div>';
+    return;
+  }
+
+  resolved.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'starred-row';
+    row.setAttribute('role', 'link');
+    row.setAttribute('tabindex', '0');
+
+    var tagDef = TAG_DEFS[item.tag] || TAG_DEFS.artifacts;
+    var fmtDate = item.date ? formatShortDate(item.date) : '';
+
+    row.innerHTML =
+      '<span class="starred-title">' + escapeHtml(item.title) + '</span>' +
+      '<span class="starred-date">' + escapeHtml(fmtDate) + '</span>' +
+      '<span class="starred-tag card-tag card-tag-' + tagDef.cls + '">' + tagDef.label + '</span>' +
+      '<button class="star-btn starred" data-id="' + escapeHtml(item.id) + '" title="Unstar">\u2B50</button>';
+
+    // Click row (except star) → open URL
+    row.addEventListener('click', function() {
+      window.location.href = item.url;
+    });
+    row.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.href = item.url;
+      }
     });
 
-    // Empty cells before first day
-    for (let i = 0; i < firstDayOfWeek; i++) {
-      html += '<div class="cal-cell empty"></div>';
-    }
+    // Star button → unstar, re-render
+    var starBtn = row.querySelector('.star-btn');
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleStar(item.id);
+      renderStarredList();
+    });
 
-    // Day cells
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      const brief = hubData.morningBriefs[dateStr];
-      const isBriefDay = !!brief;
-      const isToday = dateStr === todayStr;
-
-      let cellClass = 'cal-cell';
-      if (isToday) cellClass += ' today';
-      if (isBriefDay) cellClass += ' has-brief';
-
-      html += `<div class="${cellClass}" ${isBriefDay ? `onclick="window.open('${brief.url}','_blank')"` : ''}>`;
-      html += `<div class="cal-date">${day}</div>`;
-
-      if (isToday) {
-        html += `<div class="cal-today-label">TODAY</div>`;
-        const ext = brief?.ext || 0;
-        const intMtg = brief?.int || 0;
-        if (ext > 0 || intMtg > 0) {
-          html += `<div class="cal-today-meetings"><strong>${ext}</strong> ext, <strong>${intMtg}</strong> int</div>`;
-        } else {
-          html += `<div class="cal-today-meetings">No meetings</div>`;
-        }
-      } else if (isBriefDay) {
-        const ext = brief.ext || 0;
-        const intMtg = brief.int || 0;
-        if (ext > 0 || intMtg > 0) {
-          html += `<div class="cal-mtg-counts"><span class="ext-count">${ext}</span> ext, <span class="int-count">${intMtg}</span> int</div>`;
-        } else {
-          html += `<div class="cal-no-mtg">No meetings</div>`;
-        }
-        if (brief.companies && brief.companies.length > 0) {
-          html += `<div class="cal-companies">${brief.companies.join(', ')}</div>`;
-        }
-        html += `<div class="cal-open"><a href="${brief.url}" class="open-link" target="_blank" onclick="event.stopPropagation()">Open →</a></div>`;
-      }
-
-      html += '</div>';
-    }
-
-    html += '</div></div>';
-    container.innerHTML += html;
+    container.appendChild(row);
   });
-
-  document.getElementById('loadMoreBtn').style.display = calendarMonthsLoaded >= 12 ? 'none' : 'block';
 }
 
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.retag-btn') && !e.target.closest('.retag-popover')) {
-    document.querySelectorAll('.retag-popover').forEach(p => p.style.display = 'none');
+function resolveStarredItem(id, entry) {
+  if (!HUB_DATA) return null;
+
+  // Card ID: look up in cards[]
+  if (id.indexOf('brief:') !== 0) {
+    var cards = HUB_DATA.cards || [];
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].id === id) {
+        return { id: id, title: cards[i].title, date: cards[i].date, tag: cards[i].tag, url: cards[i].url };
+      }
+    }
+    return null;
   }
-});
 
-document.getElementById('loadMoreBtn')?.addEventListener('click', () => {
-  calendarMonthsLoaded += 3;
-  renderCalendar();
-});
+  // Whole brief: "brief:YYYY-MM-DD"
+  var briefMatch = id.match(/^brief:(\d{4}-\d{2}-\d{2})$/);
+  if (briefMatch) {
+    var dateKey = briefMatch[1];
+    var brief = (HUB_DATA.morningBriefs || {})[dateKey];
+    if (!brief) return null;
+    var d = new Date(dateKey + 'T12:00:00');
+    var title = 'Morning Brief \u2014 ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getDate();
+    return { id: id, title: title, date: dateKey, tag: 'morning', url: brief.url };
+  }
 
-// calFullLink href is set in init()
+  // Brief item: "brief:YYYY-MM-DD#mtg-N"
+  var itemMatch = id.match(/^brief:(\d{4}-\d{2}-\d{2})(#.+)$/);
+  if (itemMatch) {
+    var dateKey2 = itemMatch[1];
+    var anchor = itemMatch[2];
+    var brief2 = (HUB_DATA.morningBriefs || {})[dateKey2];
+    if (!brief2) return null;
+    // Use metadata title if entry is an object, otherwise fallback
+    var itemTitle = (typeof entry === 'object' && entry.title) ? entry.title : 'Meeting ' + anchor.replace('#mtg-', '');
+    var itemTag = (typeof entry === 'object' && entry.tag) ? entry.tag : 'morning';
+    return { id: id, title: itemTitle, date: dateKey2, tag: itemTag, url: brief2.url + anchor };
+  }
 
-fetch('hub-data.json?v=' + Date.now())
-  .then(r => r.json())
-  .then(init)
-  .catch(err => {
-    console.error('Failed to load hub-data.json:', err);
-    document.getElementById('cardsGrid').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>Failed to load data. Ensure hub-data.json exists.</p></div>';
+  return null;
+}
+
+function formatShortDate(dateStr) {
+  var d = new Date(dateStr + 'T12:00:00');
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate();
+}
+
+// ── Init — wire up stars, retags, filters, sort ───────────────────────────
+function init() {
+  var savedTags = getSavedTags();
+
+  document.querySelectorAll('.report-card').forEach(function(card) {
+    var actions = card.querySelector('.card-actions');
+    var starBtn = card.querySelector('.star-btn');
+    var cardId  = starBtn ? starBtn.dataset.id : null;
+    if (!actions || !cardId) return;
+
+    if (savedTags[cardId]) applyRetag(card, savedTags[cardId]);
+
+    if (isStarred(cardId)) starBtn.classList.add('starred');
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleStar(cardId);
+      starBtn.classList.toggle('starred');
+      applyFilter();
+    });
+
+    var retagBtn = document.createElement('button');
+    retagBtn.className = 'retag-btn';
+    retagBtn.title     = 'Move to a different category';
+    retagBtn.textContent = '\u270F\uFE0F';
+    retagBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showRetagPopover(card, retagBtn, cardId);
+    });
+    actions.insertBefore(retagBtn, starBtn);
   });
+
+  document.querySelectorAll('.tag-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      activeTag = btn.dataset.tag;
+      document.querySelectorAll('.tag-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      applyFilter();
+    });
+  });
+
+  document.getElementById('sortNewest').addEventListener('click', function() {
+    sortOrder = 'newest';
+    document.getElementById('sortNewest').classList.add('active');
+    document.getElementById('sortOldest').classList.remove('active');
+    applyFilter();
+  });
+  document.getElementById('sortOldest').addEventListener('click', function() {
+    sortOrder = 'oldest';
+    document.getElementById('sortOldest').classList.add('active');
+    document.getElementById('sortNewest').classList.remove('active');
+    applyFilter();
+  });
+
+  applyFilter();
+}
+
+// ── Tag Memory Cards ──────────────────────────────────────────────────────
+function renderTagCards() {
+  var container = document.getElementById('tagsView');
+  if (!container) return;
+  container.innerHTML = '';
+
+  var tagMemData = (HUB_DATA && HUB_DATA.tagMemory) || {};
+
+  Object.keys(TAG_DEFS).forEach(function(tag) {
+    if (tag === 'morning') return; // skip morning briefs — they have their own tab
+
+    var def = TAG_DEFS[tag];
+    var mem = tagMemData[tag] || {};
+    var canonical = mem.entries || [];
+    var local = getTagMemory(tag);
+    var allEntries = canonical.concat(local);
+    allEntries.sort(function(a, b) { return b.date < a.date ? -1 : b.date > a.date ? 1 : 0; });
+
+    var card = document.createElement('div');
+    card.className = 'tag-memory-card card-tag-' + def.cls;
+    card.setAttribute('role', 'region');
+    card.setAttribute('aria-label', def.label + ' memory');
+
+    var headerHtml = '<div class="tag-memory-header">' +
+      '<span class="tag-memory-label">' + escapeHtml(def.label) + '</span>' +
+      '<span class="tag-memory-count">' + allEntries.length + ' note' + (allEntries.length !== 1 ? 's' : '') + '</span>' +
+      '</div>';
+
+    var summaryHtml = mem.summary
+      ? '<p class="tag-memory-summary">' + escapeHtml(mem.summary) + '</p>'
+      : '';
+
+    var entriesHtml = '<div class="tag-memory-entries">';
+    allEntries.forEach(function(entry) {
+      entriesHtml += '<div class="tag-memory-entry">' +
+        '<span class="tag-memory-date">' + escapeHtml(entry.date) + '</span> ' +
+        '<span class="tag-memory-text">' + escapeHtml(entry.text) + '</span>' +
+        '</div>';
+    });
+    if (allEntries.length === 0) {
+      entriesHtml += '<div class="tag-memory-empty">No notes yet. Add one below.</div>';
+    }
+    entriesHtml += '</div>';
+
+    var inputHtml = '<div class="tag-memory-input">' +
+      '<textarea class="tag-memory-textarea" placeholder="Add a note for ' + escapeHtml(def.label) + '..." rows="2"></textarea>' +
+      '<button class="tag-memory-save" data-tag="' + escapeHtml(tag) + '">Save Note</button>' +
+      '</div>';
+
+    card.innerHTML = headerHtml + summaryHtml + entriesHtml + inputHtml;
+
+    // Wire up save button
+    var saveBtn = card.querySelector('.tag-memory-save');
+    var textarea = card.querySelector('.tag-memory-textarea');
+    saveBtn.addEventListener('click', function() {
+      var text = textarea.value.trim();
+      if (!text) return;
+      addTagMemoryEntry(tag, text);
+      textarea.value = '';
+      renderTagCards(); // re-render to show new entry
+    });
+
+    container.appendChild(card);
+  });
+}
+
+// ── Filter & sort ─────────────────────────────────────────────────────────
+function applyFilter() {
+  var grid = document.getElementById('cardsGrid');
+  var containerDiv = document.querySelector('.container');
+  var mbSec = document.getElementById('mbSection');
+  var execView = document.getElementById('execSummaryView');
+  var starredView = document.getElementById('starredList');
+  var tagsView = document.getElementById('tagsView');
+  var emptyState = document.getElementById('emptyState');
+  var resultsMeta = document.getElementById('resultsMeta');
+  var sortControls = document.querySelector('.sort-controls');
+
+  // Hide all view containers first
+  if (grid) grid.style.display = 'none';
+  if (containerDiv) containerDiv.style.display = 'none';
+  if (mbSec) mbSec.style.display = 'none';
+  if (execView) execView.style.display = 'none';
+  if (starredView) starredView.style.display = 'none';
+  if (tagsView) tagsView.style.display = 'none';
+  if (emptyState) emptyState.style.display = 'none';
+
+  // ── Exec Summary tab ──
+  if (activeTag === 'all') {
+    if (execView) execView.style.display = '';
+    if (sortControls) sortControls.style.display = 'none';
+    renderExecSummary();
+    return;
+  }
+
+  // ── Starred tab (compact list) ──
+  if (activeTag === 'starred') {
+    if (starredView) starredView.style.display = '';
+    if (sortControls) sortControls.style.display = 'none';
+    renderStarredList();
+    return;
+  }
+
+  // ── Tags tab (per-tag memory) ──
+  if (activeTag === 'tags') {
+    if (tagsView) tagsView.style.display = '';
+    if (sortControls) sortControls.style.display = 'none';
+    renderTagCards();
+    return;
+  }
+
+  // ── Morning Briefs tab ──
+  if (activeTag === 'morning') {
+    if (mbSec) mbSec.style.display = '';
+    if (sortControls) sortControls.style.display = 'none';
+    return;
+  }
+
+  // ── Category tabs (card grid) ──
+  if (sortControls) sortControls.style.display = '';
+  if (containerDiv) containerDiv.style.display = '';
+  if (grid) grid.style.display = '';
+
+  var cards = Array.from(grid.querySelectorAll('.report-card'));
+
+  var visible = cards.filter(function(card) {
+    var tags = card.dataset.tags.split(' ');
+    return tags.indexOf(activeTag) !== -1;
+  });
+
+  visible.sort(function(a, b) {
+    var da = new Date(a.dataset.date), db = new Date(b.dataset.date);
+    return sortOrder === 'newest' ? db - da : da - db;
+  });
+
+  cards.forEach(function(c) { c.classList.add('hidden'); });
+  visible.forEach(function(c, i) { c.classList.remove('hidden'); c.style.order = i; });
+
+  if (emptyState) emptyState.style.display = visible.length === 0 ? 'block' : 'none';
+
+  var total = cards.length;
+  if (resultsMeta) {
+    resultsMeta.textContent =
+      visible.length === total
+        ? total + ' report' + (total !== 1 ? 's' : '')
+        : visible.length + ' of ' + total + ' reports';
+  }
+}
+
+// ── Morning Briefs calendar ───────────────────────────────────────────────
+
+function pad(n) { return String(n).padStart(2, '0'); }
+function fmtKey(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+
+var TODAY_KEY = new Date().toISOString().slice(0, 10);
+var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function renderRecentCards() {
+  var wrap = document.getElementById('mbRecent');
+  if (!wrap) return;
+
+  var sorted = Object.entries(BRIEF_DATA).sort(function(a, b) {
+    return b[0].localeCompare(a[0]);
+  }).slice(0, 3);
+
+  sorted.forEach(function(entry) {
+    var dateKey = entry[0], data = entry[1];
+    var d = new Date(dateKey + 'T12:00:00');
+    var isToday = dateKey === TODAY_KEY;
+    var dayName = DAY_NAMES[d.getDay()];
+    var monthDay = MONTH_NAMES[d.getMonth()] + ' ' + d.getDate();
+    var total = data.int + data.ext;
+
+    var card = document.createElement('a');
+    card.href = data.url;
+    card.target = '_self';
+    card.className = 'mb-day-card' + (isToday ? ' today' : '');
+    card.innerHTML =
+      '<div class="mb-day-label">' + dayName + (isToday ? '<span class="today-badge">Today</span>' : '') + '</div>' +
+      '<div class="mb-day-date">' + monthDay + '</div>' +
+      '<div class="mb-day-stats">' +
+        '<span>' + total + ' meeting' + (total !== 1 ? 's' : '') + '</span>' +
+        (data.int ? '<span class="stat-int">\u25CF ' + data.int + ' int</span>' : '') +
+        (data.ext ? '<span class="stat-ext">\u25CF ' + data.ext + ' ext</span>' : '') +
+      '</div>';
+    wrap.appendChild(card);
+  });
+}
+
+function renderCalendar() {
+  var wrap = document.getElementById('mbCalWrap');
+  if (!wrap) return;
+
+  var allDates = Object.keys(BRIEF_DATA).sort();
+  if (allDates.length === 0) return;
+
+  var firstDate = new Date(allDates[0] + 'T12:00:00');
+  var now = new Date(TODAY_KEY + 'T12:00:00');
+
+  var months = [];
+  var cursor = new Date(now.getFullYear(), now.getMonth(), 1);
+  var earliest = new Date(firstDate.getFullYear(), firstDate.getMonth(), 1);
+  while (cursor >= earliest) {
+    months.push({ year: cursor.getFullYear(), month: cursor.getMonth() });
+    cursor.setMonth(cursor.getMonth() - 1);
+  }
+
+  months.forEach(function(mo) {
+    var year = mo.year, month = mo.month;
+    var block = document.createElement('div');
+    block.className = 'mb-cal-month';
+
+    var label = document.createElement('div');
+    label.className = 'mb-cal-month-label';
+    label.textContent = MONTH_NAMES[month] + ' ' + year;
+    block.appendChild(label);
+
+    var grid = document.createElement('div');
+    grid.className = 'mb-cal-grid';
+
+    DAY_NAMES.forEach(function(dn) {
+      var h = document.createElement('div');
+      h.className = 'mb-cal-hdr';
+      h.textContent = dn;
+      grid.appendChild(h);
+    });
+
+    var firstDay = new Date(year, month, 1).getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (var i = 0; i < firstDay; i++) {
+      var e = document.createElement('div');
+      e.className = 'mb-cal-cell empty';
+      grid.appendChild(e);
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var key = fmtKey(year, month, d);
+      var brief = BRIEF_DATA[key];
+      var isToday = key === TODAY_KEY;
+
+      if (brief) {
+        var a = document.createElement('a');
+        a.href = brief.url;
+        a.target = '_self';
+        a.className = 'mb-cal-cell has-brief' + (isToday ? ' is-today' : '');
+        var total = brief.int + brief.ext;
+        var dots = '';
+        if (brief.int) dots += '<span class="cdot cdot-int"></span>';
+        if (brief.ext) dots += '<span class="cdot cdot-ext"></span>';
+        a.innerHTML =
+          '<span class="cell-day">' + d + '</span>' +
+          '<span class="cell-count">' + total + ' mtg' + (total !== 1 ? 's' : '') + '</span>' +
+          '<span class="cell-dots">' + dots + '</span>';
+        grid.appendChild(a);
+      } else {
+        var c = document.createElement('div');
+        c.className = 'mb-cal-cell' + (isToday ? ' is-today' : '');
+        c.innerHTML = '<span class="cell-day">' + d + '</span>';
+        grid.appendChild(c);
+      }
+    }
+
+    block.appendChild(grid);
+    wrap.appendChild(block);
+  });
+
+  var legend = document.createElement('div');
+  legend.className = 'mb-cal-legend';
+  legend.innerHTML =
+    '<div class="mb-cal-legend-item"><span class="mb-cal-legend-dot cdot-int"></span> Internal</div>' +
+    '<div class="mb-cal-legend-item"><span class="mb-cal-legend-dot cdot-ext"></span> External</div>';
+  wrap.appendChild(legend);
+}
+
+// ── Load hub-data.json, render everything, then init ──────────────────────
+function loadBriefData() {
+  fetch('hub-data.json?v=' + Date.now())
+    .then(function(r) {
+      if (!r.ok) throw new Error('hub-data.json ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      HUB_DATA = data;
+
+      // Render report cards from JSON
+      renderCards(data.cards || []);
+
+      // Render morning briefs calendar
+      BRIEF_DATA = data.morningBriefs || {};
+      renderRecentCards();
+      renderCalendar();
+
+      // Wire up interactivity after all cards exist in DOM
+      init();
+    })
+    .catch(function(err) {
+      console.warn('Could not load hub-data.json:', err);
+      init();
+    });
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────
+loadBriefData();
+
 </script>
 
 </body>

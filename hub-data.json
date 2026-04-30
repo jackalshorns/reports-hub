@@ -40,7 +40,7 @@
       "desc": "Role, responsibilities, both companies, 12-week calendar, tools & resources.",
       "tag": "accelerator",
       "date": "2026-03-10",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-10-program-overview.html",
+      "url": "https://google-play-accelerator.pages.dev/briefs/2026-03-10-program-overview.html",
       "time": "12:00"
     },
     {
@@ -50,7 +50,7 @@
       "desc": "Progress to date, homework for Dev / Ming / Jason, session agendas for Focus Forge & Skarvo.",
       "tag": "accelerator",
       "date": "2026-03-23",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-weekly-update.html",
+      "url": "https://google-play-accelerator.pages.dev/briefs/2026-03-23-weekly-update.html",
       "time": "09:00"
     },
     {
@@ -60,7 +60,7 @@
       "desc": "Quick prep: last session recaps + goals for today's calls with Focus Forge and Skarvo.",
       "tag": "accelerator",
       "date": "2026-03-23",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-23-pre-meeting.html",
+      "url": "https://google-play-accelerator.pages.dev/briefs/2026-03-23-pre-meeting.html",
       "time": "10:00"
     },
     {
@@ -70,7 +70,7 @@
       "desc": "Today's session recap, open action items, relationship history, and what they're building (PC RPG, UE5).",
       "tag": "serbia",
       "date": "2026-03-23",
-      "url": "https://jackalshorns.github.io/serbia-rising-stars/briefs/2026-03-23-tricoman.html",
+      "url": "https://serbia-rising-stars.pages.dev/briefs/2026-03-23-tricoman.html",
       "time": "16:00"
     },
     {
@@ -80,7 +80,7 @@
       "desc": "Sonar-style player sentiment pipeline — Steam, YouTube, Reddit, press → Claude insights. Browse all game reports.",
       "tag": "artifacts",
       "date": "2026-01-01",
-      "url": "https://jackalshorns.github.io/game-sentiment-analysis/",
+      "url": "https://game-sentiment-analysis.pages.dev/",
       "time": "12:00"
     },
     {
@@ -90,7 +90,7 @@
       "desc": "15 peer-reviewed papers on interface design, HUD cognition, player experience measurement, onboarding, and accessibility — sourced via Consensus.",
       "tag": "research",
       "date": "2026-03-25",
-      "url": "https://jackalshorns.github.io/research/research/game-ux-ui-academic-2026-03-25.html",
+      "url": "https://research-8h1.pages.dev/research/game-ux-ui-academic-2026-03-25.html",
       "time": "12:00"
     },
     {
@@ -100,7 +100,7 @@
       "desc": "Progress to date, review prep for Focus Forge + Skarvo weeklies, and program goals to stay on track.",
       "tag": "accelerator",
       "date": "2026-03-30",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-30-weekly-prep.html",
+      "url": "https://google-play-accelerator.pages.dev/briefs/2026-03-30-weekly-prep.html",
       "time": "08:00"
     },
     {
@@ -111,123 +111,12 @@
       "tag": "accelerator",
       "date": "2026-03-30",
       "time": "17:00",
-      "url": "https://jackalshorns.github.io/google-play-accelerator/briefs/2026-03-30-post-meeting.html"
+      "url": "https://google-play-accelerator.pages.dev/briefs/2026-03-30-post-meeting.html"
     }
   ],
   "morningBriefs": {
-    "2026-03-28": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-28.html",
-      "int": 0,
-      "ext": 1,
-      "companies": [
-        "AI Agents Workshop"
-      ]
-    },
-    "2026-03-27": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-27.html",
-      "int": 3,
-      "ext": 2,
-      "companies": [
-        "Company Meeting",
-        "Jaime Sanchez"
-      ]
-    },
-    "2026-03-26": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-26.html",
-      "int": 3,
-      "ext": 7,
-      "companies": [
-        "Riot TFT",
-        "2K Horizon",
-        "Pokémon TCG",
-        "Jam & Tea"
-      ]
-    },
-    "2026-03-25": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-25.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-03-24": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-24.html",
-      "int": 1,
-      "ext": 6,
-      "companies": [
-        "Tricoman",
-        "Chore Focus",
-        "Skarvo",
-        "2K Horizon"
-      ]
-    },
-    "2026-03-23": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-23.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-03-22": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-22.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-03-21": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-21.html",
-      "int": 1,
-      "ext": 1,
-      "companies": [
-        "Irena Pereira"
-      ]
-    },
-    "2026-03-20": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-20.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-03-19": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-19.html",
-      "int": 5,
-      "ext": 1,
-      "companies": [
-        "GPA Squad Meetup"
-      ]
-    },
-    "2026-03-18": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-18.html",
-      "int": 4,
-      "ext": 5,
-      "companies": [
-        "2K Horizon",
-        "Skarvo",
-        "Jam & Tea",
-        "Scopely"
-      ]
-    },
-    "2026-03-17": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-17.html",
-      "int": 2,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-03-16": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-16.html",
-      "int": 1,
-      "ext": 0,
-      "companies": []
-    },
-    "2026-03-15": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-15.html",
-      "int": 3,
-      "ext": 2,
-      "companies": [
-        "2K",
-        "Carl Kwoh"
-      ]
-    },
     "2026-03-30": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-30.html",
+      "url": "https://reports-hub.pages.dev/briefs/2026-03-30.html",
       "int": 8,
       "ext": 3,
       "companies": [
@@ -236,14 +125,8 @@
         "Lingotto"
       ]
     },
-    "2026-03-29": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-03-29.html",
-      "int": 0,
-      "ext": 0,
-      "companies": []
-    },
     "2026-04-01": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-01.html",
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-01.html",
       "int": 5,
       "ext": 6,
       "companies": [
@@ -254,7 +137,7 @@
       ]
     },
     "2026-04-02": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-02.html",
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-02.html",
       "int": 6,
       "ext": 2,
       "companies": [
@@ -265,7 +148,7 @@
       ]
     },
     "2026-04-03": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-03.html",
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-03.html",
       "int": 4,
       "ext": 3,
       "companies": [
@@ -275,22 +158,280 @@
       ]
     },
     "2026-04-04": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-04.html",
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-04.html",
       "int": 0,
       "ext": 0,
       "companies": []
     },
     "2026-04-05": {
-      "url": "https://jackalshorns.github.io/daily-briefs/briefs/2026-04-05.html",
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-05.html",
       "int": 0,
       "ext": 0,
       "companies": []
+    },
+    "2026-04-12": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-12.html",
+      "int": 8,
+      "ext": 3,
+      "companies": [
+        "Google Accelerator",
+        "Skarvo",
+        "Lingotto"
+      ]
+    },
+    "2026-04-13": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-13.html",
+      "int": 4,
+      "ext": 2,
+      "companies": [
+        "Ludus Engine",
+        "Skarvo"
+      ]
+    },
+    "2026-03-31": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-03-31.html",
+      "int": 0,
+      "ext": 0,
+      "companies": []
+    },
+    "2026-04-06": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-06.html",
+      "int": 3,
+      "ext": 3,
+      "companies": []
+    },
+    "2026-04-07": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-07.html",
+      "int": 13,
+      "ext": 2,
+      "companies": [
+        "Streaming Collab",
+        "Netflix Rally"
+      ]
+    },
+    "2026-04-08": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-08.html",
+      "int": 16,
+      "ext": 4,
+      "companies": [
+        "Humanitz",
+        "EA XDI"
+      ]
+    },
+    "2026-04-09": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-09.html",
+      "int": 5,
+      "ext": 4,
+      "companies": [
+        "Skarvo",
+        "Google Accelerator",
+        "Alejandro Sandoval"
+      ]
+    },
+    "2026-04-10": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-10.html",
+      "int": 2,
+      "ext": 3,
+      "companies": [
+        "David Bisceglia",
+        "FRG",
+        "Ric Neil"
+      ]
+    },
+    "2026-04-11": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-11.html",
+      "int": 6,
+      "ext": 6,
+      "companies": [
+        "Capreto",
+        "Riot",
+        "David Bisceglia",
+        "Ric Neil"
+      ]
+    },
+    "2026-04-14": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-14.html",
+      "int": 3,
+      "ext": 3,
+      "companies": [
+        "Chore Focus",
+        "Skarvo",
+        "Audit & Style Guide"
+      ]
+    },
+    "2026-04-15": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-15.html",
+      "int": 6,
+      "ext": 2,
+      "companies": [
+        "Piotr Penar",
+        "Boldon"
+      ]
+    },
+    "2026-04-16": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-16.html",
+      "int": 5,
+      "ext": 2,
+      "companies": [
+        "Google Accelerator"
+      ]
+    },
+    "2026-04-17": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-17.html",
+      "int": 6,
+      "ext": 0,
+      "companies": []
+    },
+    "2026-04-18": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-18.html",
+      "int": 1,
+      "ext": 0,
+      "companies": []
+    },
+    "2026-04-19": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-19.html",
+      "int": 1,
+      "ext": 0,
+      "companies": []
+    },
+    "2026-04-20": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-20.html",
+      "int": 0,
+      "ext": 2,
+      "companies": [
+        "Google Accelerator",
+        "Skarvo"
+      ]
+    },
+    "2026-04-21": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-21.html",
+      "int": 4,
+      "ext": 1,
+      "companies": [
+        "Skarvo",
+        "Google Accelerator"
+      ]
+    },
+    "2026-04-22": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-22.html",
+      "int": 2,
+      "ext": 1,
+      "companies": [
+        "Party Planning Committee"
+      ]
+    },
+    "2026-04-23": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-23.html",
+      "int": 3,
+      "ext": 2,
+      "companies": [
+        "Erin Beyer",
+        "Google"
+      ]
+    },
+    "2026-04-24": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-24.html",
+      "int": 2,
+      "ext": 0,
+      "companies": [
+        "WB Games",
+        "Clozemaster",
+        "Riot Games",
+        "Amazon Games"
+      ]
+    },
+    "2026-04-25": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-25.html",
+      "int": 1,
+      "ext": 2,
+      "companies": [
+        "Clozemaster",
+        "WB Games / Avalanche"
+      ]
+    },
+    "2026-04-26": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-26.html",
+      "int": 4,
+      "ext": 0,
+      "companies": []
+    },
+    "2026-04-27": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-27.html",
+      "int": 4,
+      "ext": 2,
+      "companies": [
+        "Lingotto",
+        "GamesBeat"
+      ]
+    },
+    "2026-04-28": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-28.html",
+      "int": 1,
+      "ext": 2,
+      "companies": [
+        "Mission42",
+        "Google Play"
+      ]
+    },
+    "2026-04-29": {
+      "url": "https://reports-hub.pages.dev/briefs/2026-04-29.html",
+      "int": 5,
+      "ext": 2,
+      "companies": [
+        "WB Games",
+        "Rocket Science"
+      ]
+    }
+  },
+  "tagMemory": {
+    "accelerator": {
+      "title": "Google Play Accelerator",
+      "summary": "12-week mentoring program with Google Play. Advising Focus Forge and Skarvo on UX strategy, growth, and monetization.",
+      "lastUpdated": "2026-04-13",
+      "entries": [
+        {
+          "date": "2026-03-10",
+          "text": "Program kicked off. Jason assigned as UX mentor for Focus Forge and Skarvo."
+        },
+        {
+          "date": "2026-03-30",
+          "text": "Focus Forge exploring subscription model pivot. Skarvo demoed new onboarding flow."
+        }
+      ]
+    },
+    "serbia": {
+      "title": "Serbia Rising Stars",
+      "summary": "Advisory program for Serbian game studios. Currently working with Tricoman (PC RPG, UE5).",
+      "lastUpdated": "2026-04-13",
+      "entries": [
+        {
+          "date": "2026-03-23",
+          "text": "Tricoman post-meeting: discussed UE5 UI framework choices and player onboarding flow."
+        }
+      ]
+    },
+    "artifacts": {
+      "title": "General Artifacts",
+      "summary": "Reusable reports, tools, and analysis pipelines. Includes game sentiment analysis system.",
+      "lastUpdated": "2026-04-13",
+      "entries": []
+    },
+    "research": {
+      "title": "Research",
+      "summary": "Academic research digests and industry analysis. Game UX/UI papers, design patterns, accessibility studies.",
+      "lastUpdated": "2026-04-13",
+      "entries": [
+        {
+          "date": "2026-03-25",
+          "text": "Published Game UX/UI academic digest — 15 papers on HUD cognition, onboarding, and accessibility."
+        }
+      ]
     }
   },
   "meta": {
     "owner": "jackalshorns",
     "hubRepo": "reports-hub",
-    "briefsIndexUrl": "https://jackalshorns.github.io/daily-briefs/",
-    "lastUpdated": "2026-04-05T06:27:23.859391"
+    "briefsIndexUrl": "https://reports-hub.pages.dev/",
+    "lastUpdated": "2026-04-29T07:22:48.457014"
   }
 }

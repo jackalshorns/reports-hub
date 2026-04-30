@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☀️ Morning Brief • Jason Schklar • April 11, 2026</title>
+    <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #141828; color: #e8eaef; min-height: 100vh;
+  font-size: 18px; line-height: 1.75; font-weight: 480;
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+
+.flex-row { display: flex; align-items: center; gap: 8px; }
+.center-block { margin-top: 16px; text-align: center; }
+.text-muted-sm { font-size: 13px; color: #b8bcd0; margin-top: 4px; text-align: right; }
+.inline-heading { font-weight: 600; color: #f4f5fa; margin-bottom: 8px; }
+.text-secondary { color: #b8bcd0; font-size: 16px; line-height: 1.6; }
+.focus-topics-wrap { margin-bottom: 16px; }
+
+/* Refresh badge */
+.refresh-badge {
+  display: inline-block; font-size: 13px; font-weight: 600; color: #f97316;
+  background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 6px; padding: 6px 16px; margin-left: 8px; vertical-align: middle;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+
+.header {
+  background: #1c2042; border-bottom: 1px solid #2a2d50;
+  padding: 16px 24px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.header-title { font-size: 18px; font-weight: 700; color: #fff; }
+.header-sub { font-size: 12px; color: #888; margin-top: 2px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.header-date { font-size: 13px; color: #9ca3af; text-align: right; line-height: 1.4; }
+
+/* Date navigation */
+.date-nav-wrap { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.date-nav-btn {
+  background: #2a2a3e; color: #ccc; border: 1px solid #3a3a4e;
+  border-radius: 6px; padding: 2px 8px; font-size: 13px;
+  cursor: pointer; transition: all 0.15s; line-height: 1.8;
+}
+.date-nav-btn:hover { background: #3a3a4e; color: #fff; }
+.date-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* Lookback buttons */
+.lb-wrap { display: flex; gap: 4px; justify-content: flex-end; margin-top: 4px; }
+.lb-btn {
+  background: #2a2a3e; color: #ccc; border: 1px solid #3a3a4e;
+  border-radius: 99px; padding: 2px 10px; font-size: 11px;
+  cursor: pointer; transition: all 0.15s;
+}
+.lb-btn:hover { background: #3a3a4e; color: #ddd; }
+.lb-btn.active { background: #6366f1; color: #fff; border-color: #6366f1; }
+
+/* Lookback notice */
+#lookback-notice {
+  font-size: 13px; color: #c07400;
+  background: rgba(192,116,0,0.12); border: 1px solid rgba(192,116,0,0.3);
+  border-radius: 0 0 8px 8px; padding: 5px 20px;
+  text-align: center; display: none;
+}
+
+/* ═══════════════════════════════════════════
+   TAB BAR
+   ═══════════════════════════════════════════ */
+
+.tab-bar {
+  display: flex; flex-wrap: wrap; gap: 6px; background: #10131f;
+  border-bottom: 1px solid #2a2d50;
+  overflow-x: auto; scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 12px 20px; font-size: 16px; font-weight: 600;
+  color: #b8bcd0; background: rgba(255,255,255,0.03); border: none; cursor: pointer;
+  white-space: nowrap; border-bottom: 2px solid transparent;
+  border-radius: 10px; transition: all 0.15s;
+}
+.tab-btn:hover { color: #d0d4e8; background: rgba(255,255,255,0.05); }
+.tab-btn.active { color: #fff; font-weight: 700; border-bottom: 4px solid #c084fc; background: rgba(192,132,252,0.12); }
+
+/* Tab content */
+.tab-content { display: none; padding: 24px; max-width: 860px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+/* ═══════════════════════════════════════════
+   SECTION HEADERS
+   ═══════════════════════════════════════════ */
+
+.section-hdr {
+  font-size: 14px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: #c0c4d8; margin: 24px 0 12px;
+  padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.section-hdr:first-child { margin-top: 0; }
+
+/* ═══════════════════════════════════════════
+   STAT TILES (Today tab)
+   ═══════════════════════════════════════════ */
+
+.stat-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+.stat-tile {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; padding: 14px; text-align: center;
+}
+.stat-tile .stat-num { font-size: 32px; font-weight: 800; color: #6366f1; line-height: 1; }
+.stat-tile .stat-label { font-size: 14px; color: #b8bcd0; margin-top: 4px; }
+
+/* ═══════════════════════════════════════════
+   ATTENTION CARDS (Today tab)
+   ═══════════════════════════════════════════ */
+
+.attn-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; padding: 28px; margin-bottom: 24px;
+  border-left-width: 4px;
+}
+.attn-card.card-urgent { border-left-color: #ef4444; }
+.attn-card.card-warning { border-left-color: #f59e0b; }
+.attn-card.card-info { border-left-color: #6366f1; }
+.attn-card-hdr { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.attn-card-title { flex: 1; font-weight: 700; font-size: 22px; color: #f4f5fa; }
+.attn-chevron { font-size: 16px; color: #999; transition: transform 0.2s; line-height: 1; }
+.attn-card.collapsed .attn-chevron { transform: rotate(-90deg); }
+.attn-card.collapsed .attn-card-body { display: none; }
+.attn-card-body { margin-top: 10px; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+
+/* ═══════════════════════════════════════════
+   BADGES
+   ═══════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex; align-items: center; font-size: 13px; font-weight: 700;
+  padding: 6px 16px; border-radius: 6px; text-transform: uppercase;
+  letter-spacing: 0.5px; flex-shrink: 0;
+}
+.badge-red { background: rgba(239,68,68,0.15); color: #f87171; }
+.badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.badge-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+.badge-indigo { background: rgba(99,102,241,0.15); color: #818cf8; }
+.badge-gray { background: rgba(107,114,128,0.15); color: #9ca3af; }
+.badge-purple { background: rgba(167,139,250,0.15); color: #c084fc; }
+
+/* ═══════════════════════════════════════════
+   MEETING CARDS (Yesterday tab)
+   ═══════════════════════════════════════════ */
+
+.mtg-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 24px; overflow: hidden;
+}
+.mtg-card.external { border-left: 5px solid #7a80cc; }
+.mtg-card.internal { border-left: 5px solid #5a5e78; }
+.mtg-card-header {
+  padding: 28px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+}
+.mtg-card-title { font-size: 22px; font-weight: 700; color: #f4f5fa; }
+.mtg-card-meta { font-size: 16px; font-weight: 500; color: #b8bcd0; margin-top: 2px; }
+.mtg-card-body { padding: 0 28px 28px; }
+.mtg-chevron {
+  font-size: 16px; color: #bbb; transition: transform 0.2s;
+  line-height: 1; flex-shrink: 0;
+}
+.collapsible-mtg .mtg-card-header { cursor: pointer; user-select: none; }
+.collapsible-mtg .mtg-card-header:hover { background: rgba(255,255,255,0.02); }
+.collapsible-mtg.collapsed .mtg-chevron { transform: rotate(-90deg); }
+.collapsible-mtg.collapsed .mtg-card-body { display: none; }
+
+/* Key points & action items */
+.list-label {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #c0c4d8; margin: 10px 0 6px;
+}
+.kp-list { padding-left: 18px; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+.kp-list li { margin-bottom: 3px; }
+.ai-list { list-style: none; padding: 0; }
+.ai-list li {
+  background: #222650; border-left: 3px solid #6a70b0;
+  border-radius: 8px; padding: 16px 20px; margin-bottom: 5px;
+  font-size: 17px; color: #e0e2ec; line-height: 1.65;
+}
+
+/* Meeting CTA bar */
+.mtg-cta-bar {
+  display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 0 2px;
+  margin-top: 8px; border-top: 1px solid #2a2d50;
+}
+
+/* Krisp speaker warning */
+.mtg-warning {
+  display: flex; align-items: center; gap: 6px; background: #fff8e8;
+  border: 1px solid #f5c842; border-radius: 5px; padding: 5px 10px;
+  margin: 2px 0 8px; font-size: 13px; color: #856404;
+}
+.mtg-warning a { color: #856404; font-weight: 600; text-decoration: none; }
+
+/* ═══════════════════════════════════════════
+   CTA BUTTONS (shared across all cards)
+   ═══════════════════════════════════════════ */
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 16px; font-weight: 700; padding: 14px 26px;
+  min-height: 52px; border-radius: 10px; text-decoration: none; color: #b8bcd0;
+  background: rgba(255,255,255,0.05); border: 2px solid #2a2f3e;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.cta-btn:hover { background: rgba(255,255,255,0.09); color: #e8eaef; }
+
+/* ═══════════════════════════════════════════
+   CALENDAR CARDS (Meetings tab)
+   ═══════════════════════════════════════════ */
+
+.cal-row {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; padding: 28px; margin-bottom: 24px;
+}
+.cal-row.external { border-left: 5px solid #7a80cc; }
+.cal-row.internal { border-left: 5px solid #5a5e78; }
+.cal-time { font-size: 16px; font-weight: 700; color: #6366f1; margin-bottom: 4px; }
+.cal-title {
+  font-size: 22px; font-weight: 700; color: #f4f5fa;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cal-meta { font-size: 16px; font-weight: 500; color: #b8bcd0; margin-top: 4px; }
+.cal-body { margin-top: 10px; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+.cal-blurb { font-size: 18px; color: #e8eaef; line-height: 1.75; }
+
+/* Prep bar */
+.cal-prep-bar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid #2a2d50;
+}
+.prep-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #b8bcd0; margin-right: 4px; flex-shrink: 0;
+}
+.prep-chip {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 15px; font-weight: 600;
+  color: #b8bcd0; background: #1a1f2e; border: 1px solid #2a2f3e;
+  border-radius: 99px; padding: 10px 20px; min-height: 44px;
+  text-decoration: none; white-space: nowrap;
+}
+.prep-chip:hover { border-color: #6366f1; color: #818cf8; }
+.prep-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; border-radius: 99px; padding: 2px 7px;
+  text-decoration: none; white-space: nowrap; transition: all 0.12s;
+}
+.prep-icon-btn.crm { background: rgba(192,116,0,0.15); color: #c07400; }
+.prep-icon-btn.li { background: rgba(26,115,232,0.15); color: #1a73e8; font-style: italic; }
+.prep-icon-btn.url { background: rgba(99,102,241,0.15); color: #818cf8; }
+.prep-dot { color: #374151; font-size: 11px; flex-shrink: 0; }
+
+/* Prep notes (expandable context block) */
+.cal-prep-notes {
+  margin-top: 10px; padding: 10px 12px;
+  background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.12);
+  border-radius: 8px;
+}
+.prep-note-header {
+  font-size: 13px; font-weight: 700; color: #6366f1;
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.prep-note-list {
+  margin: 0; padding: 0 0 0 16px; font-size: 16px;
+  line-height: 1.75; color: #b8bcd0;
+}
+.prep-note-list li { margin-bottom: 4px; }
+.prep-note-list strong { color: #e8eaef; font-weight: 600; }
+
+/* ═══════════════════════════════════════════
+   UPDATE CARDS (Updates tab)
+   ═══════════════════════════════════════════ */
+
+.update-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 24px; overflow: hidden;
+}
+.update-card-inner { display: flex; gap: 0; }
+.update-icon {
+  width: 40px; background: rgba(255,255,255,0.03);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 14px 0; font-size: 18px; flex-shrink: 0;
+  border-right: 1px solid #2a2d50;
+}
+.update-body { padding: 12px 14px; flex: 1; min-width: 0; }
+.update-title {
+  font-size: 22px; font-weight: 700; color: #f4f5fa;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.update-detail { font-size: 16px; color: #b8bcd0; line-height: 1.6; }
+.update-card.border-urgent { border-left: 4px solid #ef4444; }
+.update-card.border-lead { border-left: 4px solid #6366f1; }
+.update-card.border-waiting { border-left: 4px solid #f59e0b; }
+
+/* ═══════════════════════════════════════════
+   DRIVE CARDS (Updates tab)
+   ═══════════════════════════════════════════ */
+
+.drive-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+}
+.drive-icon { font-size: 20px; flex-shrink: 0; }
+.drive-body { flex: 1; min-width: 0; }
+.drive-title {
+  font-size: 22px; font-weight: 700; color: #f4f5fa;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.drive-meta { font-size: 16px; color: #b8bcd0; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════
+   TASK BLOCKS (Tasks tab)
+   ═══════════════════════════════════════════ */
+
+.task-block {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 14px; overflow: hidden;
+}
+.task-block-header {
+  padding: 10px 14px; background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid #2a2d50; font-size: 14px; font-weight: 700;
+  color: #b8bcd0; display: flex; align-items: center; gap: 8px;
+}
+.task-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 20px; border-bottom: 1px solid #141828;
+}
+.task-row:last-child { border-bottom: none; }
+.task-row.done { opacity: 0.35; text-decoration: line-through; }
+.done-btn {
+  background: rgba(34,197,94,0.1); color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.2); border-radius: 6px;
+  padding: 8px 16px; font-size: 14px; font-weight: 600;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+}
+.done-btn:hover { background: rgba(34,197,94,0.2); }
+.task-overdue {
+  font-size: 13px; color: #f87171; background: rgba(239,68,68,0.1);
+  padding: 1px 6px; border-radius: 99px; flex-shrink: 0;
+}
+.task-due { font-size: 13px; color: #b8bcd0; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   COWORK TABLE (CoWork tab)
+   ═══════════════════════════════════════════ */
+
+.cowork-table { width: 100%; border-collapse: collapse; font-size: 16px; margin-bottom: 16px; }
+.cowork-table th {
+  text-align: left; font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #b8bcd0; padding: 6px 12px;
+  border-bottom: 1px solid #2a2d50;
+}
+.cowork-table td { padding: 10px 12px; border-bottom: 1px solid #1c2042; vertical-align: top; }
+.cowork-table tr:last-child td { border-bottom: none; }
+.cowork-table td:first-child { font-weight: 600; white-space: nowrap; color: #f4f5fa; }
+.cowork-table td:last-child { color: #b8bcd0; line-height: 1.5; }
+
+/* ═══════════════════════════════════════════
+   DRAFTS WIDGET
+   ═══════════════════════════════════════════ */
+
+.drafts-widget {
+  display: flex; align-items: center; gap: 10px; margin-top: 16px;
+  padding: 12px 16px; background: #1c2042; border-radius: 12px;
+  border: 1px solid #2a2d50;
+}
+.drafts-count { font-size: 22px; font-weight: 700; color: #fff; line-height: 1; }
+.drafts-label { font-size: 14px; color: #b8bcd0; margin-top: 2px; }
+.drafts-link {
+  margin-left: auto; background: #6366f1; color: #fff;
+  padding: 6px 14px; border-radius: 6px; font-size: 14px;
+  font-weight: 600; text-decoration: none;
+}
+.drafts-link:hover { background: #7c7ff7; }
+
+/* ═══════════════════════════════════════════
+   FOCUS TOPICS INPUT
+   ═══════════════════════════════════════════ */
+
+#focus-topics-input {
+  width: 100%; box-sizing: border-box; min-height: 80px;
+  padding: 12px; font-family: inherit; font-size: 18px; line-height: 1.75;
+  color: #e8eaef; background: #1a1f2e; border: 1px solid #2a2f3e;
+  border-radius: 8px; resize: vertical; outline: none;
+  transition: border-color 0.15s;
+}
+#focus-topics-input:focus { border-color: #6366f1; }
+#focus-topics-input::placeholder { color: #4b5563; }
+
+/* ═══════════════════════════════════════════
+   KRISP AI SUMMARY MODULE
+   ═══════════════════════════════════════════ */
+
+.krisp-ai-section {
+  margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 12px;
+}
+.krisp-ai-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.krisp-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(167,139,250,0.1); color: #c084fc;
+  border: 2px solid rgba(167,139,250,0.25); border-radius: 10px;
+  padding: 14px 26px; font-size: 16px; font-weight: 700; min-height: 52px;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.krisp-ai-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.4); }
+.krisp-ai-btn.paste-btn { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.25); }
+.krisp-ai-btn.publish-btn { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+.krisp-ai-status { font-size: 13px; color: #b8bcd0; transition: color 0.3s; }
+.krisp-prompt-selector { margin-top: 8px; display: none; }
+.krisp-prompt-selector.visible { display: block; }
+.krisp-prompt-option {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+}
+.krisp-prompt-option:hover { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.krisp-ai-saved {
+  background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15);
+  border-radius: 8px; padding: 12px; margin-top: 10px; display: none;
+}
+.krisp-ai-saved.visible { display: block; }
+
+/* ═══════════════════════════════════════════
+   GLOBAL
+   ═══════════════════════════════════════════ */
+
+a { color: #a8c0ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.footer-note {
+  font-size: 13px; color: #6b7280; text-align: center;
+  margin-top: 20px; padding-top: 12px; border-top: 1px solid #2a2d50;
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT — header nav & date display
+   ═══════════════════════════════════════════ */
+
+.header-center { display: flex; align-items: center; gap: 12px; }
+.date-display { text-align: center; }
+.date-display-day { font-size: 12px; color: #b8bcd0; text-transform: uppercase; letter-spacing: 0.5px; }
+.date-display-main { font-size: 16px; color: #e8eaef; font-weight: 600; }
+
+/* Task name (flex child) */
+.task-name { flex: 1; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+
+/* Drive detail text */
+.drive-detail { font-size: 16px; color: #b8bcd0; line-height: 1.6; margin-top: 4px; }
+
+/* Placeholder warning */
+.placeholder-warning {
+  background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+  color: #fbbf24; padding: 12px; border-radius: 6px; font-size: 13px; margin: 12px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header { flex-direction: column; align-items: flex-start; }
+  .header-center { width: 100%; justify-content: space-between; }
+  .header-right { width: 100%; justify-content: space-between; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+  </style>
+
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">☀️</div>
+    <div>
+      <div class="header-title">☀️ Morning Brief</div>
+      <div class="header-sub">UX is Fine · Jason Schklar</div>
+    </div>
+  </div>
+  <div class="header-center">
+    <button class="date-nav-btn" onclick="navDate(-1)">◀</button>
+    <div class="date-display">
+      <div class="date-display-day" id="date-display-day">Saturday</div>
+      <div class="date-display-main">April 11, 2026</div>
+    </div>
+    <button class="date-nav-btn" id="nav-next-btn" onclick="navDate(1)">▶</button>
+  </div>
+  <div class="header-right">
+    <button class="lb-btn active" onclick="setLookback(1, this)">1D</button>
+    <button class="lb-btn" onclick="setLookback(7, this)">7D</button>
+    <button class="lb-btn" onclick="setLookback(30, this)">30D</button>
+    <div class="text-muted-sm">Generated April 11, 2026 at 5:51 PM</div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab(0)">☀️ Today</button>
+  <button class="tab-btn" id="tab-btn-yesterday" onclick="switchTab(1)">📼 Yesterday</button>
+  <button class="tab-btn" onclick="switchTab(2)">📅 Meetings</button>
+  <button class="tab-btn" onclick="switchTab(3)">📬 Updates</button>
+  <button class="tab-btn" onclick="switchTab(4)">✅ Tasks</button>
+  <button class="tab-btn" onclick="switchTab(5)">🛠 CoWork</button>
+  <button class="tab-btn" onclick="switchTab(6)">📋 Appendix</button>
+</div>
+
+<!-- TAB 0: TODAY -->
+<div id="tab-0" class="tab-content active">
+  <p class="text-secondary">
+    It's Saturday — no work meetings scheduled today. You have 28 Gmail drafts waiting to send, and a few key highlights from yesterday's Capreto // Riot Call meeting. Jay Minn from Wizards of the Coast wants to re-establish monthly catch-ups, Jeffrey Steefel is available next week for a GDC follow-up, and Randy Woodruff is interested in discussing the potential sale of UX is Fine.
+  </p>
+
+  <div class="section-hdr">⚡ Key Highlights</div>
+
+  <div class="stat-row">
+    <div class="stat-tile">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Meetings Today</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Meeting Yesterday</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">28</div>
+      <div class="stat-label">Drafts</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">35</div>
+      <div class="stat-label">Open Tasks</div>
+    </div>
+  </div>
+
+  <div class="attn-card card-warning">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Jay Minn (Wizards/WotC) — Catch Up
+        <span class="badge badge-amber">REPLY</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Jay wants to re-establish monthly meetings. Good relationship to cultivate — reply to schedule.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d789557ee3bfe6" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-info">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Jeffrey Steefel — GDC Follow Up
+        <span class="badge badge-indigo">FOLLOW UP</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Next week looks flexible except Monday. Schedule the follow-up call.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d77c7ef8bd931d" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-urgent">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Randy Woodruff — Business Sale Discussion
+        <span class="badge badge-red">URGENT</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Randy is interested in discussing potential sale of UX is Fine. Wants a call Monday or Tuesday.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d787d2af778513" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-info">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Shannon Brown — Job Inquiry
+        <span class="badge badge-indigo">INQUIRY</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Producer/PM inquiry sent to howdy@uxisfine.com. VP IGDA-Austin. Evaluate interest.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d783bf6c7c9547" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-info">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Gemma Skarvo Consult — Scheduled
+        <span class="badge badge-indigo">SCHEDULED</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Ming Hu scheduled meetings with Ian Ballantyne (Google Gemma) on Apr 14 and Apr 21.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d7830b6126493c" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-info">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Mike McMahon — Configure Claude
+        <span class="badge badge-indigo">MEETING</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Mike scheduled "Jason / Mike - Configure Claude" for Monday, April 13. Prep access and connectors.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d787ee099ca259" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-urgent">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        7 Copper Tasks Due Yesterday
+        <span class="badge badge-red">OVERDUE</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      <strong>Ric Neil (4):</strong> AI usage deck, Levlr intro, AI tools update, brain-dump.<br>
+      <strong>David Bisceglia (3):</strong> Screencaps, manifesto, follow-up notes.
+    </div>
+  </div>
+
+  <div class="attn-card card-warning">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Layer AI — 90% Creative Units
+        <span class="badge badge-amber">ALERT</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Workspace is at 90% Creative Units capacity. Monitor usage or top up soon.
+      <div class="mtg-cta-bar">
+        <a href="https://mail.google.com/mail/u/0/#all/19d7c3643f5f9118" target="_blank" class="cta-btn">📧 Open Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="attn-card card-info">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Accrue — 401(k) Withdrawal
+        <span class="badge badge-indigo">FINANCIAL</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Withdrawal of $5,407.95 initiated for April 10.
+    </div>
+  </div>
+
+  <div class="attn-card card-info">
+    <div class="attn-card-hdr" onclick="this.closest('.attn-card').classList.toggle('collapsed')">
+      <div class="attn-card-title">
+        Bank of America — Deposit
+        <span class="badge badge-indigo">FINANCIAL</span>
+      </div>
+      <div class="attn-chevron">▼</div>
+    </div>
+    <div class="attn-card-body">
+      Direct deposit of $20,500 from Intuit credited successfully.
+    </div>
+  </div>
+
+  <div class="section-hdr">📧 Gmail Drafts</div>
+  <div class="drafts-widget">
+    <div>
+      <div class="drafts-count">28</div>
+      <div class="drafts-label">drafts waiting</div>
+    </div>
+    <a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" class="drafts-link">📧 Review</a>
+  </div>
+</div>
+
+<!-- TAB 1: YESTERDAY -->
+<div id="tab-1" class="tab-content">
+  <div class="section-hdr" id="tab2-date-hdr">📼 Friday, April 10</div>
+
+  <div class="mtg-card collapsible-mtg external" id="mtg-1" data-date="2026-04-10" data-krisp-id="019d782ce5fd71ca88f38e0a6252d5bb" data-mtg-title="Capreto // Riot Call" data-mtg-type="client" data-mtg-participants="Jason Schklar, David, Ashley, Riot team">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Capreto // Riot Call</div>
+      <span class="badge badge-indigo">External</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">11:30 AM · External Client Call</div>
+      <div class="kp-list">
+        <strong>Action Items:</strong>
+        <ul>
+          <li>David to identify and reach out to R&D studios on Unreal to introduce UX is Fine</li>
+          <li>David to contact Clay to discuss AI tooling service line within Riot's AI working group</li>
+          <li>David to coordinate on-site visit logistics via Slack with Jason and Ashley</li>
+          <li>David to reach out to Kristen and Kim for Q4 and 2027 planning</li>
+          <li>David to send Slack messages to line up availability for Riot campus visit (targeting week of April 20)</li>
+          <li>David to set up 30-min intro call between Mike and Chris Bolden for AI tooling</li>
+        </ul>
+      </div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d782ce5fd71ca88f38e0a6252d5bb" target="_blank" class="cta-btn">🎙️ Open in Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-1"></div>
+    </div>
+  </div>
+
+  <div class="section-hdr">📼 Earlier This Week</div>
+
+  <div class="mtg-card collapsible-mtg internal" id="mtg-2" data-date="2026-04-09" data-krisp-id="019d73aeadd870aca6b33440a84a8c7a" data-mtg-title="J and Ash sync" data-mtg-type="internal" data-mtg-participants="Ashley Conley, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">J and Ash sync</div>
+      <span class="badge badge-gray">Internal</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 9 · 2:00 PM · Internal</div>
+      <div class="kp-list">
+        <strong>Key Points & Action Items:</strong>
+        <ul>
+          <li>Ashley to finalize Scopely proposal</li>
+          <li>Continue adding historical bids to tracking doc</li>
+          <li>Jason to set up Claude access for Ashley</li>
+          <li>Save template of hands-on director description</li>
+          <li>Save future bids in doc format for Claude compatibility</li>
+          <li>Schedule session with Mike for Claude/Drive connector</li>
+          <li>Coordinate with Mike for shared Claude skills</li>
+        </ul>
+      </div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d73aeadd870aca6b33440a84a8c7a" target="_blank" class="cta-btn">🎙️ Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-2"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg internal" id="mtg-3" data-date="2026-04-09" data-krisp-id="019d736da365703a8a83f9d40d4fae08" data-mtg-title="Director Project Discussion" data-mtg-type="internal" data-mtg-participants="Cat Chapman Smith, Mike McMahon, Jason Schklar, Dave Inscore">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Director Project Discussion</div>
+      <span class="badge badge-gray">Internal</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 9 · 1:00 PM · Internal</div>
+      <div class="kp-list">
+        <strong>Key Points & Action Items:</strong>
+        <ul>
+          <li>Dave to call Rufy/Jerome re Indonesia studio</li>
+          <li>Jason to plan Riot site visit</li>
+          <li>Jason to do structured interviews at Riot with Ashley</li>
+          <li>Jason to talk with Harrison/Matt about vendor engagement</li>
+          <li>Dave to reach out to MICA for design intern</li>
+          <li>Jason to follow up with Capreto, escalate by Monday</li>
+          <li>Mike to find out if Capreto is available</li>
+          <li>Mike to investigate Jason Viterna's ticket scoping</li>
+          <li>Mike to backchannel to Matt about AI tools</li>
+          <li>Dave to set up meeting with Cat+Matt on AI tools</li>
+          <li>Cat to follow up with Sophie on Trello</li>
+          <li>Cat to initiate 2-month retro with Mission 42</li>
+          <li>Cat to follow up with Aaron on Monday</li>
+        </ul>
+      </div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d736da365703a8a83f9d40d4fae08" target="_blank" class="cta-btn">🎙️ Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-3"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg external" id="mtg-4" data-date="2026-04-09" data-krisp-id="019d734b9cd370999f912836168f7265" data-mtg-title="David Bisceglia and Jason Schklar @ UX is Fine" data-mtg-type="client" data-mtg-participants="David Bisceglia, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">David Bisceglia and Jason Schklar</div>
+      <span class="badge badge-indigo">External</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 9 · 12:30 PM · External</div>
+      <div class="kp-list">
+        <strong>Key Points & Action Items:</strong>
+        <ul>
+          <li>Jason to send screencap of AI daily report to David</li>
+          <li>Send screencap of negative AI social media reactions</li>
+          <li>David to keep eye out for potential UXIF clients</li>
+          <li>Jason to reach out later this summer for follow-up</li>
+          <li>Jason to share mission statement/manifesto with David</li>
+        </ul>
+      </div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d734b9cd370999f912836168f7265" target="_blank" class="cta-btn">🎙️ Open in Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-4"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg external" id="mtg-5" data-date="2026-04-09" data-krisp-id="019d73320fb271d2a1a54db384df503d" data-mtg-title="Matthew (FRG) / Jason (UXIF)" data-mtg-type="client" data-mtg-participants="Matthew, Ashley Conley, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Matthew (FRG) / Jason (UXIF)</div>
+      <span class="badge badge-indigo">External</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 9 · 12:00 PM · External</div>
+      <div class="kp-list">
+        <strong>Key Points & Action Items:</strong>
+        <ul>
+          <li>Jason to follow up with Matthew to continue partnership/staffing discussions</li>
+        </ul>
+      </div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d73320fb271d2a1a54db384df503d" target="_blank" class="cta-btn">🎙️ Open in Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-5"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg external" id="mtg-6" data-date="2026-04-09" data-krisp-id="019d7295f991712eb2662d70c6b88c64" data-mtg-title="Ric Neil bookings" data-mtg-type="client" data-mtg-participants="Jason Schklar, Ric Neil">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Ric Neil bookings</div>
+      <span class="badge badge-indigo">External</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 9 · 9:00 AM · External</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d7295f991712eb2662d70c6b88c64" target="_blank" class="cta-btn">🎙️ Open in Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-6"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg internal" id="mtg-7" data-date="2026-04-08" data-krisp-id="019d6e7a8315751db8c143cb7b3953db" data-mtg-title="Staffing is Fine" data-mtg-type="internal" data-mtg-participants="Cat Chapman Smith, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Staffing is Fine</div>
+      <span class="badge badge-gray">Internal</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 8 · 2:00 PM · Internal</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d6e7a8315751db8c143cb7b3953db" target="_blank" class="cta-btn">🎙️ Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-7"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg internal" id="mtg-8" data-date="2026-04-08" data-krisp-id="019d6e2e1edc70f9b276c62efbc26ca4" data-mtg-title="Proposal Wrangling Nexon & Scopely" data-mtg-type="internal" data-mtg-participants="Ashley Conley, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Proposal Wrangling Nexon & Scopely</div>
+      <span class="badge badge-gray">Internal</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 8 · 12:30 PM · Internal</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d6e2e1edc70f9b276c62efbc26ca4" target="_blank" class="cta-btn">🎙️ Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-8"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg internal" id="mtg-9" data-date="2026-04-08" data-krisp-id="019d6e0b808b71789e877f0e5d2addc6" data-mtg-title="Renn/Jason" data-mtg-type="internal" data-mtg-participants="Renn, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Renn/Jason</div>
+      <span class="badge badge-gray">Internal</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 8 · 12:00 PM · Internal</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d6e0b808b71789e877f0e5d2addc6" target="_blank" class="cta-btn">🎙️ Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-9"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg external" id="mtg-10" data-date="2026-04-08" data-krisp-id="019d6dd4fb3f704f8ead09440528b0a1" data-mtg-title="Jason Schklar and Alejandro Sandoval" data-mtg-type="client" data-mtg-participants="Jason Schklar, Alejandro Sandoval">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Jason Schklar and Alejandro Sandoval</div>
+      <span class="badge badge-indigo">External</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 8 · 11:00 AM · External</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d6dd4fb3f704f8ead09440528b0a1" target="_blank" class="cta-btn">🎙️ Open in Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-10"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg internal" id="mtg-11" data-date="2026-04-08" data-krisp-id="019d6dc0acc2737891359f58fca4c7e5" data-mtg-title="Dave / Jason Weekly" data-mtg-type="internal" data-mtg-participants="Dave Inscore, Jason Schklar">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Dave / Jason Weekly</div>
+      <span class="badge badge-gray">Internal</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 8 · 10:30 AM · Internal</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d6dc0acc2737891359f58fca4c7e5" target="_blank" class="cta-btn">🎙️ Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-11"></div>
+    </div>
+  </div>
+
+  <div class="mtg-card collapsible-mtg external" id="mtg-12" data-date="2026-04-08" data-krisp-id="019d6d9f7d23710cb6a0c99d288fafc1" data-mtg-title="Skarvo <> Google Accelerator" data-mtg-type="client" data-mtg-participants="Gemma Skarvo, Jason Schklar, Google">
+    <div class="mtg-card-header" onclick="toggleMtg(this)">
+      <div class="mtg-card-title">Skarvo <> Google Accelerator</div>
+      <span class="badge badge-indigo">External</span>
+      <div class="mtg-chevron">▼</div>
+    </div>
+    <div class="mtg-card-body">
+      <div class="mtg-card-meta">April 8 · 10:00 AM · External</div>
+      <div class="kp-list empty">No key points captured</div>
+      <div class="mtg-cta-bar">
+        <a href="https://app.krisp.ai/t/019d6d9f7d23710cb6a0c99d288fafc1" target="_blank" class="cta-btn">🎙️ Open in Krisp</a>
+      </div>
+      <div class="krisp-ai-section" data-for-mtg="mtg-12"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: MEETINGS -->
+<div id="tab-2" class="tab-content">
+  <div class="section-hdr">📅 Today's Calendar</div>
+
+  <div class="cal-row">
+    <div class="cal-blurb">No meetings scheduled — enjoy your Saturday!</div>
+  </div>
+</div>
+
+<!-- TAB 3: UPDATES -->
+<div id="tab-3" class="tab-content">
+  <div class="section-hdr">📧 Notable Emails</div>
+
+  <div class="update-card border-lead" data-date="2026-04-10" data-cta-gmail-thread="19d789557ee3bfe6">
+    <div class="update-card-inner">
+      <div class="update-icon">🎮</div>
+      <div class="update-body">
+        <div class="update-title">Jay Minn (WotC) — Catch Up with Jason Schklar</div>
+        <div class="update-detail">Re-establishing monthly catch-ups. Good relationship to maintain.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card border-waiting" data-date="2026-04-10" data-cta-gmail-thread="19d77c7ef8bd931d">
+    <div class="update-card-inner">
+      <div class="update-icon">📧</div>
+      <div class="update-body">
+        <div class="update-title">Jeffrey Steefel — Re: GDC Follow Up - UX is Fine</div>
+        <div class="update-detail">Available next week except Monday. Schedule follow-up call.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card border-urgent" data-date="2026-04-10" data-cta-gmail-thread="19d787d2af778513">
+    <div class="update-card-inner">
+      <div class="update-icon">❓</div>
+      <div class="update-body">
+        <div class="update-title">Randy Woodruff — Re: Business buyers</div>
+        <div class="update-detail">Interested in discussing potential sale of UXIF. Wants call Mon/Tue.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card" data-date="2026-04-10" data-cta-gmail-thread="19d783bf6c7c9547">
+    <div class="update-card-inner">
+      <div class="update-icon">📧</div>
+      <div class="update-body">
+        <div class="update-title">Shannon Brown — Job Inquiry</div>
+        <div class="update-detail">Producer/PM position inquiry sent to howdy@uxisfine.com. VP IGDA-Austin.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card" data-date="2026-04-10" data-cta-gmail-thread="19d7830b6126493c">
+    <div class="update-card-inner">
+      <div class="update-icon">📧</div>
+      <div class="update-body">
+        <div class="update-title">Ming Hu — Gemma Skarvo consult scheduled</div>
+        <div class="update-detail">Meetings with Ian Ballantyne (Google Gemma) on Apr 14 and Apr 21.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card" data-date="2026-04-10" data-cta-gmail-thread="19d787ee099ca259">
+    <div class="update-card-inner">
+      <div class="update-icon">📧</div>
+      <div class="update-body">
+        <div class="update-title">Mike McMahon — Jason / Mike - Configure Claude</div>
+        <div class="update-detail">Meeting scheduled for Monday, April 13. Prep connectors and access.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card" data-date="2026-04-10" data-cta-gmail-thread="19d7a1389cb5dade">
+    <div class="update-card-inner">
+      <div class="update-icon">⚡</div>
+      <div class="update-body">
+        <div class="update-title">Accrue — 401(k) Withdrawal</div>
+        <div class="update-detail">$5,407.95 withdrawal initiated for April 10.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card" data-date="2026-04-10" data-cta-gmail-thread="19d77e95524e75de">
+    <div class="update-card-inner">
+      <div class="update-icon">⚡</div>
+      <div class="update-body">
+        <div class="update-title">Bank of America — Direct Deposit</div>
+        <div class="update-detail">$20,500 from Intuit credited successfully.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card" data-date="2026-04-11" data-cta-gmail-thread="19d7c3643f5f9118">
+    <div class="update-card-inner">
+      <div class="update-icon">⚡</div>
+      <div class="update-body">
+        <div class="update-title">Layer AI — 90% Creative Units</div>
+        <div class="update-detail">Workspace capacity alert. Monitor usage or top up soon.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-hdr">📋 Google Drive Updates</div>
+
+  <a href="https://docs.google.com/document/d/1_vWaJNVb5Y-ZW05R2ju4LwecoEJQ9C8OzJHks2-M4LE/edit" target="_blank">
+    <div class="drive-card">
+      <div class="drive-icon">📋</div>
+      <div class="drive-body">
+        <div class="drive-title">Untitled document</div>
+        <div class="drive-meta">Capreto/Riot call executive summary. Modified by Jason.</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://docs.google.com/document/d/1iMV39o_D8E4oodzjgbkk-aYbYcetBUsp3W9cgEtUapM/edit" target="_blank">
+    <div class="drive-card">
+      <div class="drive-icon">📋</div>
+      <div class="drive-body">
+        <div class="drive-title">GURLS 2026 Announcement</div>
+        <div class="drive-meta">Games User Research Leadership Summit, Berlin Sep 21-22. Modified by dixon.lanie.</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit" target="_blank">
+    <div class="drive-card">
+      <div class="drive-icon">📋</div>
+      <div class="drive-body">
+        <div class="drive-title">Notes - Gemma Skarvo consult</div>
+        <div class="drive-meta">Questions for Ian Ballantyne re: Gemma 4. Modified by ashish_suman.</div>
+      </div>
+    </div>
+  </a>
+
+  <div class="section-hdr">💬 Slack Activity</div>
+
+  <div class="update-card">
+    <div class="update-card-inner">
+      <div class="update-icon">💬</div>
+      <div class="update-body">
+        <div class="update-title">DMs — Mike McMahon</div>
+        <div class="update-detail">Discussing Cloudflare workers configuration and Cowork capabilities. Setting up Claude connectors for Monday session.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card">
+    <div class="update-card-inner">
+      <div class="update-icon">💬</div>
+      <div class="update-body">
+        <div class="update-title">Deal Channels (2 active · last 72h)</div>
+        <div class="update-detail">
+          <strong>#deal-riot-tft-unreal:</strong> Capreto executive summary posted, Jason Viterna performance plan discussed, Mike coordinating response<br>
+          <strong>#deal-scopely-poe-ui:</strong> Ashley shipped proposal, Jason reviewing budget scenarios
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: TASKS -->
+<div id="tab-4" class="tab-content">
+  <div class="section-hdr">✅ Open Tasks (35 total)</div>
+
+  <div class="task-block">
+    <div class="task-block-header">🔥 Due/Overdue (7)</div>
+    <div class="task-row">
+      <span class="task-name">AI usage deck — Ric Neil</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Levlr intro — Ric Neil</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">AI tools update — Ric Neil</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Brain-dump AI usage — Ric Neil</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Send screencaps — David Bisceglia</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Share manifesto — David Bisceglia</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Follow-up notes — David Bisceglia</span>
+      <span class="task-overdue">Overdue</span>
+    </div>
+  </div>
+
+  <div class="task-block">
+    <div class="task-block-header">💼 Upcoming (28)</div>
+    <div class="task-row">
+      <span class="task-name">Capreto escalation follow-up — Jason</span>
+      <span class="task-due">Mon Apr 13</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Riot site visit planning — Jason</span>
+      <span class="task-due">Mon Apr 13</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Schedule Mike + Chris Bolden intro — David</span>
+      <span class="task-due">Apr 15</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">R&D studio outreach (Unreal) — David</span>
+      <span class="task-due">Apr 15</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Riot campus visit logistics — David</span>
+      <span class="task-due">Apr 20</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Riot Q4/2027 planning calls — David</span>
+      <span class="task-due">Apr 20</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Gemma Skarvo consult (Ian Ballantyne) — Jason</span>
+      <span class="task-due">Apr 14</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Gemma Skarvo follow-up call — Jason</span>
+      <span class="task-due">Apr 21</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Matthew partnership follow-up — Jason</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Randy Woodruff call (sale discussion) — Jason</span>
+      <span class="task-due">Mon/Tue</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Jay Minn (WotC) schedule catch-up — Jason</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Jeffrey Steefel GDC follow-up — Jason</span>
+      <span class="task-due">Next week</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Shannon Brown job inquiry evaluation — Jason</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Layer AI capacity — monitor usage</span>
+      <span class="task-due">This week</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Claude access setup — Ashley Conley</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Historical bids tracking — Ashley</span>
+      <span class="task-due">Ongoing</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Scopely proposal finalization — Ashley</span>
+      <span class="task-due">Completed</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Nexon proposal edits — Ashley</span>
+      <span class="task-due">This week</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Indonesia studio call — Dave Inscore</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">MICA design intern outreach — Dave Inscore</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">AI tools adoption meeting — Cat Chapman Smith</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Mission 42 retro — Cat Chapman Smith</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Jason Viterna ticket scoping — Mike McMahon</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Claude/Drive connector setup — Mike McMahon</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Capreto availability check — Mike McMahon</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Riot site visit interviews — Jason + Ashley</span>
+      <span class="task-due">Apr 20</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Vendor engagement discussion — Jason + Matt/Harrison</span>
+      <span class="task-due">Pending</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">Claude skills coordination — Mike McMahon + Jason</span>
+      <span class="task-due">Pending</span>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: COWORK -->
+<div id="tab-5" class="tab-content">
+  <div class="section-hdr">🛠 Skills & Automation</div>
+
+  <table class="cowork-table">
+    <thead>
+      <tr>
+        <th>Skill</th>
+        <th>Last Run</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>morning-brief</td>
+        <td>11:10 PM daily (evening run)</td>
+      </tr>
+      <tr>
+        <td>morning-brief-refresh</td>
+        <td>7:02 AM daily (morning refresh)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-hdr">📅 Scheduled Tasks</div>
+
+  <div class="task-block">
+    <div class="task-block-header">Active (2)</div>
+    <div class="task-row">
+      <span class="task-name">morning-brief</span>
+      <span class="task-due">11:10 PM daily</span>
+    </div>
+    <div class="task-row">
+      <span class="task-name">morning-brief-refresh</span>
+      <span class="task-due">7:02 AM daily</span>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: APPENDIX -->
+<div id="tab-6" class="tab-content">
+  <div class="section-hdr">📋 Deal Channels (40 scanned)</div>
+
+  <div class="update-card">
+    <div class="update-card-inner">
+      <div class="update-icon">💬</div>
+      <div class="update-body">
+        <div class="update-title">Active Channels (2)</div>
+        <div class="update-detail">
+          #deal-riot-tft-unreal · #deal-scopely-poe-ui
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="update-card">
+    <div class="update-card-inner">
+      <div class="update-icon">💬</div>
+      <div class="update-body">
+        <div class="update-title">Silent Channels (38)</div>
+        <div class="update-detail">
+          #deal-riot-esports-ui · #deal-riot-social-ai · #deal-zynga-ui-test · #deal-nexon-uxresearch · #deal-ea-nhl-ux · #deal-humanitz-tbd · #deal-codenamered-tbd · #deal-epic-ux-ui · #deal-riot-project-c · #deal-mission42-ux · #deal-supersaurus-website · #deal-amazon-prototypes · #deal-bandcamp-ux · #deal-bandcamp-ai · #deal-gearbox-qa · #deal-gearbox-ui · #deal-bluehole-staffing · #deal-activision-compliance · #deal-ea-rugby · #deal-ea-nba · #deal-minecraft-education · #deal-sony-platform · #deal-microsoft-training · #deal-nvidia-research · #deal-qualcomm-benchmarking · #deal-perforce-consulting · #deal-unity-tools · #deal-unreal-marketplace · #deal-crytek-pipeline · #deal-godot-integration · #deal-amazon-lumberyard · #deal-facebook-vr · #deal-apple-gaming · #deal-google-cloud-gaming · #deal-azure-game-dev · #deal-twitch-streaming · #deal-discord-community · #deal-steam-vr
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Morning Brief for Saturday, April 11, 2026. This brief covers yesterday's highlights (Capreto // Riot Call), upcoming priorities, and open tasks. Generated at 5:51 PM.
+  </div>
+</div>
+
+<script>
+/* Morning Brief — Canonical JavaScript (dark theme)
+   Source of truth: ~/Claude/_system/skills/morning-brief/morning-brief.js
+   Last updated: 2026-04-11
+*/
+
+// ── Config (replace tokens at generation time) ──────────────────────────
+const BRIEF_DATE = new Date('2026-04-11');
+const BRIEF_LOOKBACK_DAYS = 1;
+const TODAY_DATE_STR = '2026-04-11';
+
+const LB_LABELS = {
+  1:  { tab: "\uD83D\uDCFC Today's Meetings",   hdr: '\uD83D\uDCFC Saturday, April 11' },
+  7:  { tab: '\uD83D\uDCFC Last 7 Days',        hdr: '\uD83D\uDCFC Apr 5 \u2013 Saturday, April 11 \u00B7 Last 7 Days' },
+  30: { tab: '\uD83D\uDCFC Last 30 Days',       hdr: '\uD83D\uDCFC Mar 13 \u2013 Saturday, April 11 \u00B7 Last 30 Days' }
+};
+
+// ── Tab switching ───────────────────────────────────────────────────────
+function switchTab(tabNum) {
+  document.querySelectorAll('.tab-content').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  var tab = document.getElementById('tab-' + tabNum);
+  if (tab) tab.classList.add('active');
+  var btns = document.querySelectorAll('.tab-btn');
+  if (btns[tabNum]) btns[tabNum].classList.add('active');
+}
+
+// ── Collapsible cards ───────────────────────────────────────────────────
+// Toggles Yesterday tab meeting cards (Tab 2)
+function toggleMtg(hdr) {
+  hdr.closest('.collapsible-mtg').classList.toggle('collapsed');
+}
+
+// Toggles Today tab attention cards (Tab 1)
+function toggleAttn(hdr) {
+  hdr.closest('.attn-card').classList.toggle('collapsed');
+}
+
+// ── Date navigation ─────────────────────────────────────────────────────
+// Navigates to previous/next day brief on Cloudflare Pages.
+// URL pattern: /briefs/YYYY-MM-DD.html  (matches deployed filenames)
+function navDate(dir) {
+  var m = window.location.pathname.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return;
+  var d = new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+  d.setDate(d.getDate() + dir);
+  var y = d.getFullYear();
+  var mo = String(d.getMonth() + 1).padStart(2, '0');
+  var da = String(d.getDate()).padStart(2, '0');
+  window.location.href = '/briefs/' + y + '-' + mo + '-' + da + '.html';
+}
+
+// Disable the "next" button if we're on today's brief or later
+(function() {
+  var m = window.location.pathname.match(/(\d{4}-\d{2}-\d{2})/);
+  if (m) {
+    var today = new Date().toISOString().split('T')[0];
+    if (m[1] >= today) {
+      var btn = document.getElementById('date-nav-next');
+      if (btn) btn.disabled = true;
+    }
+  }
+})();
+
+// ── Lookback filter ─────────────────────────────────────────────────────
+function setLookback(days, btn) {
+  document.querySelectorAll('.lb-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  btn.classList.add('active');
+
+  var cutoff = new Date(BRIEF_DATE);
+  cutoff.setDate(cutoff.getDate() - days);
+  var cutoffStr = cutoff.toISOString().split('T')[0];
+
+  document.querySelectorAll('[data-date]').forEach(function(el) {
+    el.style.display = (el.dataset.date >= cutoffStr) ? '' : 'none';
+  });
+
+  var tabBtn = document.getElementById('tab-btn-yesterday');
+  var secHdr = document.getElementById('tab2-date-hdr');
+  if (LB_LABELS[days]) {
+    if (tabBtn) tabBtn.textContent = LB_LABELS[days].tab;
+    if (secHdr) secHdr.textContent = LB_LABELS[days].hdr;
+  }
+
+  var notice = document.getElementById('lookback-notice');
+  if (notice) {
+    if (days > BRIEF_LOOKBACK_DAYS) {
+      var d = days === 7 ? '7 days' : '30 days';
+      notice.textContent = '\u26A0\uFE0F This brief captured ' + BRIEF_LOOKBACK_DAYS +
+        ' day' + (BRIEF_LOOKBACK_DAYS !== 1 ? 's' : '') +
+        ' of data. Showing all available. Ask Claude to regenerate for a full ' + d + ' window.';
+      notice.style.display = 'block';
+    } else {
+      notice.style.display = 'none';
+    }
+  }
+}
+
+// ── Focus Topics (localStorage persistence) ─────────────────────────────
+(function() {
+  var key = 'focus-topics-' + TODAY_DATE_STR;
+  var el = document.getElementById('focus-topics-input');
+  if (!el) return;
+  var saved = localStorage.getItem(key);
+  if (saved) el.value = saved;
+})();
+
+function saveFocusTopics() {
+  var key = 'focus-topics-' + TODAY_DATE_STR;
+  var el = document.getElementById('focus-topics-input');
+  if (el) localStorage.setItem(key, el.value);
+}
+</script>
+
+<!-- INLINE EDITING FRAMEWORK -->
+<style>
+  [data-editable="true"] {
+    cursor: pointer;
+    position: relative;
+  }
+
+  [data-editable="true"]:hover {
+    outline: 2px dashed #6366f1;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .edit-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 2px solid #6366f1;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: inherit;
+    line-height: 1.75;
+    background: #1e1e2e;
+    color: #e8eaef;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+
+  .edit-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .edit-save {
+    background: #6366f1;
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 14px 26px;
+    min-height: 52px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background 0.15s;
+  }
+
+  .edit-save:hover {
+    background: #4f46e5;
+  }
+
+  .edit-cancel {
+    background: transparent;
+    color: #b8bcd0;
+    border: 2px solid #2a2f3e;
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-height: 52px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.15s;
+  }
+
+  .edit-cancel:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  #sync-float-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 28px;
+    min-height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    display: none;
+    z-index: 9999;
+    transition: all 0.2s;
+  }
+
+  #sync-float-btn:hover {
+    background: #4f46e5;
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+  }
+
+  #sync-toast {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    background: #1e1e2e;
+    color: #a5b4fc;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.3s;
+    border: 1px solid #2a2a3e;
+  }
+</style>
+
+<script>
+  window.pendingEdits = [];
+  window.doneItems = [];
+
+  function initInlineEdit() {
+    document.querySelectorAll('[data-editable="true"]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.title = 'Click to edit';
+      el.addEventListener('click', function(e) {
+        if (el.querySelector('textarea')) return;
+        const original = el.textContent.trim();
+        const recordType = el.dataset.recordType || 'unknown';
+        const recordId = el.dataset.recordId || 'unknown';
+        el.innerHTML = `
+          <textarea class="edit-textarea">${original}</textarea>
+          <div class="edit-actions">
+            <button class="edit-save" onclick="event.stopPropagation(); saveEdit(this, '${recordType}', '${recordId}', '${original.replace(/'/g, "\\'")}')" style="cursor:pointer;">💾 Save</button>
+            <button class="edit-cancel" onclick="event.stopPropagation(); cancelEdit(this, '${original.replace(/'/g, "\\'")}')" style="cursor:pointer;">❌ Cancel</button>
+          </div>
+        `;
+        el.querySelector('textarea').focus();
+      });
+    });
+  }
+
+  function saveEdit(btn, recordType, recordId, original) {
+    const container = btn.closest('[data-editable="true"]');
+    const textarea = container.querySelector('textarea');
+    const newText = textarea ? textarea.value.trim() : original;
+    container.textContent = newText;
+    container.style.cursor = 'pointer';
+    container.title = 'Click to edit';
+    window.pendingEdits.push({ recordType, recordId, original, newText });
+    updateSyncButton();
+  }
+
+  function cancelEdit(btn, original) {
+    const container = btn.closest('[data-editable="true"]');
+    container.textContent = original;
+    container.style.cursor = 'pointer';
+    container.title = 'Click to edit';
+  }
+
+  function updateSyncButton() {
+    const total = window.pendingEdits.length + window.doneItems.length;
+    let btn = document.getElementById('sync-float-btn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'sync-float-btn';
+      btn.onclick = copySyncPrompt;
+      document.body.appendChild(btn);
+    }
+    const label = `🔄 Sync ${total} change${total !== 1 ? 's' : ''}`;
+    btn.textContent = label;
+    btn.style.display = total > 0 ? 'block' : 'none';
+  }
+
+  function copySyncPrompt() {
+    let prompt = 'Please sync the following changes from my morning brief:\n\n';
+    if (window.pendingEdits.length > 0) {
+      prompt += 'EDITS:\n';
+      window.pendingEdits.forEach(e => {
+        prompt += `- [${e.recordType} id:${e.recordId}] Updated text: "${e.newText}"\n`;
+      });
+    }
+    if (window.doneItems.length > 0) {
+      prompt += '\nDONE:\n';
+      window.doneItems.forEach(d => {
+        prompt += `- [${d.recordType} id:${d.recordId}] Mark as completed\n`;
+      });
+    }
+    prompt += '\nRun these updates now.';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(prompt).then(() => {
+        showToast('📋 Sync prompt copied — paste into Claude');
+      }).catch(() => {
+        fallbackCopy(prompt);
+      });
+    } else {
+      fallbackCopy(prompt);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast('📋 Sync prompt copied — paste into Claude');
+    } catch (err) {
+      showToast('❌ Copy failed — try manually selecting the text');
+    }
+    document.body.removeChild(textarea);
+  }
+
+  function showToast(message) {
+    let toast = document.getElementById('sync-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'sync-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+    }, 3000);
+  }
+
+  function initWhenReady() {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      initInlineEdit();
+    } else {
+      document.addEventListener('DOMContentLoaded', initInlineEdit);
+    }
+  }
+
+  initWhenReady();
+</script>
+
+<!-- KRISP AI SUMMARY MODULE START -->
+<style>
+.krisp-ai-section { margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; }
+.krisp-ai-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.krisp-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(167,139,250,0.1); color: #c084fc;
+  border: 2px solid rgba(167,139,250,0.25); border-radius: 10px;
+  padding: 14px 26px; font-size: 16px; font-weight: 700; min-height: 52px;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.krisp-ai-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.4); }
+.krisp-ai-btn.paste-btn { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.25); }
+.krisp-ai-btn.paste-btn:hover { background: rgba(99,102,241,0.18); border-color: rgba(99,102,241,0.4); }
+.krisp-ai-btn.publish-btn { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+.krisp-ai-btn.publish-btn:hover { background: rgba(245,158,11,0.18); border-color: rgba(245,158,11,0.4); }
+.krisp-ai-status { font-size: 13px; color: #b8bcd0; transition: color 0.3s; }
+
+.krisp-prompt-selector { margin-top: 8px; display: none; }
+.krisp-prompt-selector.visible { display: block; }
+.krisp-prompt-option {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;
+  margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+}
+.krisp-prompt-option:hover { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.krisp-prompt-option.recommended { border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.04); }
+.krisp-prompt-option .kp-name { font-size: 12px; font-weight: 600; color: #e5e7eb; }
+.krisp-prompt-option .kp-desc { font-size: 11px; color: #6b7280; }
+.krisp-prompt-option .kp-icon { font-size: 16px; flex-shrink: 0; }
+.krisp-prompt-option .kp-rec { font-size: 9px; background: rgba(167,139,250,0.2); color: #c084fc; padding: 1px 6px; border-radius: 99px; margin-left: 6px; }
+
+.krisp-paste-panel { margin-top: 10px; display: none; }
+.krisp-paste-panel.visible { display: block; }
+.krisp-paste-area {
+  width: 100%; min-height: 120px; background: #0f1320; color: #d1d5db;
+  border: 1px solid rgba(167,139,250,0.25); border-radius: 8px;
+  padding: 10px; font-size: 16px; font-family: inherit; line-height: 1.75; resize: vertical;
+}
+.krisp-paste-area::placeholder { color: #4b5563; }
+.krisp-paste-area:focus { outline: none; border-color: rgba(167,139,250,0.5); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
+.krisp-paste-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+.krisp-paste-save { background: #6366f1; color: #fff; border: 2px solid transparent; border-radius: 10px; padding: 14px 26px; font-size: 16px; font-weight: 700; min-height: 52px; cursor: pointer; font-family: inherit; }
+.krisp-paste-save:hover { background: #7c7ff7; }
+.krisp-paste-cancel { background: transparent; color: #b8bcd0; border: 2px solid #2a2f3e; border-radius: 10px; padding: 14px 20px; font-size: 16px; min-height: 52px; cursor: pointer; font-family: inherit; }
+.krisp-paste-cancel:hover { background: rgba(255,255,255,0.04); }
+.krisp-save-toast { font-size: 13px; color: #4ade80; display: none; }
+
+.krisp-ai-saved { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 8px; padding: 12px; margin-top: 10px; position: relative; display: none; }
+.krisp-ai-saved.visible { display: block; }
+.krisp-ai-saved .krisp-badge { position: absolute; top: -8px; left: 12px; background: #1a1f2e; padding: 0 6px; font-size: 10px; font-weight: 600; color: #c084fc; text-transform: uppercase; letter-spacing: 0.5px; }
+.krisp-ai-saved .krisp-text { font-size: 18px; color: #e8eaef; line-height: 1.75; white-space: pre-wrap; }
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  var KRISP_PROMPTS = {
+    mentoring: {
+      icon: '🏌️',
+      name: 'GPA / Mentoring Session',
+      desc: 'UX feedback, studio action items, progress, blockers',
+      text: 'Summarize this mentoring session. Structure your response as:\n\n**Key Findings:** Bullet list of UX/design feedback given during the session.\n**Action Items:** Each item should include owner name and due date if discussed.\n**Progress Since Last Session:** What has improved or been completed since we last met.\n**Blockers:** Any issues that could delay progress.\n\nKeep it concise but thorough. Use specific details from the conversation, not generic summaries.'
+    },
+    client: {
+      icon: '🤝',
+      name: 'Client / Prospect Call',
+      desc: 'Decisions, action items with owners, next steps, objections',
+      text: 'Summarize this client/prospect meeting. Structure your response as:\n\n**Decisions Made:** Any agreements or commitments from both sides.\n**Action Items:** Each with an owner and deadline if discussed.\n**Next Steps:** What happens after this meeting.\n**Objections or Concerns:** Anything the client pushed back on or expressed doubt about.\n**Budget/Timeline Signals:** Any mentions of budget, timeline, or deal progression.\n\nBe specific — include names, dates, and deliverables mentioned.'
+    },
+    internal: {
+      icon: '🏠',
+      name: 'Internal Team Meeting',
+      desc: 'Decisions, tasks with owners, escalation items',
+      text: 'Summarize this internal team meeting. Structure your response as:\n\n**Decisions:** What was decided or approved.\n**Action Items:** Each with owner and deadline.\n**Needs Jason\'s Attention:** Anything that was flagged as needing escalation or Jason\'s input.\n**Capacity/Risk Flags:** Any resource, deadline, or workload concerns raised.\n\nKeep it brief — focus on what\'s actionable.'
+    },
+    srs: {
+      icon: '🇷🇸',
+      name: 'Serbia Rising Stars Session',
+      desc: 'UX feedback, studio action items, progress, engine-specific blockers',
+      text: 'Summarize this mentoring session with the Serbian studio. Structure your response as:\n\n**Key Findings:** Bullet list of UX/design feedback given during the session.\n**Action Items:** Each item should include owner name and due date if discussed.\n**Progress Since Last Session:** What has improved or been completed since we last met.\n**Blockers:** Any issues that could delay progress, including engine-specific challenges.\n\nKeep it concise but thorough. Use specific details from the conversation.'
+    }
+  };
+
+  var PROMPT_ORDER = ['mentoring', 'client', 'internal', 'srs'];
+
+  function getStorageKey() {
+    var firstCard = document.querySelector('.mtg-card[data-date]');
+    var briefDate = firstCard ? firstCard.getAttribute('data-date') : new Date().toISOString().slice(0, 10);
+    return 'mb-summaries-' + briefDate;
+  }
+
+  function loadSummaries() {
+    try {
+      var data = localStorage.getItem(getStorageKey());
+      return data ? JSON.parse(data) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveSummary(mtgId, text) {
+    var summaries = loadSummaries();
+    summaries[mtgId] = {
+      text: text,
+      savedAt: new Date().toISOString(),
+      source: 'krisp'
+    };
+    try { localStorage.setItem(getStorageKey(), JSON.stringify(summaries)); } catch (e) {}
+  }
+
+  function initKrispAI() {
+    var sections = document.querySelectorAll('.krisp-ai-section[data-for-mtg]');
+    var saved = loadSummaries();
+
+    sections.forEach(function(section) {
+      var mtgId = section.getAttribute('data-for-mtg');
+      var card = document.getElementById(mtgId);
+      if (!card) return;
+
+      var krispId = card.getAttribute('data-krisp-id') || '';
+      var mtgTitle = card.getAttribute('data-mtg-title') || '';
+      var mtgParticipants = card.getAttribute('data-mtg-participants') || '';
+      var mtgType = card.getAttribute('data-mtg-type') || 'client';
+      var mtgDate = card.getAttribute('data-date') || '';
+      var isExternal = card.classList.contains('external');
+
+      var html = '';
+      html += '<div class="krisp-ai-bar">';
+      html += '<button class="krisp-ai-btn" data-action="get-summary" data-mtg="' + mtgId + '">💬 Get AI Summary</button>';
+      html += '<button class="krisp-ai-btn paste-btn" data-action="paste-summary" data-mtg="' + mtgId + '">📋 Paste Summary</button>';
+      if (isExternal) {
+        html += '<button class="krisp-ai-btn publish-btn" data-action="publish-copper" data-mtg="' + mtgId + '">🔶 Publish to Copper</button>';
+      }
+      html += '<span class="krisp-ai-status" id="kai-status-' + mtgId + '"></span>';
+      html += '</div>';
+
+      html += '<div class="krisp-prompt-selector" id="kai-prompts-' + mtgId + '">';
+      html += '<div style="font-size:11px;color:#6b7280;margin-bottom:6px;margin-top:4px;">Choose a prompt template:</div>';
+      PROMPT_ORDER.forEach(function(key) {
+        var p = KRISP_PROMPTS[key];
+        var isRec = (key === mtgType);
+        html += '<div class="krisp-prompt-option' + (isRec ? ' recommended' : '') + '" data-action="copy-prompt" data-mtg="' + mtgId + '" data-prompt-type="' + key + '" data-krisp-id="' + krispId + '">';
+        html += '<span class="kp-icon">' + p.icon + '</span>';
+        html += '<div><div class="kp-name">' + p.name + (isRec ? '<span class="kp-rec">recommended</span>' : '') + '</div>';
+        html += '<div class="kp-desc">' + p.desc + '</div></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+
+      html += '<div class="krisp-paste-panel" id="kai-paste-' + mtgId + '">';
+      html += '<textarea class="krisp-paste-area" id="kai-text-' + mtgId + '" placeholder="Paste the Krisp AI summary here..."></textarea>';
+      html += '<div class="krisp-paste-actions">';
+      html += '<button class="krisp-paste-save" data-action="save-summary" data-mtg="' + mtgId + '">✅ Save Summary</button>';
+      html += '<button class="krisp-paste-cancel" data-action="cancel-paste" data-mtg="' + mtgId + '">Cancel</button>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '<div class="krisp-ai-saved" id="kai-saved-' + mtgId + '">';
+      html += '<span class="krisp-badge">✨ Krisp AI Summary</span>';
+      html += '<div class="krisp-text" id="kai-savedtext-' + mtgId + '"></div>';
+      html += '</div>';
+
+      section.innerHTML = html;
+
+      if (saved[mtgId] && saved[mtgId].text) {
+        showSavedSummary(mtgId, saved[mtgId].text);
+      }
+    });
+
+    document.addEventListener('click', handleKrispAIClick);
+  }
+
+  function handleKrispAIClick(e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+
+    var action = btn.getAttribute('data-action');
+    var mtgId = btn.getAttribute('data-mtg');
+
+    switch (action) {
+      case 'get-summary':
+        togglePromptSelector(mtgId);
+        break;
+      case 'copy-prompt':
+        var type = btn.getAttribute('data-prompt-type');
+        var krispId = btn.getAttribute('data-krisp-id');
+        copyPromptAndOpenKrisp(mtgId, type, krispId);
+        break;
+      case 'paste-summary':
+        togglePastePanel(mtgId);
+        break;
+      case 'save-summary':
+        saveAndDisplaySummary(mtgId);
+        break;
+      case 'cancel-paste':
+        togglePastePanel(mtgId);
+        break;
+      case 'publish-copper':
+        publishToCopper(mtgId);
+        break;
+    }
+  }
+
+  function togglePromptSelector(mtgId) {
+    var el = document.getElementById('kai-prompts-' + mtgId);
+    if (el) el.classList.toggle('visible');
+  }
+
+  function copyPromptAndOpenKrisp(mtgId, type, krispId) {
+    var prompt = KRISP_PROMPTS[type];
+    if (!prompt) return;
+
+    navigator.clipboard.writeText(prompt.text).then(function() {
+      setStatus(mtgId, '📋 Prompt copied! Open Krisp → paste into AI Chat', '#c084fc');
+
+      if (krispId) {
+        window.open('https://app.krisp.ai/t/' + krispId, '_blank');
+      }
+
+      var el = document.getElementById('kai-prompts-' + mtgId);
+      if (el) el.classList.remove('visible');
+
+      setTimeout(function() { setStatus(mtgId, '', '#6b7280'); }, 5000);
+    }).catch(function() {
+      setStatus(mtgId, '⚠️ Clipboard failed — copy prompt manually', '#f59e0b');
+    });
+  }
+
+  function togglePastePanel(mtgId) {
+    var panel = document.getElementById('kai-paste-' + mtgId);
+    if (panel) {
+      panel.classList.toggle('visible');
+      if (panel.classList.contains('visible')) {
+        var textarea = document.getElementById('kai-text-' + mtgId);
+        if (textarea) textarea.focus();
+      }
+    }
+  }
+
+  function saveAndDisplaySummary(mtgId) {
+    var textarea = document.getElementById('kai-text-' + mtgId);
+    var text = textarea ? textarea.value.trim() : '';
+    if (!text) return;
+
+    saveSummary(mtgId, text);
+    showSavedSummary(mtgId, text);
+
+    var panel = document.getElementById('kai-paste-' + mtgId);
+    if (panel) panel.classList.remove('visible');
+
+    setStatus(mtgId, '✓ Krisp AI summary applied', '#4ade80');
+  }
+
+  function showSavedSummary(mtgId, text) {
+    var savedEl = document.getElementById('kai-saved-' + mtgId);
+    var textEl = document.getElementById('kai-savedtext-' + mtgId);
+    if (savedEl && textEl) {
+      textEl.textContent = text;
+      savedEl.classList.add('visible');
+    }
+  }
+
+  function publishToCopper(mtgId) {
+    var card = document.getElementById(mtgId);
+    if (!card) return;
+
+    var title = card.getAttribute('data-mtg-title') || 'Unknown Meeting';
+    var date = card.getAttribute('data-date') || '';
+    var participants = card.getAttribute('data-mtg-participants') || '';
+
+    var summaries = loadSummaries();
+    var hasKrispSummary = summaries[mtgId] && summaries[mtgId].text;
+    var summaryText = hasKrispSummary ? summaries[mtgId].text : getClaudeSummary(mtgId);
+
+    var payload = 'KRISP-TO-COPPER\nTitle: ' + title + '\nDate: ' + date + '\nParticipants: ' + participants + '\n\nSummary:\n' + summaryText;
+
+    navigator.clipboard.writeText(payload).then(function() {
+      setStatus(mtgId, '📋 Copper payload copied — paste into Cowork to publish', '#fbbf24');
+      setTimeout(function() { setStatus(mtgId, ''); }, 5000);
+    }).catch(function() {
+      setStatus(mtgId, '⚠️ Clipboard failed', '#f59e0b');
+    });
+  }
+
+  function getClaudeSummary(mtgId) {
+    var card = document.getElementById(mtgId);
+    if (!card) return '(no summary available)';
+    var kpList = card.querySelector('.kp-list');
+    if (!kpList) return '(no summary available)';
+    var items = kpList.querySelectorAll('li');
+    var text = '';
+    items.forEach(function(li) { text += '• ' + li.textContent.trim() + '\n'; });
+    return text.trim() || '(no summary available)';
+  }
+
+  function setStatus(mtgId, message, color) {
+    var el = document.getElementById('kai-status-' + mtgId);
+    if (el) {
+      el.textContent = message;
+      el.style.color = color || '#6b7280';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initKrispAI);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initKrispAI();
+  }
+})();
+</script>
+<!-- KRISP AI SUMMARY MODULE END -->
+
+</body>
+</html>

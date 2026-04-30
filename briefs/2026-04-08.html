@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Brief — April 8, 2026</title>
+  <style>
+/* Morning Brief — Canonical Stylesheet (dark theme)
+   Source of truth: https://daily-briefs.pages.dev/briefs/2026-04-08.html
+   Last updated: 2026-04-08
+
+   IMPORTANT: When rendering the morning brief HTML, use this file as the CSS source.
+   Read this file and embed its contents in the <style> block verbatim.
+*/
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0d1117; color: #e0e0e8; min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+
+.header {
+  background: #13162a; border-bottom: 1px solid #1e2240;
+  padding: 16px 24px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.header-title { font-size: 18px; font-weight: 700; color: #fff; }
+.header-sub { font-size: 12px; color: #888; margin-top: 2px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.header-date { font-size: 13px; color: #9ca3af; text-align: right; line-height: 1.4; }
+
+/* Date navigation */
+.date-nav-wrap { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.date-nav-btn {
+  background: #2a2a3e; color: #ccc; border: 1px solid #3a3a4e;
+  border-radius: 6px; padding: 2px 8px; font-size: 13px;
+  cursor: pointer; transition: all 0.15s; line-height: 1.8;
+}
+.date-nav-btn:hover { background: #3a3a4e; color: #fff; }
+.date-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* (lookback buttons removed) */
+
+/* ═══════════════════════════════════════════
+   TAB BAR
+   ═══════════════════════════════════════════ */
+
+.tab-bar {
+  display: flex; gap: 0; background: #10131f;
+  border-bottom: 1px solid #1e2240;
+  overflow-x: auto; scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 12px 18px; font-size: 13px; font-weight: 600;
+  color: #6b7280; background: none; border: none; cursor: pointer;
+  white-space: nowrap; border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.tab-btn:hover { color: #9ca3af; background: rgba(255,255,255,0.03); }
+.tab-btn.active { color: #6366f1; border-bottom-color: #6366f1; background: rgba(99,102,241,0.06); }
+
+/* Tab content */
+.tab-content { display: none; padding: 24px; max-width: 860px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+/* ═══════════════════════════════════════════
+   SECTION HEADERS
+   ═══════════════════════════════════════════ */
+
+.section-hdr {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: #6b7280; margin: 24px 0 12px;
+  padding-bottom: 6px; border-bottom: 1px solid #1e2240;
+}
+.section-hdr:first-child { margin-top: 0; }
+
+/* ═══════════════════════════════════════════
+   STAT TILES (Today tab)
+   ═══════════════════════════════════════════ */
+
+.stat-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+.stat-tile {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; padding: 14px; text-align: center;
+}
+.stat-tile .stat-num { font-size: 28px; font-weight: 800; color: #6366f1; line-height: 1; }
+.stat-tile .stat-label { font-size: 11px; color: #6b7280; margin-top: 4px; }
+
+/* ═══════════════════════════════════════════
+   ATTENTION CARDS (Today tab)
+   ═══════════════════════════════════════════ */
+
+.attn-card {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+  border-left-width: 4px;
+}
+.attn-card.card-urgent { border-left-color: #ef4444; }
+.attn-card.card-warning { border-left-color: #f59e0b; }
+.attn-card.card-info { border-left-color: #6366f1; }
+.attn-card-hdr { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.attn-card-title { flex: 1; font-weight: 600; font-size: 14px; color: #e0e0e8; }
+.attn-chevron { font-size: 16px; color: #999; transition: transform 0.2s; line-height: 1; }
+.attn-card.collapsed .attn-chevron { transform: rotate(-90deg); }
+.attn-card.collapsed .attn-card-body { display: none; }
+.attn-card-body { margin-top: 10px; font-size: 13px; color: #9ca3af; line-height: 1.6; }
+
+/* ═══════════════════════════════════════════
+   BADGES
+   ═══════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px; text-transform: uppercase;
+  letter-spacing: 0.5px; flex-shrink: 0;
+}
+.badge-red { background: rgba(239,68,68,0.15); color: #f87171; }
+.badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.badge-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+.badge-indigo { background: rgba(99,102,241,0.15); color: #818cf8; }
+.badge-gray { background: rgba(107,114,128,0.15); color: #9ca3af; }
+.badge-purple { background: rgba(167,139,250,0.15); color: #c084fc; }
+
+/* ═══════════════════════════════════════════
+   MEETING CARDS (Yesterday tab)
+   ═══════════════════════════════════════════ */
+
+.mtg-card {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; margin-bottom: 10px; overflow: hidden;
+}
+.mtg-card.external { border-left: 3px solid #6366f1; }
+.mtg-card.internal { border-left: 3px solid #374151; }
+.mtg-card-header {
+  padding: 12px 16px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+}
+.mtg-card-title { font-size: 14px; font-weight: 600; color: #e0e0e8; }
+.mtg-card-meta { font-size: 12px; color: #6b7280; margin-top: 2px; }
+.mtg-card-body { padding: 0 16px 14px; }
+.mtg-chevron {
+  font-size: 16px; color: #bbb; transition: transform 0.2s;
+  line-height: 1; flex-shrink: 0;
+}
+.collapsible-mtg .mtg-card-header { cursor: pointer; user-select: none; }
+.collapsible-mtg .mtg-card-header:hover { background: rgba(255,255,255,0.02); }
+.collapsible-mtg.collapsed .mtg-chevron { transform: rotate(-90deg); }
+.collapsible-mtg.collapsed .mtg-card-body { display: none; }
+
+/* Key points & action items */
+.list-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #6b7280; margin: 10px 0 6px;
+}
+.kp-list { padding-left: 18px; font-size: 13px; color: #9ca3af; line-height: 1.7; }
+.kp-list li { margin-bottom: 3px; }
+.ai-list { list-style: none; padding: 0; }
+.ai-list li {
+  background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.15);
+  border-radius: 6px; padding: 6px 10px; margin-bottom: 5px;
+  font-size: 12px; color: #9ca3af;
+}
+
+/* Meeting CTA bar */
+.mtg-cta-bar {
+  display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 0 2px;
+  margin-top: 8px; border-top: 1px solid #1e2240;
+}
+
+/* Krisp speaker warning */
+.mtg-warning {
+  display: flex; align-items: center; gap: 6px; background: #fff8e8;
+  border: 1px solid #f5c842; border-radius: 5px; padding: 5px 10px;
+  margin: 2px 0 8px; font-size: 11px; color: #856404;
+}
+.mtg-warning a { color: #856404; font-weight: 600; text-decoration: none; }
+
+/* ═══════════════════════════════════════════
+   CTA BUTTONS (shared across all cards)
+   ═══════════════════════════════════════════ */
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; padding: 4px 10px;
+  border-radius: 6px; text-decoration: none; color: #9ca3af;
+  background: rgba(255,255,255,0.05); border: 1px solid #2a2f3e;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.cta-btn:hover { background: rgba(255,255,255,0.09); color: #e0e0e8; }
+
+/* ═══════════════════════════════════════════
+   CALENDAR CARDS (Meetings tab)
+   ═══════════════════════════════════════════ */
+
+.cal-row {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+}
+.cal-row.external { border-left: 3px solid #6366f1; }
+.cal-row.internal { border-left: 3px solid #374151; }
+.cal-time { font-size: 12px; font-weight: 700; color: #6366f1; margin-bottom: 4px; }
+.cal-title {
+  font-size: 14px; font-weight: 600; color: #e0e0e8;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cal-meta { font-size: 12px; color: #6b7280; margin-top: 4px; }
+.cal-body { margin-top: 10px; font-size: 13px; color: #9ca3af; line-height: 1.6; }
+.cal-blurb { font-size: 13px; color: #9ca3af; line-height: 1.6; }
+
+/* Prep bar */
+.cal-prep-bar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid #1e2240;
+}
+.prep-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #6b7280; margin-right: 4px; flex-shrink: 0;
+}
+.prep-chip {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 500;
+  color: #9ca3af; background: #1a1f2e; border: 1px solid #2a2f3e;
+  border-radius: 99px; padding: 2px 9px 2px 7px;
+  text-decoration: none; white-space: nowrap;
+}
+.prep-chip:hover { border-color: #6366f1; color: #818cf8; }
+.prep-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; border-radius: 99px; padding: 2px 7px;
+  text-decoration: none; white-space: nowrap; transition: all 0.12s;
+}
+.prep-icon-btn.crm { background: rgba(192,116,0,0.15); color: #c07400; }
+.prep-icon-btn.li { background: rgba(26,115,232,0.15); color: #1a73e8; font-style: italic; }
+.prep-icon-btn.url { background: rgba(99,102,241,0.15); color: #818cf8; }
+.prep-icon-btn.email { background: rgba(234,67,53,0.12); color: #ea4335; }
+.prep-icon-btn.docs { background: rgba(66,133,244,0.12); color: #4285f4; }
+.prep-dot { color: #374151; font-size: 11px; flex-shrink: 0; }
+.cal-agenda { margin-top: 8px; font-size: 12px; color: #9ca3af; line-height: 1.6; }
+.cal-agenda strong { color: #c9cbd0; font-weight: 600; }
+.cal-links-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+
+/* Prep notes (expandable context block) */
+.cal-prep-notes {
+  margin-top: 10px; padding: 10px 12px;
+  background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.12);
+  border-radius: 8px;
+}
+.prep-note-header {
+  font-size: 11px; font-weight: 700; color: #6366f1;
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.prep-note-list {
+  margin: 0; padding: 0 0 0 16px; font-size: 12px;
+  line-height: 1.6; color: #6b7280;
+}
+.prep-note-list li { margin-bottom: 4px; }
+.prep-note-list strong { color: #9ca3af; font-weight: 600; }
+
+/* ═══════════════════════════════════════════
+   UPDATE CARDS (Updates tab)
+   ═══════════════════════════════════════════ */
+
+.update-card {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; margin-bottom: 10px; overflow: hidden;
+}
+.update-card-inner { display: flex; gap: 0; }
+.update-icon {
+  width: 40px; background: rgba(255,255,255,0.03);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 14px 0; font-size: 18px; flex-shrink: 0;
+  border-right: 1px solid #1e2240;
+}
+.update-body { padding: 12px 14px; flex: 1; min-width: 0; }
+.update-title {
+  font-size: 13px; font-weight: 600; color: #e0e0e8;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.update-detail { font-size: 12px; color: #6b7280; line-height: 1.6; }
+.update-card.border-urgent { border-left: 4px solid #ef4444; }
+.update-card.border-lead { border-left: 4px solid #6366f1; }
+.update-card.border-waiting { border-left: 4px solid #f59e0b; }
+
+/* ═══════════════════════════════════════════
+   DRIVE CARDS (Updates tab)
+   ═══════════════════════════════════════════ */
+
+.drive-card {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+}
+.drive-icon { font-size: 20px; flex-shrink: 0; }
+.drive-body { flex: 1; min-width: 0; }
+.drive-title {
+  font-size: 13px; font-weight: 600; color: #e0e0e8;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.drive-meta { font-size: 11px; color: #6b7280; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════
+   TASK BLOCKS (Tasks tab)
+   ═══════════════════════════════════════════ */
+
+.task-block {
+  background: #13162a; border: 1px solid #1e2240;
+  border-radius: 10px; margin-bottom: 14px; overflow: hidden;
+}
+.task-block-header {
+  padding: 10px 14px; background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid #1e2240; font-size: 12px; font-weight: 700;
+  color: #9ca3af; display: flex; align-items: center; gap: 8px;
+}
+.task-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-bottom: 1px solid #0d1117;
+}
+.task-row:last-child { border-bottom: none; }
+.task-row.done { opacity: 0.35; text-decoration: line-through; }
+.done-btn {
+  background: rgba(34,197,94,0.1); color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.2); border-radius: 6px;
+  padding: 3px 10px; font-size: 11px; font-weight: 600;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+}
+.done-btn:hover { background: rgba(34,197,94,0.2); }
+.task-overdue {
+  font-size: 10px; color: #f87171; background: rgba(239,68,68,0.1);
+  padding: 1px 6px; border-radius: 99px; flex-shrink: 0;
+}
+.task-due { font-size: 10px; color: #9ca3af; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   COWORK TABLE (CoWork tab)
+   ═══════════════════════════════════════════ */
+
+.cowork-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+.cowork-table th {
+  text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #6b7280; padding: 6px 12px;
+  border-bottom: 1px solid #1e2240;
+}
+.cowork-table td { padding: 10px 12px; border-bottom: 1px solid #13162a; vertical-align: top; }
+.cowork-table tr:last-child td { border-bottom: none; }
+.cowork-table td:first-child { font-weight: 600; white-space: nowrap; color: #e0e0e8; }
+.cowork-table td:last-child { color: #6b7280; line-height: 1.5; }
+
+/* ═══════════════════════════════════════════
+   DRAFTS WIDGET
+   ═══════════════════════════════════════════ */
+
+.drafts-widget {
+  display: flex; align-items: center; gap: 10px; margin-top: 16px;
+  padding: 12px 16px; background: #1e1e2e; border-radius: 8px;
+  border: 1px solid #2a2a3e;
+}
+.drafts-count { font-size: 22px; font-weight: 700; color: #fff; line-height: 1; }
+.drafts-label { font-size: 12px; color: #6b7280; margin-top: 2px; }
+.drafts-link {
+  margin-left: auto; background: #6366f1; color: #fff;
+  padding: 6px 14px; border-radius: 6px; font-size: 12px;
+  font-weight: 600; text-decoration: none;
+}
+.drafts-link:hover { background: #7c7ff7; }
+
+/* ═══════════════════════════════════════════
+   FOCUS TOPICS INPUT
+   ═══════════════════════════════════════════ */
+
+#focus-topics-input {
+  width: 100%; box-sizing: border-box; min-height: 80px;
+  padding: 12px; font-family: inherit; font-size: 13px; line-height: 1.6;
+  color: #e0e0e8; background: #1a1f2e; border: 1px solid #2a2f3e;
+  border-radius: 8px; resize: vertical; outline: none;
+  transition: border-color 0.15s;
+}
+#focus-topics-input:focus { border-color: #6366f1; }
+#focus-topics-input::placeholder { color: #4b5563; }
+
+/* ═══════════════════════════════════════════
+   KRISP AI SUMMARY MODULE
+   ═══════════════════════════════════════════ */
+
+.krisp-ai-section {
+  margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 12px;
+}
+.krisp-ai-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.krisp-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(167,139,250,0.1); color: #c084fc;
+  border: 1px solid rgba(167,139,250,0.25); border-radius: 6px;
+  padding: 6px 14px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.krisp-ai-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.4); }
+.krisp-ai-btn.paste-btn { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.25); }
+.krisp-ai-btn.publish-btn { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+.krisp-ai-status { font-size: 11px; color: #6b7280; transition: color 0.3s; }
+.krisp-prompt-selector { margin-top: 8px; display: none; }
+.krisp-prompt-selector.visible { display: block; }
+.krisp-prompt-option {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+}
+.krisp-prompt-option:hover { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.krisp-ai-saved {
+  background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15);
+  border-radius: 8px; padding: 12px; margin-top: 10px; display: none;
+}
+.krisp-ai-saved.visible { display: block; }
+
+/* ═══════════════════════════════════════════
+   GLOBAL
+   ═══════════════════════════════════════════ */
+
+a { color: #818cf8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.footer-note {
+  font-size: 11px; color: #4b5563; text-align: center;
+  margin-top: 20px; padding-top: 12px; border-top: 1px solid #1e2240;
+}
+
+/* DNS blocks (personal calendar blocks — dimmed) */
+.cal-row.dns-block { opacity: 0.4; }
+.cal-row.dns-block:hover { opacity: 0.7; }
+
+.dns-block { opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-logo">🪶</div>
+      <div>
+        <div class="header-title">Morning Brief</div>
+        <div class="header-sub">Jason Schklar · UX is Fine</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-date">Wednesday, April 8, 2026</div>
+      <div class="date-nav-wrap">
+        <button class="date-nav-btn" onclick="previousDate()">← Prev</button>
+        <button class="date-nav-btn" onclick="nextDate()">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('today')">☀️ Summary</button>
+    <button class="tab-btn" onclick="switchTab('meetings')">📅 Meetings</button>
+    <button class="tab-btn" onclick="switchTab('yesterday')">📼 Yesterday</button>
+    <button class="tab-btn" onclick="switchTab('updates')">📬 Updates</button>
+    <button class="tab-btn" onclick="switchTab('tasks')">✅ Tasks</button>
+    <button class="tab-btn" onclick="switchTab('cowork')">🛠 Cowork</button>
+    <button class="tab-btn" onclick="switchTab('appendix')">📎 Appendixes</button>
+  </div>
+
+  <!-- TODAY TAB -->
+  <div id="today" class="tab-content active">
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Meetings Today</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Meetings Yesterday</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">27</div>
+        <div class="stat-label">Gmail Drafts</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">27</div>
+        <div class="stat-label">Copper Tasks</div>
+      </div>
+    </div>
+
+    <h3 class="section-hdr">Attention</h3>
+    <div class="attn-card card-info">
+      <div class="attn-card-hdr" onclick="toggleAttentionCard(this)">
+        <div class="attn-card-title">💰 Payment Received: Invoice #1379</div>
+        <div class="attn-chevron">▼</div>
+      </div>
+      <div class="attn-card-body">
+        <strong>$20,500</strong> from 201PIE Pie Trap (Forage Friends) — received today.
+      </div>
+    </div>
+
+    <div class="attn-card card-warning">
+      <div class="attn-card-hdr" onclick="toggleAttentionCard(this)">
+        <div class="attn-card-title">Dave Declined: DNS: Dave/Jason Monthly Minutes</div>
+        <div class="attn-chevron">▼</div>
+      </div>
+      <div class="attn-card-body">
+        Scheduled for Thursday, April 9. Dave Inscore has declined. Follow up to reschedule if needed.
+      </div>
+    </div>
+
+    <div class="attn-card card-info">
+      <div class="attn-card-hdr" onclick="toggleAttentionCard(this)">
+        <div class="attn-card-title">Slack Alert: Renn Has Migraine</div>
+        <div class="attn-chevron">▼</div>
+      </div>
+      <div class="attn-card-body">
+        Renn posted in #calendar that he has a migraine and will be resting. Team sent well wishes. Consider coverage for dependent tasks.
+      </div>
+    </div>
+
+    <h3 class="section-hdr">Gmail Drafts</h3>
+    <div class="drafts-widget">
+      <div>
+        <div class="drafts-count">27</div>
+        <div class="drafts-label">drafts in Gmail</div>
+      </div>
+      <a href="https://mail.google.com/mail/u/0/#drafts" class="drafts-link" target="_blank">Open Drafts →</a>
+    </div>
+
+    <h3 class="section-hdr">Focus Topics</h3>
+    <textarea id="focus-topics-input" placeholder="What are your top priorities today? Type here — auto-saved locally."></textarea>
+  </div>
+
+  <!-- YESTERDAY TAB -->
+  <div id="yesterday" class="tab-content">
+    <h3 class="section-hdr">Krisp Meetings — April 7, 2026 (7 total)</h3>
+
+    <div class="mtg-card internal collapsible-mtg"
+         id="mtg-1" data-date="2026-04-07"
+         data-krisp-id="019d685a0a99764fb87ded9b2f7497c2"
+         data-mtg-title="Netflix Rally"
+         data-mtg-participants="Sarah Benjamin, Ashley Conley, Matt Laverty, Jason Schklar, Dave Inscore"
+         data-mtg-type="internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Netflix Rally</div>
+          <div class="mtg-card-meta">9:30 AM — Sarah Benjamin, Ashley Conley, Matt Laverty, Jason Schklar, Dave Inscore</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Action Items</div>
+        <ul class="ai-list">
+          <li>Sarah: Locate UX assets from Figma/Miro</li>
+          <li>Dave: Review Matt's page mockup</li>
+          <li>Ashley: Embed audit video</li>
+          <li>Dave: Locate audit walkthrough video</li>
+          <li>Sarah: Record casual video walkthrough</li>
+          <li>Matt: Build page with mockup options</li>
+        </ul>
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d685a0a99764fb87ded9b2f7497c2" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-1"></div>
+      </div>
+    </div>
+
+    <div class="mtg-card external collapsible-mtg"
+         id="mtg-2" data-date="2026-04-07"
+         data-krisp-id="019d6840cbd475eba908370d6320369a"
+         data-mtg-title="Humanitz // UXIF"
+         data-mtg-participants="Ashley Conley, Jason Schklar"
+         data-mtg-type="client"
+         data-copper-url="https://app.copper.com/companies/499808/app/#/browse/list/people/default?context=people-152115397&preview=people-152115397&tab=index">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Humanitz // UXIF <span class="badge badge-indigo">Client</span></div>
+          <div class="mtg-card-meta">9:00 AM — Ashley Conley, Jason Schklar</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Action Items</div>
+        <ul class="ai-list">
+          <li>Ashley: Follow up to schedule next call with director</li>
+          <li>Jason: Make introductions to developer contacts</li>
+        </ul>
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d6840cbd475eba908370d6320369a" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-2"></div>
+      </div>
+    </div>
+
+    <div class="mtg-card internal collapsible-mtg"
+         id="mtg-3" data-date="2026-04-07"
+         data-krisp-id="019d68716bc7737aabe60100fa4e4735"
+         data-mtg-title="J &amp; Ash - Sync"
+         data-mtg-participants="Ashley Conley, Jason Schklar"
+         data-mtg-type="internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">J &amp; Ash - Sync</div>
+          <div class="mtg-card-meta">10:00 AM — Ashley Conley, Jason Schklar</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Action Items</div>
+        <ul class="ai-list">
+          <li>Jason: Finish Sago cost spreadsheet</li>
+          <li>Jason: Reach out post-Humanitz</li>
+          <li>Ashley: Send agenda items</li>
+          <li>Ashley: Follow up Sago incentive pricing</li>
+          <li>Jason: Respond to Aaron re Dave Capreto</li>
+          <li>Ashley: Verify Sago numbers</li>
+        </ul>
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d68716bc7737aabe60100fa4e4735" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-3"></div>
+      </div>
+    </div>
+
+    <div class="mtg-card internal collapsible-mtg"
+         id="mtg-4" data-date="2026-04-07"
+         data-krisp-id="019d68acca44728a9b3da806bf5bbf73"
+         data-mtg-title="Mike / Jason"
+         data-mtg-participants="Mike McMahon, Jason Schklar"
+         data-mtg-type="internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Mike / Jason</div>
+          <div class="mtg-card-meta">11:00 AM — Mike McMahon, Jason Schklar</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d68acca44728a9b3da806bf5bbf73" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-4"></div>
+      </div>
+    </div>
+
+    <div class="mtg-card external collapsible-mtg"
+         id="mtg-5" data-date="2026-04-07"
+         data-krisp-id="019d691a962c73ed9ab1ceddf72e2216"
+         data-mtg-title="Abbey (EA XDI) / Ashley (UX is Fine)"
+         data-mtg-participants="Abbey Nierves, Ashley Conley, Jason Schklar"
+         data-mtg-type="client"
+         data-copper-url="https://app.copper.com/companies/499808/app/#/browse/list/people/default?context=people-152160074&preview=people-152160074&tab=index">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Abbey (EA XDI) / Ashley (UX is Fine) <span class="badge badge-indigo">Client</span></div>
+          <div class="mtg-card-meta">1:00 PM — Abbey Nierves, Ashley Conley, Jason Schklar</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Action Items</div>
+        <ul class="ai-list">
+          <li>Check MSA status</li>
+          <li>Jason: Check SRA re implementation</li>
+          <li>Draft MSA this week</li>
+          <li>Contact Respond for level-set</li>
+        </ul>
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d691a962c73ed9ab1ceddf72e2216" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-5"></div>
+      </div>
+    </div>
+
+    <div class="mtg-card internal collapsible-mtg"
+         id="mtg-6" data-date="2026-04-07"
+         data-krisp-id="019d69542bd87786b8f8b8f3e578e314"
+         data-mtg-title="Cat // Dave // Jason Studio Operations &amp; Financial"
+         data-mtg-participants="Cat Chapman Smith, Jason Schklar, Dave Inscore"
+         data-mtg-type="internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Cat // Dave // Jason Studio Operations &amp; Financial</div>
+          <div class="mtg-card-meta">2:00 PM — Cat Chapman Smith, Jason Schklar, Dave Inscore</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d69542bd87786b8f8b8f3e578e314" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-6"></div>
+      </div>
+    </div>
+
+    <div class="mtg-card internal collapsible-mtg"
+         id="mtg-7" data-date="2026-04-07"
+         data-krisp-id="019d69b98e9072ae9f3d369996598f1c"
+         data-mtg-title="Reviewing Presentation Deck"
+         data-mtg-participants="Jason Schklar, Vadim Polikov, Ashley Conley, Matt Laverty"
+         data-mtg-type="internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Reviewing Presentation Deck</div>
+          <div class="mtg-card-meta">3:54 PM — Jason, Vadim Polikov, Ashley Conley, Matt Laverty</div>
+        </div>
+        <div class="mtg-chevron">▼</div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Action Items</div>
+        <ul class="ai-list">
+          <li>Jason: Correct Slack message (Mike→Matt)</li>
+          <li>Jason: Contact Sarah re video intro</li>
+          <li>Matt: Work with Sarah on video</li>
+          <li>Matt: Create static/PDF deck with clickable video link</li>
+        </ul>
+        <div class="mtg-cta-bar">
+          <a href="https://app.krisp.ai/t/019d69b98e9072ae9f3d369996598f1c" class="cta-btn">📝 Krisp Notes</a>
+        </div>
+        <div class="krisp-ai-section" data-for-mtg="mtg-7"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEETINGS TAB -->
+  <div id="meetings" class="tab-content">
+    <h3 class="section-hdr">Today's Calendar — April 8, 2026</h3>
+
+    <div class="cal-row dns-block">
+      <div class="cal-time">5:30 AM — 5:55 AM</div>
+      <div class="cal-title">Su (DNS)</div>
+      <div class="cal-meta">Personal block • 30 minutes</div>
+    </div>
+
+    <div class="cal-row dns-block">
+      <div class="cal-time">6:00 AM — 6:25 AM</div>
+      <div class="cal-title">Sprint (DNS)</div>
+      <div class="cal-meta">Personal block • 30 minutes</div>
+    </div>
+
+    <div class="cal-row dns-block">
+      <div class="cal-time">6:30 AM — 8:20 AM</div>
+      <div class="cal-title">Exec Time (DNS)</div>
+      <div class="cal-meta">Personal block • 1h 50m</div>
+    </div>
+
+    <div class="cal-row external">
+      <div class="cal-time">8:00 AM — 9:00 AM</div>
+      <div class="cal-title">🪶 Skarvo &lt;&gt; Google Accelerator</div>
+      <div class="cal-meta">Organizer: Ming Hu (huming@google.com) • 6 attendees • External • GPA Mentoring</div>
+      <div class="cal-agenda">
+        <strong>Likely agenda:</strong> Follow up on AppFunctions EAP access (Ming forwarded to Google team). Review Skarvo's on-device Gemma 4 demo progress — latency issues, competitor analysis. Discuss AppFunctions integration roadmap and next mentoring session with Steven Kan (Apr 30).
+      </div>
+      <div class="cal-prep-bar">
+        <div class="prep-label">PREP</div>
+        <a href="https://docs.google.com/document/d/1lGGYIdFrgwfpLa7Vz0vqAkBSxZ1NQG1rMlCG4InowRg/edit" class="prep-chip" title="Meeting Notes">📄 Meeting Notes</a>
+        <a href="https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit" class="prep-chip" title="Gemma Consult Notes">📄 Gemma Consult</a>
+        <a href="https://docs.google.com/spreadsheets/d/15yDTVG_sp4U8R1SQuap1jXosbhaJNEXn/edit" class="prep-chip" title="OKR Tracker">📊 OKR Tracker</a>
+      </div>
+      <div class="cal-links-bar">
+        <a href="https://app.copper.com/companies/499808/app/#/browse/list/people/default?context=people-181638897&preview=people-181638897&tab=index" class="prep-icon-btn crm" target="_blank" title="Suhail Ahmad in Copper">🔶 Suhail</a>
+        <a href="https://app.copper.com/companies/499808/app/#/browse/list/people/default?context=people-181638900&preview=people-181638900&tab=index" class="prep-icon-btn crm" target="_blank" title="Ming Hu in Copper">🔶 Ming</a>
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Suhail%20Ahmad%20Skarvo" class="prep-icon-btn li" target="_blank" title="LinkedIn">in Suhail</a>
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Ming%20Hu%20Google" class="prep-icon-btn li" target="_blank" title="LinkedIn">in Ming</a>
+        <a href="https://mail.google.com/mail/u/0/#search/from%3Ahuming%40google.com+OR+from%3Asuhail%40skarvo.com" class="prep-icon-btn email" target="_blank" title="Gmail threads">✉️ Emails</a>
+        <a href="https://drive.google.com/drive/search?q=Skarvo" class="prep-icon-btn docs" target="_blank" title="Google Drive">📁 Drive</a>
+        <a href="https://skarvo.com" class="prep-icon-btn url" target="_blank" title="Company website">🌐 skarvo.com</a>
+      </div>
+    </div>
+
+    <div class="cal-row internal">
+      <div class="cal-time">8:30 AM — 8:55 AM</div>
+      <div class="cal-title">Dave / Jason Weekly</div>
+      <div class="cal-meta">2 attendees • Internal • Recurring</div>
+      <div class="cal-agenda">Weekly sync with Dave Inscore. Check in on active projects and any blockers.</div>
+    </div>
+
+    <div class="cal-row external">
+      <div class="cal-time">9:00 AM — 9:30 AM</div>
+      <div class="cal-title">Jason Schklar and Alejandro Sandoval</div>
+      <div class="cal-meta">Organizer: rodotinoconsulting@gmail.com • 2 attendees • External • Calendly booking</div>
+      <div class="cal-agenda">
+        <strong>Likely agenda:</strong> Catch-up call. Alejandro runs Rodotino Consulting (letsgorodo.com). Recently sent Xbox ID contacts from the Seattle International Trade delegation. Has been building apps with Claude AI. No Copper record yet — may be worth creating one if the relationship is active.
+      </div>
+      <div class="cal-links-bar">
+        <a href="https://app.copper.com/companies/499808/app/#/browse/list/people/default?searchQuery=Alejandro+Sandoval" class="prep-icon-btn crm" target="_blank" title="Search Copper (no record found)">🔶 Search Copper</a>
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Alejandro%20Sandoval%20Rodotino" class="prep-icon-btn li" target="_blank" title="LinkedIn">in Alejandro</a>
+        <a href="https://mail.google.com/mail/u/0/#search/from%3Arodotinoconsulting%40gmail.com+OR+from%3Aalejandro%40letsgorodo.com" class="prep-icon-btn email" target="_blank" title="Gmail threads">✉️ Emails</a>
+        <a href="https://letsgorodo.com" class="prep-icon-btn url" target="_blank" title="Company website">🌐 letsgorodo.com</a>
+      </div>
+    </div>
+
+    <div class="cal-row internal">
+      <div class="cal-time">10:00 AM — 10:25 AM</div>
+      <div class="cal-title">Renn/Jason</div>
+      <div class="cal-meta">2 attendees • Internal • Recurring</div>
+      <div class="cal-agenda">Renn posted in #calendar that he has a migraine — may cancel. Check Slack before joining.</div>
+    </div>
+
+    <div class="cal-row internal">
+      <div class="cal-time">10:30 AM — 11:00 AM</div>
+      <div class="cal-title">Proposal Wrangling (Nexon &amp; Scopely)</div>
+      <div class="cal-meta">Organizer: ashley@uxisfine.com • 2 attendees • Internal</div>
+      <div class="cal-agenda">
+        Review active proposals with Ashley. <strong>Scopely:</strong> Project Poe — UI visual style for F2P cross-platform open-world (Unity, major IP). Vertical slice target. <strong>Nexon:</strong> check status.
+      </div>
+      <div class="cal-prep-bar">
+        <div class="prep-label">PREP</div>
+        <a href="https://docs.google.com/document/d/1T4RIpcRIUv7fZ82vmDZfB8aB-O-8GUYyiGEBNdnWXmA/edit" class="prep-chip" title="Scopely Qual Summary">📄 Scopely Qual</a>
+        <a href="https://docs.google.com/document/d/1hudU3rsjokSENmAuS1KEmzJocDZuVvWLFG5ALbZOxVI/edit" class="prep-chip" title="Scopely Electrum Summary">📄 Scopely Electrum</a>
+      </div>
+    </div>
+
+    <div class="cal-row internal">
+      <div class="cal-time">11:00 AM — 11:30 AM</div>
+      <div class="cal-title">Biz Dev Staffing Prep</div>
+      <div class="cal-meta">Organizer: ashley@uxisfine.com • 3 attendees • Internal</div>
+      <div class="cal-agenda">Pre-meeting for Staffing is Fine. Review what's coming up and discuss staffing strategy ahead of the all-hands.</div>
+    </div>
+
+    <div class="cal-row internal">
+      <div class="cal-time">12:00 PM — 1:00 PM</div>
+      <div class="cal-title">Staffing is Fine</div>
+      <div class="cal-meta">Organizer: aaron@uxisfine.com • 11 attendees • Internal • Has attachments</div>
+      <div class="cal-agenda">Full team staffing meeting. Review active project assignments, upcoming capacity, and Netflix proposal staffing needs.</div>
+      <div class="cal-prep-bar">
+        <div class="prep-label">PREP</div>
+        <a href="https://docs.google.com/document/d/15yg3qBsnmqvaDaJeW0DuSha2sPp8ILqe6oIwxucK4TI/edit" class="prep-chip">📄 Meeting Notes</a>
+        <a href="https://docs.google.com/document/d/1bsg8kzyicU3TLC0U8YkMj2G2_VXBY_mLoX5d9su-x2c/edit" class="prep-chip" title="Netflix Proposal">📄 Netflix Proposal</a>
+      </div>
+    </div>
+
+    <div class="cal-row internal">
+      <div class="cal-time">1:00 PM — 2:00 PM</div>
+      <div class="cal-title">Drawy Demo</div>
+      <div class="cal-meta">Organizer: mike@uxisfine.com • 8 attendees • Internal</div>
+      <div class="cal-agenda">Mike is demoing the Drawy app to the team.</div>
+      <div class="cal-prep-bar">
+        <div class="prep-label">PREP</div>
+        <a href="https://www.drawy.app/" class="prep-chip">🔗 drawy.app</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPDATES TAB -->
+  <div id="updates" class="tab-content">
+    <h3 class="section-hdr">Gmail Activity</h3>
+
+    <div class="update-card border-urgent">
+      <div class="update-card-inner">
+        <div class="update-icon">💰</div>
+        <div class="update-body">
+          <div class="update-title">Payment Received: Invoice #1379</div>
+          <div class="update-detail">$20,500 from 201PIE Pie Trap (Forage Friends) — received today.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="update-card border-waiting">
+      <div class="update-card-inner">
+        <div class="update-icon">📅</div>
+        <div class="update-body">
+          <div class="update-title">Dave Inscore Declined Meeting</div>
+          <div class="update-detail">DNS: Dave/Jason Monthly Minutes (Thu Apr 9) — follow up to reschedule.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="update-card border-lead">
+      <div class="update-card-inner">
+        <div class="update-icon">🔗</div>
+        <div class="update-body">
+          <div class="update-title">LinkedIn Waiting Messages</div>
+          <div class="update-detail">Aghar A. has messages waiting for UX is Fine.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="update-card border-warning">
+      <div class="update-card-inner">
+        <div class="update-icon">🔒</div>
+        <div class="update-body">
+          <div class="update-title">VentureBeat News Alert</div>
+          <div class="update-detail">Anthropic Mythos Preview found zero-day vulnerabilities — security update recommended.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="update-card border-lead">
+      <div class="update-card-inner">
+        <div class="update-icon">🎮</div>
+        <div class="update-body">
+          <div class="update-title">Game Developer Daily</div>
+          <div class="update-detail">Landfall might finance indie games — potential opportunity.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-hdr">Google Drive — Recently Modified</h3>
+
+    <a href="https://docs.google.com/document/d/1e3bOmiyZJ8j1lT_Y_1cWWb-on7Guhc9lV95a1pza6sE/edit" target="_blank" class="drive-card" style="text-decoration:none;">
+      <div class="drive-icon">📄</div>
+      <div class="drive-body">
+        <div class="drive-title">[MENTOR] Accelerator Mentorship Setup &amp; Best Practices Guide</div>
+        <div class="drive-meta">Modified by daleyg@google.com</div>
+      </div>
+    </a>
+
+    <a href="https://docs.google.com/document/d/1NX4TW7v_LOmIh7Ou7KpuJsbnBuN_9HAAQgrH2l69vak/edit" target="_blank" class="drive-card" style="text-decoration:none;">
+      <div class="drive-icon">📄</div>
+      <div class="drive-body">
+        <div class="drive-title">Scopely - Project Poe: Master Doc Template</div>
+        <div class="drive-meta">Modified by Ashley Conley</div>
+      </div>
+    </a>
+
+    <a href="https://docs.google.com/document/d/15yg3qBsnmqvaDaJeW0DuSha2sPp8ILqe6oIwxucK4TI/edit" target="_blank" class="drive-card" style="text-decoration:none;">
+      <div class="drive-icon">📄</div>
+      <div class="drive-body">
+        <div class="drive-title">Staffing is Fine - 2026/04/08 Notes by Gemini</div>
+        <div class="drive-meta">Created by Aaron Stavely</div>
+      </div>
+    </a>
+
+    <a href="https://docs.google.com/document/d/1AxtkIXk_1d0-PxTLDjciJgvi7xyMJug2iEHzOeMOsgY/edit" target="_blank" class="drive-card" style="text-decoration:none;">
+      <div class="drive-icon">📄</div>
+      <div class="drive-body">
+        <div class="drive-title">Nexon: Master Doc Template</div>
+        <div class="drive-meta">Modified by Jason Schklar</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- TASKS TAB -->
+  <div id="tasks" class="tab-content">
+    <h3 class="section-hdr">Copper Tasks — 27 Open</h3>
+
+    <div class="task-block">
+      <div class="task-block-header">📌 OVERDUE (Critical — act now)</div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">Check in with Rogers</span>
+        <span class="task-overdue">Oct 2025</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">DDM Follow Up</span>
+        <span class="task-overdue">Oct 2025</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">Follow up from Gamescom</span>
+        <span class="task-overdue">Oct 2025</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">Follow up w/ David Bisceglia</span>
+        <span class="task-overdue">Oct 2025</span>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="task-block-header">🔄 UPCOMING (Next 7 days)</div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">Jason to follow up with Oliver Peng</span>
+        <span class="task-due">Due Apr 9</span>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="task-block-header">📋 CURRENT (Open tasks)</div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">Review meeting: Accelerator Squad Meetup</span>
+        <span class="task-due">Due Mar 27</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">Follow-up with Jay Minn WotC</span>
+        <span class="task-due">Due Mar 3</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">XDS hotel block decision</span>
+        <span class="task-due">TBD</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">AI policy discussion with Mike</span>
+        <span class="task-due">TBD</span>
+      </div>
+      <div class="task-row">
+        <button class="done-btn">✓ Done</button>
+        <span style="flex: 1;">DICE follow-up emails</span>
+        <span class="task-due">TBD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COWORK TAB -->
+  <div id="cowork" class="tab-content">
+    <h3 class="section-hdr">Slack Activity Summary</h3>
+
+    <table class="cowork-table">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#calendar</td>
+          <td>Renn posted that he has a migraine and will be resting. Team sent well wishes.</td>
+        </tr>
+        <tr>
+          <td>#tech-is-fine</td>
+          <td>Renn discussing UE asset localization issues with the team.</td>
+        </tr>
+        <tr>
+          <td>#uxif-stickers</td>
+          <td>Sophie posted sticker designs for Swedish sticker variant. Evan approves 2A with lighthouse design.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- APPENDIX TAB -->
+  <div id="appendix" class="tab-content">
+    <h3 class="section-hdr">Weekend Meetings — April 6, 2026 (6 meetings)</h3>
+
+    <div class="mtg-card internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Quick Netflix Rally</div>
+          <div class="mtg-card-meta">12:00 PM — Ashley, Matt, Jason, Dave</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mtg-card internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Streaming Collab</div>
+          <div class="mtg-card-meta">12:30 PM — Renn Farnell, Sophie Sala, Jason, Dave</div>
+        </div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Action Items (Renn)</div>
+        <ul class="kp-list">
+          <li>Create branded hashtags</li>
+          <li>Write blog posts on streaming</li>
+          <li>Develop short-form video templates</li>
+          <li>Review backlog for streaming content</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mtg-card internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Jam&Tea Quick Sync on UX</div>
+          <div class="mtg-card-meta">1:00 PM — Kayleigh Jones, Mike, Sarah, Jason</div>
+        </div>
+      </div>
+      <div class="mtg-card-body">
+        <div class="list-label">Agenda</div>
+        <ul class="kp-list">
+          <li>Kayleigh to present audit findings</li>
+          <li>Kayleigh to prototype mini game</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mtg-card internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Jason &lt;&gt; Mike: Staffing & Performance</div>
+          <div class="mtg-card-meta">2:05 PM — Jason, Mike</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mtg-card internal">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Call - UX is Fine</div>
+          <div class="mtg-card-meta">3:00 PM — Cat, Mike, Jason</div>
+        </div>
+        <div class="mtg-card-body">
+          <div class="list-label">Topic</div>
+          <div style="font-size: 13px; color: #9ca3af; margin-top: 8px;">Mission 42 AI clause review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mtg-card dns-block">
+      <div class="mtg-card-header">
+        <div>
+          <div class="mtg-card-title">Exec Time (DNS)</div>
+          <div class="mtg-card-meta">8:30 AM — Solo</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-hdr">Notes & Context</h3>
+    <div style="font-size: 13px; color: #9ca3af; line-height: 1.8;">
+      <p>This morning brief is a test run to verify CSS and template changes produce the expected dark-themed output. All calendar times have been converted from CDT to PDT (Pacific Daylight Time).</p>
+      <p style="margin-top: 12px;">The brief includes data from:</p>
+      <ul style="margin-left: 20px; margin-top: 8px;">
+        <li>Calendar events for April 8, 2026 (11 total, 8 real meetings)</li>
+        <li>Krisp meeting summaries from April 7 (7 meetings)</li>
+        <li>Weekend meetings from April 6 (6 meetings)</li>
+        <li>Gmail drafts and notifications</li>
+        <li>Google Drive recent activity</li>
+        <li>Copper CRM task status (27 open)</li>
+        <li>Slack channel activity</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Generated by CoWork · April 8, 2026 (test run)
+  </div>
+
+  <script>
+    function switchTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function toggleAttentionCard(header) {
+      const card = header.closest('.attn-card');
+      card.classList.toggle('collapsed');
+    }
+
+    function toggleMeetingCard(header) {
+      const card = header.closest('.collapsible-mtg');
+      card.classList.toggle('collapsed');
+    }
+
+    document.querySelectorAll('.collapsible-mtg .mtg-card-header').forEach(header => {
+      header.addEventListener('click', toggleMeetingCard);
+    });
+
+    function previousDate() {
+      alert('Date navigation not implemented in test version');
+    }
+
+    function nextDate() {
+      alert('Date navigation not implemented in test version');
+    }
+
+    /* setLookback removed — prev/next only */
+  </script>
+
+<!-- KRISP AI SUMMARY MODULE START -->
+<style>
+/* ─── Krisp AI Summary Section ─── */
+.krisp-ai-section { margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; }
+.krisp-ai-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.krisp-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(167,139,250,0.1); color: #c084fc;
+  border: 1px solid rgba(167,139,250,0.25); border-radius: 6px;
+  padding: 6px 14px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.krisp-ai-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.4); }
+.krisp-ai-btn.paste-btn { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.25); }
+.krisp-ai-btn.paste-btn:hover { background: rgba(99,102,241,0.18); border-color: rgba(99,102,241,0.4); }
+.krisp-ai-btn.publish-btn { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+.krisp-ai-btn.publish-btn:hover { background: rgba(245,158,11,0.18); border-color: rgba(245,158,11,0.4); }
+.krisp-ai-status { font-size: 11px; color: #6b7280; transition: color 0.3s; }
+
+/* Prompt template selector */
+.krisp-prompt-selector { margin-top: 8px; display: none; }
+.krisp-prompt-selector.visible { display: block; }
+.krisp-prompt-option {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;
+  margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+}
+.krisp-prompt-option:hover { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.krisp-prompt-option.recommended { border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.04); }
+.krisp-prompt-option .kp-name { font-size: 12px; font-weight: 600; color: #e5e7eb; }
+.krisp-prompt-option .kp-desc { font-size: 11px; color: #6b7280; }
+.krisp-prompt-option .kp-icon { font-size: 16px; flex-shrink: 0; }
+.krisp-prompt-option .kp-rec { font-size: 9px; background: rgba(167,139,250,0.2); color: #c084fc; padding: 1px 6px; border-radius: 99px; margin-left: 6px; }
+
+/* Paste panel */
+.krisp-paste-panel { margin-top: 10px; display: none; }
+.krisp-paste-panel.visible { display: block; }
+.krisp-paste-area {
+  width: 100%; min-height: 120px; background: #0f1320; color: #d1d5db;
+  border: 1px solid rgba(167,139,250,0.25); border-radius: 8px;
+  padding: 10px; font-size: 13px; font-family: inherit; line-height: 1.5; resize: vertical;
+}
+.krisp-paste-area::placeholder { color: #4b5563; }
+.krisp-paste-area:focus { outline: none; border-color: rgba(167,139,250,0.5); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
+.krisp-paste-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+.krisp-paste-save { background: #6366f1; color: #fff; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.krisp-paste-save:hover { background: #7c7ff7; }
+.krisp-paste-cancel { background: transparent; color: #6b7280; border: 1px solid #2a2f3e; border-radius: 6px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: inherit; }
+.krisp-paste-cancel:hover { background: rgba(255,255,255,0.04); }
+.krisp-save-toast { font-size: 11px; color: #4ade80; display: none; }
+
+/* Saved Krisp AI summary display */
+.krisp-ai-saved { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 8px; padding: 12px; margin-top: 10px; position: relative; display: none; }
+.krisp-ai-saved.visible { display: block; }
+.krisp-ai-saved .krisp-badge { position: absolute; top: -8px; left: 12px; background: #1a1f2e; padding: 0 6px; font-size: 10px; font-weight: 600; color: #c084fc; text-transform: uppercase; letter-spacing: 0.5px; }
+.krisp-ai-saved .krisp-text { font-size: 13px; color: #d1d5db; line-height: 1.6; white-space: pre-wrap; }
+</style>
+
+<script>
+/**
+ * Krisp AI Summary Module
+ * Adds per-meeting-card Krisp AI Chat integration:
+ * - Prompt template selection + clipboard copy
+ * - Paste-back panel for Krisp AI responses
+ * - localStorage persistence
+ * - Copper CRM publish payload generation
+ */
+(function() {
+  'use strict';
+
+  /* ─── Prompt Templates ─── */
+  var KRISP_PROMPTS = {
+    mentoring: {
+      icon: '\uD83C\uDFAF',
+      name: 'GPA / Mentoring Session',
+      desc: 'UX feedback, studio action items, progress, blockers',
+      text: 'Summarize this mentoring session. Structure your response as:\n\n**Key Findings:** Bullet list of UX/design feedback given during the session.\n**Action Items:** Each item should include owner name and due date if discussed.\n**Progress Since Last Session:** What has improved or been completed since we last met.\n**Blockers:** Any issues that could delay progress.\n\nKeep it concise but thorough. Use specific details from the conversation, not generic summaries.'
+    },
+    client: {
+      icon: '\uD83E\uDD1D',
+      name: 'Client / Prospect Call',
+      desc: 'Decisions, action items with owners, next steps, objections',
+      text: 'Summarize this client/prospect meeting. Structure your response as:\n\n**Decisions Made:** Any agreements or commitments from both sides.\n**Action Items:** Each with an owner and deadline if discussed.\n**Next Steps:** What happens after this meeting.\n**Objections or Concerns:** Anything the client pushed back on or expressed doubt about.\n**Budget/Timeline Signals:** Any mentions of budget, timeline, or deal progression.\n\nBe specific \u2014 include names, dates, and deliverables mentioned.'
+    },
+    internal: {
+      icon: '\uD83C\uDFE0',
+      name: 'Internal Team Meeting',
+      desc: 'Decisions, tasks with owners, escalation items',
+      text: 'Summarize this internal team meeting. Structure your response as:\n\n**Decisions:** What was decided or approved.\n**Action Items:** Each with owner and deadline.\n**Needs Jason\'s Attention:** Anything that was flagged as needing escalation or Jason\'s input.\n**Capacity/Risk Flags:** Any resource, deadline, or workload concerns raised.\n\nKeep it brief \u2014 focus on what\'s actionable.'
+    },
+    srs: {
+      icon: '\uD83C\uDDF7\uD83C\uDDF8',
+      name: 'Serbia Rising Stars Session',
+      desc: 'UX feedback, studio action items, progress, engine-specific blockers',
+      text: 'Summarize this mentoring session with the Serbian studio. Structure your response as:\n\n**Key Findings:** Bullet list of UX/design feedback given during the session.\n**Action Items:** Each item should include owner name and due date if discussed.\n**Progress Since Last Session:** What has improved or been completed since we last met.\n**Blockers:** Any issues that could delay progress, including engine-specific challenges.\n\nKeep it concise but thorough. Use specific details from the conversation.'
+    }
+  };
+
+  var PROMPT_ORDER = ['mentoring', 'client', 'internal', 'srs'];
+
+  /* ─── localStorage helpers ─── */
+  function getStorageKey() {
+    var firstCard = document.querySelector('.mtg-card[data-date]');
+    var briefDate = firstCard ? firstCard.getAttribute('data-date') : new Date().toISOString().slice(0, 10);
+    return 'mb-summaries-' + briefDate;
+  }
+
+  function loadSummaries() {
+    try {
+      var data = localStorage.getItem(getStorageKey());
+      return data ? JSON.parse(data) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveSummary(mtgId, text) {
+    var summaries = loadSummaries();
+    summaries[mtgId] = {
+      text: text,
+      savedAt: new Date().toISOString(),
+      source: 'krisp'
+    };
+    try { localStorage.setItem(getStorageKey(), JSON.stringify(summaries)); } catch (e) {}
+  }
+
+  /* ─── Build UI for each meeting card ─── */
+  function initKrispAI() {
+    var sections = document.querySelectorAll('.krisp-ai-section[data-for-mtg]');
+    var saved = loadSummaries();
+
+    sections.forEach(function(section) {
+      var mtgId = section.getAttribute('data-for-mtg');
+      var card = document.getElementById(mtgId);
+      if (!card) return;
+
+      var krispId = card.getAttribute('data-krisp-id') || '';
+      var mtgTitle = card.getAttribute('data-mtg-title') || '';
+      var mtgParticipants = card.getAttribute('data-mtg-participants') || '';
+      var mtgType = card.getAttribute('data-mtg-type') || 'client';
+      var mtgDate = card.getAttribute('data-date') || '';
+      var isExternal = card.classList.contains('external');
+
+      var html = '';
+
+      // Action bar
+      html += '<div class="krisp-ai-bar">';
+      html += '<button class="krisp-ai-btn" data-action="get-summary" data-mtg="' + mtgId + '">\uD83D\uDCAC Get AI Summary</button>';
+      html += '<button class="krisp-ai-btn paste-btn" data-action="paste-summary" data-mtg="' + mtgId + '">\uD83D\uDCCB Paste Summary</button>';
+      if (isExternal) {
+        html += '<button class="krisp-ai-btn publish-btn" data-action="publish-copper" data-mtg="' + mtgId + '">\uD83D\uDD36 Publish to Copper</button>';
+      }
+      html += '<span class="krisp-ai-status" id="kai-status-' + mtgId + '"></span>';
+      html += '</div>';
+
+      // Prompt selector (hidden)
+      html += '<div class="krisp-prompt-selector" id="kai-prompts-' + mtgId + '">';
+      html += '<div style="font-size:11px;color:#6b7280;margin-bottom:6px;margin-top:4px;">Choose a prompt template:</div>';
+      PROMPT_ORDER.forEach(function(key) {
+        var p = KRISP_PROMPTS[key];
+        var isRec = (key === mtgType);
+        html += '<div class="krisp-prompt-option' + (isRec ? ' recommended' : '') + '" data-action="copy-prompt" data-mtg="' + mtgId + '" data-prompt-type="' + key + '" data-krisp-id="' + krispId + '">';
+        html += '<span class="kp-icon">' + p.icon + '</span>';
+        html += '<div><div class="kp-name">' + p.name + (isRec ? '<span class="kp-rec">recommended</span>' : '') + '</div>';
+        html += '<div class="kp-desc">' + p.desc + '</div></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+
+      // Paste panel (hidden)
+      html += '<div class="krisp-paste-panel" id="kai-paste-' + mtgId + '">';
+      html += '<textarea class="krisp-paste-area" id="kai-text-' + mtgId + '" placeholder="Paste the Krisp AI summary here...\n\nThe pasted text will replace Claude\'s summary and be used when publishing to Copper."></textarea>';
+      html += '<div class="krisp-paste-actions">';
+      html += '<button class="krisp-paste-save" data-action="save-summary" data-mtg="' + mtgId + '">\u2705 Save Summary</button>';
+      html += '<button class="krisp-paste-cancel" data-action="cancel-paste" data-mtg="' + mtgId + '">Cancel</button>';
+      html += '<span class="krisp-save-toast" id="kai-toast-' + mtgId + '">\u2713 Summary saved \u2014 will be used for Copper publish</span>';
+      html += '</div>';
+      html += '</div>';
+
+      // Saved summary display (hidden)
+      html += '<div class="krisp-ai-saved" id="kai-saved-' + mtgId + '">';
+      html += '<span class="krisp-badge">\u2728 Krisp AI Summary</span>';
+      html += '<div class="krisp-text" id="kai-savedtext-' + mtgId + '"></div>';
+      html += '</div>';
+
+      section.innerHTML = html;
+
+      // Restore saved summary if exists
+      if (saved[mtgId] && saved[mtgId].text) {
+        showSavedSummary(mtgId, saved[mtgId].text);
+      }
+    });
+
+    // Event delegation for all krisp-ai actions
+    document.addEventListener('click', handleKrispAIClick);
+  }
+
+  function handleKrispAIClick(e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+
+    var action = btn.getAttribute('data-action');
+    var mtgId = btn.getAttribute('data-mtg');
+
+    switch (action) {
+      case 'get-summary':
+        togglePromptSelector(mtgId);
+        break;
+      case 'copy-prompt':
+        var type = btn.getAttribute('data-prompt-type');
+        var krispId = btn.getAttribute('data-krisp-id');
+        copyPromptAndOpenKrisp(mtgId, type, krispId);
+        break;
+      case 'paste-summary':
+        togglePastePanel(mtgId);
+        break;
+      case 'save-summary':
+        saveAndDisplaySummary(mtgId);
+        break;
+      case 'cancel-paste':
+        togglePastePanel(mtgId);
+        break;
+      case 'publish-copper':
+        publishToCopper(mtgId);
+        break;
+    }
+  }
+
+  function togglePromptSelector(mtgId) {
+    var el = document.getElementById('kai-prompts-' + mtgId);
+    if (el) el.classList.toggle('visible');
+  }
+
+  function copyPromptAndOpenKrisp(mtgId, type, krispId) {
+    var prompt = KRISP_PROMPTS[type];
+    if (!prompt) return;
+
+    navigator.clipboard.writeText(prompt.text).then(function() {
+      setStatus(mtgId, '\uD83D\uDCCB Prompt copied! Open Krisp \u2192 paste into AI Chat', '#c084fc');
+
+      if (krispId) {
+        window.open('https://app.krisp.ai/t/' + krispId, '_blank');
+      }
+
+      var el = document.getElementById('kai-prompts-' + mtgId);
+      if (el) el.classList.remove('visible');
+
+      setTimeout(function() { setStatus(mtgId, '', '#6b7280'); }, 5000);
+    }).catch(function() {
+      setStatus(mtgId, '\u26A0\uFE0F Clipboard failed \u2014 copy prompt manually', '#f59e0b');
+    });
+  }
+
+  function togglePastePanel(mtgId) {
+    var panel = document.getElementById('kai-paste-' + mtgId);
+    if (panel) {
+      panel.classList.toggle('visible');
+      if (panel.classList.contains('visible')) {
+        var textarea = document.getElementById('kai-text-' + mtgId);
+        if (textarea) textarea.focus();
+      }
+    }
+  }
+
+  function saveAndDisplaySummary(mtgId) {
+    var textarea = document.getElementById('kai-text-' + mtgId);
+    var text = textarea ? textarea.value.trim() : '';
+    if (!text) return;
+
+    saveSummary(mtgId, text);
+    showSavedSummary(mtgId, text);
+
+    var panel = document.getElementById('kai-paste-' + mtgId);
+    if (panel) panel.classList.remove('visible');
+
+    var toast = document.getElementById('kai-toast-' + mtgId);
+    if (toast) { toast.style.display = 'inline'; setTimeout(function() { toast.style.display = 'none'; }, 3000); }
+
+    setStatus(mtgId, '\u2713 Krisp AI summary applied', '#4ade80');
+
+    var card = document.getElementById(mtgId);
+    if (card && !card.querySelector('.badge-krisp-ai')) {
+      var headerRight = card.querySelector('.mtg-card-header > div:last-child');
+      if (headerRight) {
+        var badge = document.createElement('span');
+        badge.className = 'badge badge-krisp-ai';
+        badge.style.cssText = 'background:rgba(34,197,94,0.15);color:#4ade80;font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;';
+        badge.textContent = '\u2728 AI';
+        headerRight.insertBefore(badge, headerRight.firstChild);
+      }
+    }
+  }
+
+  function showSavedSummary(mtgId, text) {
+    var savedEl = document.getElementById('kai-saved-' + mtgId);
+    var textEl = document.getElementById('kai-savedtext-' + mtgId);
+    if (savedEl && textEl) {
+      textEl.textContent = text;
+      savedEl.classList.add('visible');
+    }
+  }
+
+  function publishToCopper(mtgId) {
+    var card = document.getElementById(mtgId);
+    if (!card) return;
+
+    var title = card.getAttribute('data-mtg-title') || 'Unknown Meeting';
+    var date = card.getAttribute('data-date') || '';
+    var participants = card.getAttribute('data-mtg-participants') || '';
+    var krispId = card.getAttribute('data-krisp-id') || '';
+    var copperUrl = card.getAttribute('data-copper-url') || '';
+
+    // Build a clean note for pasting into Copper
+    var summaries = loadSummaries();
+    var hasKrispSummary = summaries[mtgId] && summaries[mtgId].text;
+    var summaryText = hasKrispSummary ? summaries[mtgId].text : getClaudeSummary(mtgId);
+
+    var note = title + ' \u2014 Meeting Notes\n';
+    note += 'Date: ' + date + '\n\n';
+    note += summaryText + '\n\n';
+    note += 'Participants: ' + participants + '\n';
+    if (krispId) {
+      note += 'Krisp recording: https://app.krisp.ai/t/' + krispId;
+    }
+
+    // Step 1: Copy note to clipboard
+    navigator.clipboard.writeText(note).then(function() {
+      setStatus(mtgId, '\uD83D\uDCCB Note copied \u2014 opening Copper...', '#fbbf24');
+
+      // Step 2: Open the Copper person record
+      if (copperUrl) {
+        window.open(copperUrl, '_blank');
+      }
+
+      setTimeout(function() {
+        setStatus(mtgId, '\u2713 Note in clipboard \u2014 paste into new Copper note', '#4ade80');
+      }, 2000);
+    }).catch(function() {
+      setStatus(mtgId, '\u26A0\uFE0F Clipboard failed', '#f59e0b');
+    });
+  }
+
+  function getClaudeSummary(mtgId) {
+    var card = document.getElementById(mtgId);
+    if (!card) return '(no summary available)';
+    var kpList = card.querySelector('.kp-list');
+    if (!kpList) {
+      // Fall back to action items
+      var aiList = card.querySelector('.ai-list');
+      if (!aiList) return '(no summary available)';
+      var items = aiList.querySelectorAll('li');
+      var text = '';
+      items.forEach(function(li) { text += '\u2022 ' + li.textContent.trim() + '\n'; });
+      return text.trim() || '(no summary available)';
+    }
+    var items = kpList.querySelectorAll('li');
+    var text = '';
+    items.forEach(function(li) { text += '\u2022 ' + li.textContent.trim() + '\n'; });
+    return text.trim() || '(no summary available)';
+  }
+
+  function setStatus(mtgId, message, color) {
+    var el = document.getElementById('kai-status-' + mtgId);
+    if (el) {
+      el.textContent = message;
+      el.style.color = color || '#6b7280';
+    }
+  }
+
+  /* ─── Initialize ─── */
+  document.addEventListener('DOMContentLoaded', initKrispAI);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initKrispAI();
+  }
+})();
+</script>
+<!-- KRISP AI SUMMARY MODULE END -->
+
+<script>
+/* ─── Done Button Handler (Tasks Tab) ─── */
+(function() {
+  document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('done-btn')) return;
+    var row = e.target.closest('.task-row');
+    if (!row) return;
+    row.classList.toggle('done');
+    e.target.textContent = row.classList.contains('done') ? '↩ Undo' : '✓ Done';
+    // Persist done state
+    saveDoneState();
+  });
+
+  function saveDoneState() {
+    var rows = document.querySelectorAll('.task-row');
+    var state = [];
+    rows.forEach(function(r, i) { if (r.classList.contains('done')) state.push(i); });
+    try { localStorage.setItem('mb-done-2026-04-08', JSON.stringify(state)); } catch(e) {}
+  }
+
+  function loadDoneState() {
+    try {
+      var state = JSON.parse(localStorage.getItem('mb-done-2026-04-08') || '[]');
+      var rows = document.querySelectorAll('.task-row');
+      state.forEach(function(i) {
+        if (rows[i]) {
+          rows[i].classList.add('done');
+          var btn = rows[i].querySelector('.done-btn');
+          if (btn) btn.textContent = '↩ Undo';
+        }
+      });
+    } catch(e) {}
+  }
+
+  /* ─── Focus Topics Persistence ─── */
+  var FOCUS_KEY = 'mb-focus-2026-04-08';
+
+  function initFocusTopics() {
+    var ta = document.getElementById('focus-topics-input');
+    if (!ta) return;
+    try {
+      var saved = localStorage.getItem(FOCUS_KEY);
+      if (saved) ta.value = saved;
+    } catch(e) {}
+    ta.addEventListener('input', function() {
+      try { localStorage.setItem(FOCUS_KEY, ta.value); } catch(e) {}
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { loadDoneState(); initFocusTopics(); });
+  } else {
+    loadDoneState();
+    initFocusTopics();
+  }
+})();
+</script>
+</body>
+</html>

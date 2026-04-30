@@ -1,0 +1,2647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Brief — Tuesday, April 14, 2026</title>
+<style>
+/* Morning Brief — Canonical Stylesheet (dark theme)
+   Source of truth: https://reports-hub.pages.dev/briefs/2026-04-08.html
+   Last updated: 2026-04-10
+
+   Accessibility: "Maximum" values applied 2026-04-10 (approved previz 2026-04-10)
+   Reference: _system/skills/accessibility-style-guide/SKILL.md
+
+   IMPORTANT: When rendering the morning brief HTML, use this file as the CSS source.
+   Read this file and embed its contents in the <style> block verbatim.
+*/
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #141828; color: #e8eaef; min-height: 100vh;
+  font-size: 18px; line-height: 1.75; font-weight: 480;
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+
+.flex-row { display: flex; align-items: center; gap: 8px; }
+.center-block { margin-top: 16px; text-align: center; }
+.text-muted-sm { font-size: 13px; color: #b8bcd0; margin-top: 4px; text-align: right; }
+.inline-heading { font-weight: 600; color: #f4f5fa; margin-bottom: 8px; }
+.text-secondary { color: #b8bcd0; font-size: 16px; line-height: 1.6; }
+.focus-topics-wrap { margin-bottom: 16px; }
+
+/* Refresh badge */
+.refresh-badge {
+  display: inline-block; font-size: 13px; font-weight: 600; color: #f97316;
+  background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 6px; padding: 6px 16px; margin-left: 8px; vertical-align: middle;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+
+.header {
+  background: #1c2042; border-bottom: 1px solid #2a2d50;
+  padding: 16px 24px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.header-title { font-size: 18px; font-weight: 700; color: #fff; }
+.header-sub { font-size: 12px; color: #888; margin-top: 2px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.header-date { font-size: 13px; color: #9ca3af; text-align: right; line-height: 1.4; }
+
+/* Date navigation */
+.date-nav-wrap { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.date-nav-btn {
+  background: #2a2a3e; color: #ccc; border: 1px solid #3a3a4e;
+  border-radius: 6px; padding: 2px 8px; font-size: 13px;
+  cursor: pointer; transition: all 0.15s; line-height: 1.8;
+}
+.date-nav-btn:hover { background: #3a3a4e; color: #fff; }
+.date-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* Lookback buttons */
+.lb-wrap { display: flex; gap: 4px; justify-content: flex-end; margin-top: 4px; }
+.lb-btn {
+  background: #2a2a3e; color: #ccc; border: 1px solid #3a3a4e;
+  border-radius: 99px; padding: 2px 10px; font-size: 11px;
+  cursor: pointer; transition: all 0.15s;
+}
+.lb-btn:hover { background: #3a3a4e; color: #ddd; }
+.lb-btn.active { background: #6366f1; color: #fff; border-color: #6366f1; }
+
+/* Lookback notice */
+#lookback-notice {
+  font-size: 13px; color: #c07400;
+  background: rgba(192,116,0,0.12); border: 1px solid rgba(192,116,0,0.3);
+  border-radius: 0 0 8px 8px; padding: 5px 20px;
+  text-align: center; display: none;
+}
+
+/* ═══════════════════════════════════════════
+   TAB BAR
+   ═══════════════════════════════════════════ */
+
+.tab-bar {
+  display: flex; flex-wrap: wrap; gap: 6px; background: #10131f;
+  border-bottom: 1px solid #2a2d50;
+  overflow-x: auto; scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 12px 20px; font-size: 16px; font-weight: 600;
+  color: #b8bcd0; background: rgba(255,255,255,0.03); border: none; cursor: pointer;
+  white-space: nowrap; border-bottom: 2px solid transparent;
+  border-radius: 10px; transition: all 0.15s;
+}
+.tab-btn:hover { color: #d0d4e8; background: rgba(255,255,255,0.05); }
+.tab-btn.active { color: #fff; font-weight: 700; border-bottom: 4px solid #c084fc; background: rgba(192,132,252,0.12); }
+
+/* Tab content */
+.tab-content { display: none; padding: 24px; max-width: 860px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+/* ═══════════════════════════════════════════
+   SECTION HEADERS
+   ═══════════════════════════════════════════ */
+
+.section-hdr {
+  font-size: 14px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: #c0c4d8; margin: 24px 0 12px;
+  padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.section-hdr:first-child { margin-top: 0; }
+
+/* ═══════════════════════════════════════════
+   STAT TILES (Today tab)
+   ═══════════════════════════════════════════ */
+
+.stat-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+.stat-tile {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; padding: 14px; text-align: center;
+}
+.stat-tile .stat-num { font-size: 32px; font-weight: 800; color: #6366f1; line-height: 1; }
+.stat-tile .stat-label { font-size: 14px; color: #b8bcd0; margin-top: 4px; }
+
+/* ═══════════════════════════════════════════
+   ATTENTION CARDS (Today tab)
+   ═══════════════════════════════════════════ */
+
+.attn-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; padding: 28px; margin-bottom: 24px;
+  border-left-width: 4px;
+}
+.attn-card.card-urgent { border-left-color: #ef4444; }
+.attn-card.card-warning { border-left-color: #f59e0b; }
+.attn-card.card-info { border-left-color: #6366f1; }
+.attn-card-hdr { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.attn-card-title { flex: 1; font-weight: 700; font-size: 22px; color: #f4f5fa; }
+.attn-chevron { font-size: 16px; color: #999; transition: transform 0.2s; line-height: 1; }
+.attn-card.collapsed .attn-chevron { transform: rotate(-90deg); }
+.attn-card.collapsed .attn-card-body { display: none; }
+.attn-card-body { margin-top: 10px; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+
+/* ═══════════════════════════════════════════
+   BADGES
+   ═══════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex; align-items: center; font-size: 13px; font-weight: 700;
+  padding: 6px 16px; border-radius: 6px; text-transform: uppercase;
+  letter-spacing: 0.5px; flex-shrink: 0;
+}
+.badge-red { background: rgba(239,68,68,0.15); color: #f87171; }
+.badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.badge-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+.badge-indigo { background: rgba(99,102,241,0.15); color: #818cf8; }
+.badge-gray { background: rgba(107,114,128,0.15); color: #9ca3af; }
+.badge-purple { background: rgba(167,139,250,0.15); color: #c084fc; }
+
+/* ═══════════════════════════════════════════
+   MEETING CARDS (Yesterday tab)
+   ═══════════════════════════════════════════ */
+
+.mtg-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 24px; overflow: hidden;
+}
+.mtg-card.external { border-left: 5px solid #7a80cc; }
+.mtg-card.internal { border-left: 5px solid #5a5e78; }
+.mtg-card-header {
+  padding: 28px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+}
+.mtg-card-title { font-size: 22px; font-weight: 700; color: #f4f5fa; }
+.mtg-card-meta { font-size: 16px; font-weight: 500; color: #b8bcd0; margin-top: 2px; }
+.mtg-card-body { padding: 0 28px 28px; }
+.mtg-chevron {
+  font-size: 16px; color: #bbb; transition: transform 0.2s;
+  line-height: 1; flex-shrink: 0;
+}
+.collapsible-mtg .mtg-card-header { cursor: pointer; user-select: none; }
+.collapsible-mtg .mtg-card-header:hover { background: rgba(255,255,255,0.02); }
+.collapsible-mtg.collapsed .mtg-chevron { transform: rotate(-90deg); }
+.collapsible-mtg.collapsed .mtg-card-body { display: none; }
+
+/* Key points & action items */
+.list-label {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #c0c4d8; margin: 10px 0 6px;
+}
+.kp-list { padding-left: 18px; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+.kp-list li { margin-bottom: 3px; }
+.ai-list { list-style: none; padding: 0; }
+.ai-list li {
+  background: #222650; border-left: 3px solid #6a70b0;
+  border-radius: 8px; padding: 16px 20px; margin-bottom: 5px;
+  font-size: 17px; color: #e0e2ec; line-height: 1.65;
+}
+
+/* Meeting CTA bar */
+.mtg-cta-bar {
+  display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 0 2px;
+  margin-top: 8px; border-top: 1px solid #2a2d50;
+}
+
+/* Krisp speaker warning */
+.mtg-warning {
+  display: flex; align-items: center; gap: 6px; background: #fff8e8;
+  border: 1px solid #f5c842; border-radius: 5px; padding: 5px 10px;
+  margin: 2px 0 8px; font-size: 13px; color: #856404;
+}
+.mtg-warning a { color: #856404; font-weight: 600; text-decoration: none; }
+
+/* ═══════════════════════════════════════════
+   CTA BUTTONS (shared across all cards)
+   ═══════════════════════════════════════════ */
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 16px; font-weight: 700; padding: 14px 26px;
+  min-height: 52px; border-radius: 10px; text-decoration: none; color: #b8bcd0;
+  background: rgba(255,255,255,0.05); border: 2px solid #2a2f3e;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.cta-btn:hover { background: rgba(255,255,255,0.09); color: #e8eaef; }
+
+/* ═══════════════════════════════════════════
+   CALENDAR CARDS (Meetings tab)
+   ═══════════════════════════════════════════ */
+
+.cal-row {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; padding: 28px; margin-bottom: 24px;
+}
+.cal-row.external { border-left: 5px solid #7a80cc; }
+.cal-row.internal { border-left: 5px solid #5a5e78; }
+.cal-time { font-size: 16px; font-weight: 700; color: #6366f1; margin-bottom: 4px; }
+.cal-title {
+  font-size: 22px; font-weight: 700; color: #f4f5fa;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cal-meta { font-size: 16px; font-weight: 500; color: #b8bcd0; margin-top: 4px; }
+.cal-body { margin-top: 10px; font-size: 18px; color: #e8eaef; line-height: 1.75; }
+.cal-blurb { font-size: 18px; color: #e8eaef; line-height: 1.75; }
+
+/* Prep bar */
+.cal-prep-bar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid #2a2d50;
+}
+.prep-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #b8bcd0; margin-right: 4px; flex-shrink: 0;
+}
+.prep-chip {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 15px; font-weight: 600;
+  color: #b8bcd0; background: #1a1f2e; border: 1px solid #2a2f3e;
+  border-radius: 99px; padding: 10px 20px; min-height: 44px;
+  text-decoration: none; white-space: nowrap;
+}
+.prep-chip:hover { border-color: #6366f1; color: #818cf8; }
+.prep-chip-internal { background: #1a1f2e; color: #6b7280; cursor: default; }
+.prep-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; border-radius: 99px; padding: 2px 7px;
+  text-decoration: none; white-space: nowrap; transition: all 0.12s;
+}
+.prep-icon-btn.crm { background: rgba(192,116,0,0.15); color: #c07400; }
+.prep-icon-btn.li { background: rgba(26,115,232,0.15); color: #1a73e8; font-style: italic; }
+.prep-icon-btn.url { background: rgba(99,102,241,0.15); color: #818cf8; }
+.prep-dot { color: #374151; font-size: 11px; flex-shrink: 0; }
+
+/* Prep notes (expandable context block) */
+.cal-prep-notes {
+  margin-top: 10px; padding: 10px 12px;
+  background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.12);
+  border-radius: 8px;
+}
+.prep-note-header {
+  font-size: 13px; font-weight: 700; color: #6366f1;
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.prep-note-list {
+  margin: 0; padding: 0 0 0 16px; font-size: 16px;
+  line-height: 1.75; color: #b8bcd0;
+}
+.prep-note-list li { margin-bottom: 4px; }
+.prep-note-list strong { color: #e8eaef; font-weight: 600; }
+.prep-exec-summary {
+  font-size: 17px; line-height: 1.75; color: #c8cad8;
+  margin: 6px 0 0; padding: 0;
+}
+.prep-exec-summary a { color: #818cf8; text-decoration: underline; }
+.prep-exec-summary a:hover { color: #a5b4fc; }
+
+/* ═══════════════════════════════════════════
+   UPDATE CARDS (Updates tab)
+   ═══════════════════════════════════════════ */
+
+.update-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 24px; overflow: hidden;
+}
+.update-card-inner { display: flex; gap: 0; }
+.update-icon {
+  width: 40px; background: rgba(255,255,255,0.03);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 14px 0; font-size: 18px; flex-shrink: 0;
+  border-right: 1px solid #2a2d50;
+}
+.update-body { padding: 12px 14px; flex: 1; min-width: 0; }
+.update-title {
+  font-size: 22px; font-weight: 700; color: #f4f5fa;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.update-detail { font-size: 16px; color: #b8bcd0; line-height: 1.6; }
+.update-card.border-urgent { border-left: 4px solid #ef4444; }
+.update-card.border-lead { border-left: 4px solid #6366f1; }
+.update-card.border-waiting { border-left: 4px solid #f59e0b; }
+
+/* ═══════════════════════════════════════════
+   DRIVE CARDS (Updates tab)
+   ═══════════════════════════════════════════ */
+
+.drive-card {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+}
+.drive-icon { font-size: 20px; flex-shrink: 0; }
+.drive-body { flex: 1; min-width: 0; }
+.drive-title {
+  font-size: 22px; font-weight: 700; color: #f4f5fa;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.drive-meta { font-size: 16px; color: #b8bcd0; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════
+   TASK BLOCKS (Tasks tab)
+   ═══════════════════════════════════════════ */
+
+.task-block {
+  background: #1c2042; border: 1px solid #2a2d50;
+  border-radius: 12px; margin-bottom: 14px; overflow: hidden;
+}
+.task-block-header {
+  padding: 10px 14px; background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid #2a2d50; font-size: 14px; font-weight: 700;
+  color: #b8bcd0; display: flex; align-items: center; gap: 8px;
+}
+.task-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 20px; border-bottom: 1px solid #141828;
+}
+.task-row:last-child { border-bottom: none; }
+.task-row.done { opacity: 0.35; text-decoration: line-through; }
+.done-btn {
+  background: rgba(34,197,94,0.1); color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.2); border-radius: 6px;
+  padding: 8px 16px; font-size: 14px; font-weight: 600;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+}
+.done-btn:hover { background: rgba(34,197,94,0.2); }
+.task-overdue {
+  font-size: 13px; color: #f87171; background: rgba(239,68,68,0.1);
+  padding: 1px 6px; border-radius: 99px; flex-shrink: 0;
+}
+.task-due { font-size: 13px; color: #b8bcd0; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   COWORK TABLE (CoWork tab)
+   ═══════════════════════════════════════════ */
+
+.cowork-table { width: 100%; border-collapse: collapse; font-size: 16px; margin-bottom: 16px; }
+.cowork-table th {
+  text-align: left; font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #b8bcd0; padding: 6px 12px;
+  border-bottom: 1px solid #2a2d50;
+}
+.cowork-table td { padding: 10px 12px; border-bottom: 1px solid #1c2042; vertical-align: top; }
+.cowork-table tr:last-child td { border-bottom: none; }
+.cowork-table td:first-child { font-weight: 600; white-space: nowrap; color: #f4f5fa; }
+.cowork-table td:last-child { color: #b8bcd0; line-height: 1.5; }
+
+/* ═══════════════════════════════════════════
+   DRAFTS WIDGET
+   ═══════════════════════════════════════════ */
+
+.drafts-widget {
+  display: flex; align-items: center; gap: 10px; margin-top: 16px;
+  padding: 12px 16px; background: #1c2042; border-radius: 12px;
+  border: 1px solid #2a2d50;
+}
+.drafts-count { font-size: 22px; font-weight: 700; color: #fff; line-height: 1; }
+.drafts-label { font-size: 14px; color: #b8bcd0; margin-top: 2px; }
+.drafts-link {
+  margin-left: auto; background: #6366f1; color: #fff;
+  padding: 6px 14px; border-radius: 6px; font-size: 14px;
+  font-weight: 600; text-decoration: none;
+}
+.drafts-link:hover { background: #7c7ff7; }
+
+/* ═══════════════════════════════════════════
+   FOCUS TOPICS INPUT
+   ═══════════════════════════════════════════ */
+
+#focus-topics-input {
+  width: 100%; box-sizing: border-box; min-height: 80px;
+  padding: 12px; font-family: inherit; font-size: 18px; line-height: 1.75;
+  color: #e8eaef; background: #1a1f2e; border: 1px solid #2a2f3e;
+  border-radius: 8px; resize: vertical; outline: none;
+  transition: border-color 0.15s;
+}
+#focus-topics-input:focus { border-color: #6366f1; }
+#focus-topics-input::placeholder { color: #4b5563; }
+
+/* ═══════════════════════════════════════════
+   KRISP AI SUMMARY MODULE
+   ═══════════════════════════════════════════ */
+
+.krisp-ai-section {
+  margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 12px;
+}
+.krisp-ai-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.krisp-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(167,139,250,0.1); color: #c084fc;
+  border: 2px solid rgba(167,139,250,0.25); border-radius: 10px;
+  padding: 14px 26px; font-size: 16px; font-weight: 700; min-height: 52px;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.krisp-ai-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.4); }
+.krisp-ai-btn.paste-btn { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.25); }
+.krisp-ai-btn.publish-btn { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+.krisp-ai-status { font-size: 13px; color: #b8bcd0; transition: color 0.3s; }
+.krisp-prompt-selector { margin-top: 8px; display: none; }
+.krisp-prompt-selector.visible { display: block; }
+.krisp-prompt-option {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+}
+.krisp-prompt-option:hover { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.krisp-ai-saved {
+  background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15);
+  border-radius: 8px; padding: 12px; margin-top: 10px; display: none;
+}
+.krisp-ai-saved.visible { display: block; }
+
+/* ═══════════════════════════════════════════
+   GLOBAL
+   ═══════════════════════════════════════════ */
+
+a { color: #a8c0ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ═══════════════════════════════════════════
+   BRIEF STAR BUTTONS (shared with Reports Hub)
+   ═══════════════════════════════════════════ */
+
+.brief-star-btn {
+  background: none; border: none; cursor: pointer; font-size: 20px;
+  padding: 0; line-height: 1; opacity: 0.25; transition: opacity 0.15s, transform 0.15s;
+  min-width: 52px; min-height: 52px; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.brief-star-btn:hover { opacity: 0.7; transform: scale(1.15); }
+.brief-star-btn.starred { opacity: 1; }
+
+.cal-hdr .brief-star-btn,
+.cal-title .brief-star-btn { float: right; margin-left: 8px; }
+
+/* Star positioning per card type */
+.attn-card-hdr .brief-star-btn { flex-shrink: 0; margin-left: auto; }
+.update-title .brief-star-btn { flex-shrink: 0; margin-left: 8px; }
+.drive-card .brief-star-btn { flex-shrink: 0; margin-left: auto; }
+.brief-star-btn-sm { font-size: 16px; min-width: 44px; min-height: 44px; }
+.task-row .brief-star-btn { flex-shrink: 0; }
+
+.brief-hub-btn {
+  background: none; border: none; cursor: pointer; font-size: 22px;
+  padding: 0; line-height: 1; opacity: 0.5; transition: opacity 0.15s, transform 0.15s;
+  min-width: 52px; min-height: 52px; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  text-decoration: none;
+}
+.brief-hub-btn:hover { opacity: 1; transform: scale(1.1); }
+
+.footer-note {
+  font-size: 13px; color: #6b7280; text-align: center;
+  margin-top: 20px; padding-top: 12px; border-top: 1px solid #2a2d50;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">☀</div>
+    <div><div class="header-title">☀️ Daily Brief</div><div class="header-sub">UX is Fine · Jason Schklar</div></div>
+  </div>
+  <div class="header-right">
+    <div class="date-nav-wrap">
+      <button class="date-nav-btn" onclick="navDate(-1)" title="Previous day">◀</button>
+      <div class="header-date" id="header-date-display">Tuesday<br>April 14, 2026</div>
+      <button class="date-nav-btn" id="date-nav-next" onclick="navDate(1)" title="Next day">▶</button>
+    </div>
+    <div class="lb-wrap">
+      <button class="lb-btn active" onclick="setLookback(1,this)">1D</button>
+      <button class="lb-btn" onclick="setLookback(7,this)">7D</button>
+      <button class="lb-btn" onclick="setLookback(30,this)">30D</button>
+    </div>
+  </div>
+</div>
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab(0)">☀️ Brief</button>
+  <button class="tab-btn" id="tab-btn-yesterday" onclick="switchTab(1)">📼 Yesterday</button>
+  <button class="tab-btn" onclick="switchTab(2)">📅 Today</button>
+  <button class="tab-btn" onclick="switchTab(3)">📬 Updates</button>
+  <button class="tab-btn" onclick="switchTab(4)">✅ Tasks</button>
+  <button class="tab-btn" onclick="switchTab(5)">🛠 Cowork</button>
+  <button class="tab-btn" onclick="switchTab(6)">📋 Appendix</button>
+</div>
+<div id="lookback-notice" style="display:none;"></div>
+
+<div class="tab-content active" id="tab-0">
+
+<div class="stat-row">
+  <div class="stat-tile"><div class="stat-num">6</div><div class="stat-label">Yesterday's Meetings</div></div>
+  <div class="stat-tile"><div class="stat-num">5</div><div class="stat-label">Today's Meetings</div></div>
+  <div class="stat-tile"><div class="stat-num">201</div><div class="stat-label">Gmail Drafts</div></div>
+  <div class="stat-tile"><div class="stat-num">35</div><div class="stat-label">Copper Tasks</div></div>
+</div>
+
+<p style="font-size:18px;line-height:1.75;color:#e8eaef;margin-bottom:20px;">
+  Two Riot SOW amendments are heading to DocuSign today — review and sign SOW 4 and SOW 6 before end of day.
+  Katrina King submitted her resignation this morning with a last day of April 24, requiring immediate HR response.
+  Colorado withholding tax and a Rippling PEO filing are both due <strong>tomorrow (April 15)</strong>.
+  On the deal front, Jam &amp; Tea/Amazon Luna is sizing up full production support through Feb 2027,
+  and the Riot/TFT AI meeting is happening today. Turtle Rock's UI Motion deal is in follow-up mode.
+</p>
+
+<div class="attn-card card-urgent" id="attn-1">
+  <div class="attn-card-hdr" onclick="toggleAttn(this)">
+    <span class="badge badge-red">CONTRACTS</span>
+    <span class="attn-card-title">Riot SOW 4 &amp; SOW 6 Amendments → DocuSign</span>
+    <span class="attn-chevron">▾</span>
+  </div>
+  <div class="attn-card-body">
+    <p>Aaron Bitzer (Riot) confirmed both Amendment 1 to SOW 4 and Amendment 1 to SOW 6 are going out via DocuSign for signatures. Review the drafts and sign promptly. Both arrived yesterday.</p>
+    <p style="margin-top:8px;"><a href="https://mail.google.com/mail/u/0/#all/19d88a72d795e691" target="_blank">📧 SOW 6 email thread</a> &nbsp;·&nbsp; <a href="https://mail.google.com/mail/u/0/#all/19d888686ccd2d9f" target="_blank">📧 SOW 4 email thread</a></p>
+  </div>
+</div>
+
+<div class="attn-card card-urgent" id="attn-2">
+  <div class="attn-card-hdr" onclick="toggleAttn(this)">
+    <span class="badge badge-red">HR</span>
+    <span class="attn-card-title">Katrina King Resigned — Last Day April 24</span>
+    <span class="attn-chevron">▾</span>
+  </div>
+  <div class="attn-card-body">
+    <p>Kat King submitted her resignation letter to Sarah (CC'd Cat &amp; Jason). Her last day is <strong>April 24, 2026</strong>. This impacts Mission 42 staffing — the Slack channel is already flagging the gap, and Mike notes Kat Craig may be worth pursuing. Coordinate with Sarah and Cat on offboarding and backfill.</p>
+    <p style="margin-top:8px;"><a href="https://mail.google.com/mail/u/0/#all/19d888da3354159e" target="_blank">📧 Resignation email</a></p>
+  </div>
+</div>
+
+<div class="attn-card card-urgent" id="attn-3">
+  <div class="attn-card-hdr" onclick="toggleAttn(this)">
+    <span class="badge badge-amber">DUE TOMORROW</span>
+    <span class="attn-card-title">Tax &amp; Payroll Deadlines — April 15</span>
+    <span class="attn-chevron">▾</span>
+  </div>
+  <div class="attn-card-body">
+    <p><strong>Colorado Withholding Tax</strong> must be filed by Wednesday April 15. <strong>Rippling</strong> is flagging 1 new + 2 overdue PEO tasks for UX is Fine — review and complete today. Q1 2026 payroll reconciliation report arrived yesterday.</p>
+    <p style="margin-top:8px;"><a href="https://mail.google.com/mail/u/0/#all/19d8bc3a91ab040b" target="_blank">📧 Rippling tasks</a> &nbsp;·&nbsp; <a href="https://mail.google.com/mail/u/0/#all/19d88b986f9f9377" target="_blank">📧 CO Withholding</a></p>
+  </div>
+</div>
+
+<div class="attn-card card-warning" id="attn-4">
+  <div class="attn-card-hdr" onclick="toggleAttn(this)">
+    <span class="badge badge-amber">MEETINGS TODAY</span>
+    <span class="attn-card-title">Riot AI Meet &amp; Greet + Skarvo Gemma Consult (1–3 PM)</span>
+    <span class="attn-chevron">▾</span>
+  </div>
+  <div class="attn-card-body">
+    <p><strong>1:00 PM — Gemma Skarvo consult</strong> with Ashish Suman &amp; Ammar Ahmed. Prep: <a href="https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit" target="_blank">Notes - Gemma Skarvo consult</a>, <a href="https://docs.google.com/document/d/1lGGYIdFrgwfpLa7Vz0vqAkBSxZ1NQG1rMlCG4InowRg/edit" target="_blank">Skarvo &lt;&gt; Google Accelerator doc</a>.</p>
+    <p style="margin-top:8px;"><strong>2:00 PM — Meet 'n Greet - Boldon/UXIF</strong> (organized by Capretto from Riot). Goal per Slack: get intro to Chris Bolden (Product Engineering) and begin AI retainer conversation. Ashley posted the 4-14 agenda in #deal-riot-tft-unreal-197rio.</p>
+  </div>
+</div>
+
+<div class="attn-card card-warning" id="attn-5">
+  <div class="attn-card-hdr" onclick="toggleAttn(this)">
+    <span class="badge badge-amber">BD</span>
+    <span class="attn-card-title">Jam &amp; Tea / Amazon Luna — Full Production Estimate Needed</span>
+    <span class="attn-chevron">▾</span>
+  </div>
+  <div class="attn-card-body">
+    <p>Carl is asking for a rough estimate of full production support through Feb 2027 to share with Amazon. Mike pitched 0.5 Dir, 1 UX, 2 UI, 1 Imp. Jason wants Ashley to steer toward "ALL THE BUDGETS" and note UX is Fine is a trusted Amazon partner with co-developing AI processes. Luna news (removing purchased game access) may be a talking point — Mike flagged it. Ashley should coordinate timing with Carl.</p>
+    <p style="margin-top:8px;"><a href="https://uxisfine.slack.com/archives/C0AME81CP38" target="_blank">💬 #deal-jam-and-tea-207jam</a></p>
+  </div>
+</div>
+
+<div class="attn-card card-info" id="attn-6">
+  <div class="attn-card-hdr" onclick="toggleAttn(this)">
+    <span class="badge badge-indigo">LEAD</span>
+    <span class="attn-card-title">Turtle Rock Studios — UI Motion Deal Follow-Up</span>
+    <span class="attn-chevron">▾</span>
+  </div>
+  <div class="attn-card-body">
+    <p>Ashley sent a follow-up to Chloe Stoltz (Turtle Rock) on the UI Motion Support Proposal, pushing for an alignment call. Jason flagged this is a "commitment test" — if they want a June start they need to pay to hold team members. Scope includes HUD &amp; menu motion design with rapid prototyping. Ashley is also considering Jerome, Gustavo, and Evan for this project with Sparkle and Project C wrapping in May.</p>
+    <p style="margin-top:8px;"><a href="https://mail.google.com/mail/u/0/#all/19aff8daf7d6f87e" target="_blank">📧 Proposal thread</a> &nbsp;·&nbsp; <a href="https://uxisfine.slack.com/archives/C096PJ9PYQ5" target="_blank">💬 #deal-turtlerock-imp-ui</a></p>
+  </div>
+</div>
+
+<div class="section-hdr" style="margin-top:20px;">🎯 Focus Topics</div>
+<div class="focus-topics-wrap">
+  <textarea id="focus-topics-input"
+            placeholder="What are your focus topics for today? Type here — auto-saved."
+            oninput="saveFocusTopics()"></textarea>
+  <div class="text-muted-sm">Auto-saved per day</div>
+</div>
+
+<div class="drafts-widget">
+  <span>📮</span>
+  <div>
+    <div class="drafts-count">201</div>
+    <div class="drafts-label">drafts in Gmail</div>
+  </div>
+  <a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" class="drafts-link">Open Drafts →</a>
+</div>
+
+</div>
+
+<div class="tab-content" id="tab-1">
+
+<div id="tab2-date-hdr" class="section-hdr">📼 Monday, April 13</div>
+
+<!-- Meeting 1: Chore Focus <> Google Accelerator -->
+<div class="mtg-card external collapsible-mtg" id="mtg-1" data-date="2026-04-13"
+     data-krisp-id="019d872539cc775ebce77ce589b40812"
+     data-mtg-title="Chore Focus &lt;&gt; Google Accelerator - Weekly"
+     data-mtg-participants="Alan Nunez, Jason Schklar"
+     data-mtg-type="mentoring">
+  <div class="mtg-card-header" onclick="toggleMtg(this)">
+    <div>
+      <div class="mtg-card-title">🧹 Chore Focus &lt;&gt; Google Accelerator - Weekly</div>
+      <div class="mtg-card-meta">9:00 AM · External · ~45 min</div>
+    </div>
+    <div class="flex-row">
+      <span class="badge badge-indigo">External</span>
+      <span class="mtg-chevron">▾</span>
+    </div>
+  </div>
+  <div class="mtg-card-body">
+    <div class="list-label">Action Items</div>
+    <ul class="ai-list">
+      <li>Alan to add a commitment/swipe interaction to onboarding</li>
+      <li>Alan to add a welcoming introduction for avatar before stressful questions</li>
+      <li>Alan to instrument all key user events within first 24 hours (funnel visibility)</li>
+      <li>Alan to schedule additional mentor meetings for coming week</li>
+      <li>Alan to add post-paywall funnel tracking events (drop-off identification)</li>
+      <li>Alan to send onboarding variants to huming's friends for feedback via poll</li>
+      <li>Alan to add a chore selection step during onboarding flow</li>
+      <li>Alan to share the funnel report in next meeting</li>
+      <li>Alan to create multiple onboarding variants (A/B) for feedback</li>
+      <li>Alan to communicate streak and gem rewards to users within the app</li>
+      <li>huming to share onboarding variants with friends who have ADD for feedback</li>
+      <li>huming to keep Jason and Alan informed about Google IO ticket availability</li>
+    </ul>
+    <div class="mtg-cta-bar">
+      <a class="cta-btn" href="https://app.krisp.ai/t/019d872539cc775ebce77ce589b40812" target="_blank">🎙 Krisp</a>
+      <!-- copper: Alan Nunez → id:181638896 -->
+      <a class="cta-btn" href="https://app.copper.com/companies/499808/app#/people/181638896" target="_blank">🔶 Alan Nunez</a>
+      <a class="cta-btn" href="https://linkedin.com/search/results/people/?keywords=Alan+Nunez+Focus+Forge" target="_blank">💼 LinkedIn</a>
+    </div>
+    <div class="krisp-ai-section" data-for-mtg="mtg-1"></div>
+  </div>
+</div>
+
+<!-- Meeting 2: Skarvo <> Google Accelerator -->
+<div class="mtg-card external collapsible-mtg" id="mtg-2" data-date="2026-04-13"
+     data-krisp-id="019d875c450375afaad08d048d8d7644"
+     data-mtg-title="Skarvo &lt;&gt; Google Accelerator"
+     data-mtg-participants="Ammar Ahmed, Ashish Suman, Jason Schklar"
+     data-mtg-type="mentoring">
+  <div class="mtg-card-header" onclick="toggleMtg(this)">
+    <div>
+      <div class="mtg-card-title">🪶 Skarvo &lt;&gt; Google Accelerator</div>
+      <div class="mtg-card-meta">10:00 AM · External · ~45 min</div>
+    </div>
+    <div class="flex-row">
+      <span class="badge badge-indigo">External</span>
+      <span class="mtg-chevron">▾</span>
+    </div>
+  </div>
+  <div class="mtg-card-body">
+    <div class="list-label">Action Items</div>
+    <ul class="ai-list">
+      <li>Huming to check with Identity app team about working with a startup like Skarvo on unreleased agent features (Gemma-based agent)</li>
+      <li>Huming to check how to share development script for agent permissions with the Skarvo team</li>
+      <li>Suhail to schedule meetings with Google contacts with background in ads and brand positioning</li>
+    </ul>
+    <div class="mtg-cta-bar">
+      <a class="cta-btn" href="https://app.krisp.ai/t/019d875c450375afaad08d048d8d7644" target="_blank">🎙 Krisp</a>
+      <!-- copper: Ammar Ahmed → id:181638898 -->
+      <a class="cta-btn" href="https://app.copper.com/companies/499808/app#/people/181638898" target="_blank">🔶 Ammar Ahmed</a>
+      <a class="cta-btn" href="https://linkedin.com/search/results/people/?keywords=Ammar+Ahmed+Skarvo" target="_blank">💼 LinkedIn</a>
+      <!-- copper: Ashish Suman → id:181638899 -->
+      <a class="cta-btn" href="https://app.copper.com/companies/499808/app#/people/181638899" target="_blank">🔶 Ashish Suman</a>
+      <a class="cta-btn" href="https://linkedin.com/search/results/people/?keywords=Ashish+Suman+Skarvo" target="_blank">💼 LinkedIn</a>
+      <!-- copper: Skarvo → company id:75857286 -->
+      <a class="cta-btn" href="https://app.copper.com/companies/499808/app#/companies/75857286" target="_blank">🔶 Skarvo</a>
+    </div>
+    <div class="krisp-ai-section" data-for-mtg="mtg-2"></div>
+  </div>
+</div>
+
+<!-- Meeting 3: Jason/Ash/Cat Monday CRM Stand up (10:30) -->
+<div class="mtg-card internal collapsible-mtg" id="mtg-3" data-date="2026-04-13"
+     data-krisp-id="019d877c2099762fa296c6cabbc0c827"
+     data-mtg-title="Jason/Ash/Cat Monday CRM Stand up"
+     data-mtg-participants="Cat Chapman Smith, Ashley Conley, Jason Schklar"
+     data-mtg-type="internal">
+  <div class="mtg-card-header" onclick="toggleMtg(this)">
+    <div>
+      <div class="mtg-card-title">Jason/Ash/Cat Monday CRM Stand up</div>
+      <div class="mtg-card-meta">10:30 AM · Internal</div>
+    </div>
+    <div class="flex-row">
+      <span class="badge badge-gray">Internal</span>
+      <span class="mtg-chevron">▾</span>
+    </div>
+  </div>
+  <div class="mtg-card-body">
+    <div class="mtg-cta-bar">
+      <a class="cta-btn" href="https://app.krisp.ai/t/019d877c2099762fa296c6cabbc0c827" target="_blank">🎙 Krisp</a>
+    </div>
+    <div class="krisp-ai-section" data-for-mtg="mtg-3"></div>
+  </div>
+</div>
+
+<!-- Meeting 4: Jason/Ash/Cat Monday CRM Stand up (11:00) -->
+<div class="mtg-card internal collapsible-mtg" id="mtg-4" data-date="2026-04-13"
+     data-krisp-id="019d87932533768d9ea699032777ac0e"
+     data-mtg-title="Jason/Ash/Cat Monday CRM Stand up (continued)"
+     data-mtg-participants="Cat Chapman Smith, Ashley Conley, Jason Schklar"
+     data-mtg-type="internal">
+  <div class="mtg-card-header" onclick="toggleMtg(this)">
+    <div>
+      <div class="mtg-card-title">Jason/Ash/Cat Monday CRM Stand up <span style="font-size:14px;color:#6b7280;">(continued)</span></div>
+      <div class="mtg-card-meta">11:00 AM · Internal</div>
+    </div>
+    <div class="flex-row">
+      <span class="badge badge-gray">Internal</span>
+      <span class="mtg-chevron">▾</span>
+    </div>
+  </div>
+  <div class="mtg-card-body">
+    <div class="mtg-cta-bar">
+      <a class="cta-btn" href="https://app.krisp.ai/t/019d87932533768d9ea699032777ac0e" target="_blank">🎙 Krisp</a>
+    </div>
+    <div class="krisp-ai-section" data-for-mtg="mtg-4"></div>
+  </div>
+</div>
+
+<!-- Meeting 5: Audit & Style Guide Materials -->
+<div class="mtg-card external collapsible-mtg" id="mtg-5" data-date="2026-04-13"
+     data-krisp-id="019d87e8ad3a77afaa312c39f7a84ab3"
+     data-mtg-title="Audit &amp; Style Guide Materials"
+     data-mtg-participants="Sarah Benjamin, Jason Schklar, Jerome Tieh, Ryan Wolper"
+     data-mtg-type="client">
+  <div class="mtg-card-header" onclick="toggleMtg(this)">
+    <div>
+      <div class="mtg-card-title">Audit &amp; Style Guide Materials</div>
+      <div class="mtg-card-meta">12:30 PM · External · ~30 min</div>
+    </div>
+    <div class="flex-row">
+      <span class="badge badge-indigo">External</span>
+      <span class="mtg-chevron">▾</span>
+    </div>
+  </div>
+  <div class="mtg-card-body">
+    <div class="list-label">Action Items</div>
+    <ul class="ai-list">
+      <li>Jason to get involved and provide slide-fit guidance when team is ready to cut slides for the Figma deck</li>
+      <li>Sarah to review the Valorant/Riot project files (recently shared by Brian) for usable audit and design materials</li>
+      <li>Sarah to post ongoing updates in the relevant channel as work progresses</li>
+      <li>Sarah to compile list of top shareable audit and design system materials in one place</li>
+      <li>Sarah to identify appropriate channel for sharing and collaborating on pitch materials</li>
+      <li>Sarah to prepare audit and design system slides ready for deck by end of April</li>
+      <li>Jerome to check with team whether the Invincible project included an audit phase</li>
+    </ul>
+    <div class="mtg-cta-bar">
+      <a class="cta-btn" href="https://app.krisp.ai/t/019d87e8ad3a77afaa312c39f7a84ab3" target="_blank">🎙 Krisp</a>
+      <!-- copper: Jerome Tieh → not found -->
+      <a class="cta-btn" href="https://app.copper.com/companies/499808/app#/browse/list/people/default" target="_blank">🔶 Jerome Tieh</a>
+      <a class="cta-btn" href="https://linkedin.com/search/results/people/?keywords=Jerome+Tieh" target="_blank">💼 LinkedIn</a>
+      <!-- copper: Ryan Wolper → not found -->
+      <a class="cta-btn" href="https://app.copper.com/companies/499808/app#/browse/list/people/default" target="_blank">🔶 Ryan Wolper</a>
+      <a class="cta-btn" href="https://linkedin.com/search/results/people/?keywords=Ryan+Wolper" target="_blank">💼 LinkedIn</a>
+    </div>
+    <div class="krisp-ai-section" data-for-mtg="mtg-5"></div>
+  </div>
+</div>
+
+<!-- Meeting 6: Jason / Mike / Ashley - Configure Claude -->
+<div class="mtg-card internal collapsible-mtg" id="mtg-6" data-date="2026-04-13"
+     data-krisp-id="019d8802884474c280e13bf909a3ffe1"
+     data-mtg-title="Jason / Mike / Ashley — Configure Claude"
+     data-mtg-participants="Mike McMahon, Jason Schklar, Ashley Conley"
+     data-mtg-type="internal">
+  <div class="mtg-card-header" onclick="toggleMtg(this)">
+    <div>
+      <div class="mtg-card-title">Jason / Mike / Ashley — Configure Claude</div>
+      <div class="mtg-card-meta">1:00 PM · Internal · ~60 min</div>
+    </div>
+    <div class="flex-row">
+      <span class="badge badge-gray">Internal</span>
+      <span class="mtg-chevron">▾</span>
+    </div>
+  </div>
+  <div class="mtg-card-body">
+    <div class="list-label">Action Items</div>
+    <ul class="ai-list">
+      <li><strong>Ashley</strong> — Do self-guided deep dives on AI topics relevant to the business</li>
+      <li><strong>Jason</strong> — Put together knowledge base of AI-related docs and resources for Ashley</li>
+      <li><strong>Jason</strong> — Work on the profit margin calculator</li>
+      <li><strong>Mike</strong> — Follow up with Ren to gather insights on TFT team tooling needs</li>
+      <li><strong>Mike</strong> — Prepare and prerecord demo materials for the Riot meeting</li>
+      <li><strong>Mike</strong> — Chat with Kelly to determine scope for game overhaul</li>
+      <li><strong>Ashley</strong> — Create agenda with key bullet points for the Riot meeting</li>
+      <li><strong>Mike</strong> — Work with Duncan, Matt, and Sarah on prototyping faster processes on tech side</li>
+    </ul>
+    <div class="mtg-cta-bar">
+      <a class="cta-btn" href="https://app.krisp.ai/t/019d8802884474c280e13bf909a3ffe1" target="_blank">🎙 Krisp</a>
+    </div>
+    <div class="krisp-ai-section" data-for-mtg="mtg-6"></div>
+  </div>
+</div>
+
+<div class="center-block">
+  <button class="cta-btn" onclick="(function(){var p='Search Krisp meetings for the last 30 days and summarize key themes, open action items, and recurring topics. Use: search_meetings(after=\'2026-03-15\', before=\'2026-04-14\', limit=50, fields=[\'name\',\'date\',\'attendees\',\'action_items\',\'key_points\'])';navigator.clipboard.writeText(p).then(function(){alert('Prompt copied — paste into Claude')});})()">📼 View all meetings (last 30 days) →</button>
+</div>
+
+</div>
+
+<div class="tab-content" id="tab-2">
+
+<div class="section-hdr">📅 Tuesday, April 14, 2026</div>
+
+<!-- cal-1: Mike / Jason -->
+<div class="cal-row internal" id="cal-1" data-mtg-title="Mike / Jason">
+  <div class="cal-time">11:00 AM – 11:50 AM</div>
+  <div class="cal-title">Mike / Jason <span class="badge badge-gray" style="font-size:12px;">Internal</span></div>
+  <div class="cal-meta">Recurring · Google Meet</div>
+  <div class="cal-body">
+    <div class="cal-blurb">Weekly sync with Mike McMahon. Good opportunity to debrief on yesterday's Configure Claude session, prep for the Riot/Boldon meeting at 2 PM, and discuss game overhaul scope (Kelly follow-up).</div>
+    <div class="cal-prep-bar">
+      <span class="prep-label">Prep</span>
+      <span class="prep-chip prep-chip-internal">Internal sync</span>
+    </div>
+  </div>
+</div>
+
+<!-- cal-2: Jason Schklar and Piotr Penar -->
+<div class="cal-row external" id="cal-2" data-mtg-title="Jason Schklar and Piotr Penar">
+  <div class="cal-time">11:00 AM – 11:30 AM</div>
+  <div class="cal-title">Jason Schklar and Piotr Penar <span class="badge badge-indigo" style="font-size:12px;">External</span></div>
+  <div class="cal-meta">Organizer: piotr.penar · Google Meet</div>
+  <div class="cal-body">
+    <div class="cal-blurb">External meeting with Piotr Penar. Overlaps with Mike/Jason sync — confirm which takes priority or adjust timing.</div>
+    <div class="cal-prep-bar">
+      <span class="prep-label">Prep</span>
+      <a class="prep-chip" href="https://app.copper.com/companies/499808/app#/browse/list/people/default" target="_blank">🔶 Piotr Penar</a>
+      <a class="prep-icon-btn li" href="https://linkedin.com/search/results/people/?keywords=Piotr+Penar" target="_blank">in</a>
+    </div>
+  </div>
+</div>
+
+<!-- cal-3: Gemma Skarvo consult -->
+<div class="cal-row external" id="cal-3" data-mtg-title="Gemma Skarvo consult">
+  <div class="cal-time">1:00 PM – 1:45 PM</div>
+  <div class="cal-title">Gemma Skarvo consult <span class="badge badge-indigo" style="font-size:12px;">External</span></div>
+  <div class="cal-meta">Ashish Suman, Ammar Ahmed, Jason Schklar · Google Meet</div>
+  <div class="cal-body">
+    <div class="cal-blurb">Second Skarvo meeting today (also met Monday AM). Focus on Gemma Identity app team — whether they'll work with a startup on unreleased agent features. Jason mentoring the Skarvo team through the Google Play Apps Accelerator.</div>
+    <div class="cal-prep-notes">
+      <div class="prep-note-header">Prep Summary</div>
+      <p class="prep-exec-summary">
+        Ammar Ahmed (ammar@skarvo.com) and Ashish Suman (ashish_suman@skarvo.com) are founders of Skarvo, an accelerator startup building a Gemma-based AI agent, tracked in <a href="https://app.copper.com/companies/499808/app#/companies/75857286" target="_blank">Copper</a>. Yesterday's session covered Gemma agent permissions and Identity app team coordination; prep notes are in <a href="https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit" target="_blank">Notes - Gemma Skarvo consult</a> and the <a href="https://docs.google.com/document/d/1lGGYIdFrgwfpLa7Vz0vqAkBSxZ1NQG1rMlCG4InowRg/edit" target="_blank">Skarvo &lt;&gt; Google Accelerator doc</a>. Open action: huming to check with Identity app team about agent feature access and dev script sharing. The <a href="https://docs.google.com/spreadsheets/d/15yDTVG_sp4U8R1SQuap1jXosbhaJNEXn/edit" target="_blank">Skarvo OKR Tracker</a> was updated yesterday.
+      </p>
+    </div>
+    <div class="cal-prep-bar">
+      <span class="prep-label">Prep</span>
+      <a class="prep-chip" href="https://app.copper.com/companies/499808/app#/people/181638898" target="_blank">👤 A. Ahmed</a>
+      <a class="prep-icon-btn crm" href="https://app.copper.com/companies/499808/app#/people/181638898" target="_blank">🔶 CRM</a>
+      <a class="prep-icon-btn li" href="https://linkedin.com/search/results/people/?keywords=Ammar+Ahmed+Skarvo" target="_blank">in</a>
+      <span class="prep-dot">·</span>
+      <a class="prep-chip" href="https://app.copper.com/companies/499808/app#/people/181638899" target="_blank">👤 A. Suman</a>
+      <a class="prep-icon-btn crm" href="https://app.copper.com/companies/499808/app#/people/181638899" target="_blank">🔶 CRM</a>
+      <a class="prep-icon-btn li" href="https://linkedin.com/search/results/people/?keywords=Ashish+Suman+Skarvo" target="_blank">in</a>
+      <span class="prep-dot">·</span>
+      <a class="prep-icon-btn crm" href="https://app.copper.com/companies/499808/app#/companies/75857286" target="_blank">🔶 Skarvo</a>
+    </div>
+  </div>
+</div>
+
+<!-- cal-4: Meet 'n Greet - Boldon/UXIF -->
+<div class="cal-row external" id="cal-4" data-mtg-title="Meet 'n Greet - Boldon/UXIF">
+  <div class="cal-time">2:00 PM – 2:30 PM</div>
+  <div class="cal-title">Meet 'n Greet — Boldon/UXIF <span class="badge badge-indigo" style="font-size:12px;">External</span></div>
+  <div class="cal-meta">Organizer: David Capretto (Riot) · Ashley Conley, Jason Schklar, Mike McMahon · Google Meet</div>
+  <div class="cal-body">
+    <div class="cal-blurb">Intro to Chris Bolden (Riot Product Engineering), arranged by David Capretto. Goal per the 4-14 agenda posted in #deal-riot-tft-unreal-197rio: get intro to core Riot AI team, pitch AI retainer model, present examples (UMG validation, Figma-to-Unreal, knowledge sharing). Mike has a Loom prepped. Ashley created the agenda.</div>
+    <div class="cal-prep-notes">
+      <div class="prep-note-header">Prep Summary</div>
+      <p class="prep-exec-summary">
+        David Capretto (Riot Games) is actively facilitating relationship extension — per Jason's debrief from Friday's call, the priority is securing TFT work beyond June/July and opening doors to other Riot teams. Chris Bolden (Product Engineering) is the new contact. Riot is centralized and cautious with AI, but there's strong philosophical alignment with UX is Fine's approach. Key talking points: AI as a tool to unlock humans, speed/iteration/engineering leverage, and staying within Riot's guardrails. An on-site visit is also being planned. Mike's Loom demo is at <a href="https://www.loom.com/share/3a9533b074a74a22a2fc5560a32562e7" target="_blank">this link</a>.
+      </p>
+    </div>
+    <div class="cal-prep-bar">
+      <span class="prep-label">Prep</span>
+      <a class="prep-chip" href="https://app.copper.com/companies/499808/app#/browse/list/people/default" target="_blank">👤 Chris Bolden</a>
+      <a class="prep-icon-btn li" href="https://linkedin.com/search/results/people/?keywords=Chris+Bolden+Riot+Games" target="_blank">in</a>
+      <span class="prep-dot">·</span>
+      <a class="prep-icon-btn crm" href="https://app.copper.com/companies/499808/app#/browse/list/companies/default" target="_blank">🔶 Riot Games</a>
+      <a class="prep-icon-btn url" href="https://www.riotgames.com" target="_blank">🌐</a>
+    </div>
+  </div>
+</div>
+
+<!-- cal-5: Cat // Dave // Jason Studio Operations -->
+<div class="cal-row internal" id="cal-5" data-mtg-title="Cat // Dave // Jason Studio Operations &amp; Financial">
+  <div class="cal-time">2:00 PM – 2:50 PM</div>
+  <div class="cal-title">Cat // Dave // Jason Studio Operations &amp; Financial <span class="badge badge-gray" style="font-size:12px;">Internal</span></div>
+  <div class="cal-meta">Recurring · Cat Chapman Smith, Jason Schklar, Dave Inscore · Google Meet</div>
+  <div class="cal-body">
+    <div class="cal-blurb">Recurring studio ops &amp; financial sync. Kat King's resignation and the April 15 tax deadlines are likely agenda items today. Q1 2026 payroll reconciliation also just landed.</div>
+    <div class="cal-prep-bar">
+      <span class="prep-label">Prep</span>
+      <span class="prep-chip prep-chip-internal">Internal · Cat, Dave, Jason</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="tab-content" id="tab-3">
+
+<div class="section-hdr">📧 Email</div>
+
+<div class="update-card border-urgent" id="update-1" data-date="2026-04-13"
+     data-cta-gmail-thread="19d88a72d795e691"
+     data-cta-gmail-draft-thread="19d88a72d795e691"
+     data-cta-gmail-draft-to="Aaron Bitzer (abitzer@riotgames.com)"
+     data-cta-gmail-draft-subject="Re: Riot Games / UX is Fine - Amendment 1 to SOW 6">
+  <div class="update-card-inner">
+    <div class="update-icon">📋</div>
+    <div class="update-body">
+      <div class="update-title">Aaron Bitzer (Riot) — Amendment 1 to SOW 6 <span class="badge badge-red" style="font-size:11px;">SIGN</span></div>
+      <div class="update-detail">Aaron confirmed going to DocuSign. Jason already approved in the thread. Ironclad workflow routing. <strong>Check email for the DocuSign link.</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card border-urgent" id="update-2" data-date="2026-04-13"
+     data-cta-gmail-thread="19d888686ccd2d9f"
+     data-cta-gmail-draft-thread="19d888686ccd2d9f"
+     data-cta-gmail-draft-to="Aaron Bitzer (abitzer@riotgames.com)"
+     data-cta-gmail-draft-subject="Re: Riot Games / UX Is Fine, LLC - Amendment 1 to SOW 4">
+  <div class="update-card-inner">
+    <div class="update-icon">📋</div>
+    <div class="update-body">
+      <div class="update-title">Aaron Bitzer (Riot) — Amendment 1 to SOW 4 <span class="badge badge-red" style="font-size:11px;">SIGN</span></div>
+      <div class="update-detail">Same as SOW 6 — confirmed going to signatures. Cc'd dcapretto, ycisneros, kverbii, aliyah.clayton. Check Ironclad for DocuSign link.</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card border-urgent" id="update-3" data-date="2026-04-13"
+     data-cta-gmail-thread="19d888da3354159e">
+  <div class="update-card-inner">
+    <div class="update-icon">⚠️</div>
+    <div class="update-body">
+      <div class="update-title">Katrina King — Resignation Letter <span class="badge badge-red" style="font-size:11px;">HR ACTION</span></div>
+      <div class="update-detail">Kat King (katrina@uxisfine.com) submitted resignation to Sarah, CC'd Cat &amp; Jason. <strong>Last day: April 24, 2026.</strong> Impacts M42 staffing. Mike suggests Kat Craig as potential replacement (intro'd to Sarah yesterday).</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card border-urgent" id="update-4" data-date="2026-04-14"
+     data-cta-gmail-thread="19d8bc3a91ab040b">
+  <div class="update-card-inner">
+    <div class="update-icon">⏰</div>
+    <div class="update-body">
+      <div class="update-title">Rippling — 1 New, 2 Overdue PEO Tasks <span class="badge badge-amber" style="font-size:11px;">DUE APR 15</span></div>
+      <div class="update-detail">UX is Fine has upcoming Rippling tasks — 1 new + 2 overdue. PEO Apr 1–15 deadline is tomorrow. File today.</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card border-waiting" id="update-5" data-date="2026-04-13"
+     data-cta-gmail-thread="19aff8daf7d6f87e"
+     data-cta-gmail-draft-thread="19aff8daf7d6f87e"
+     data-cta-gmail-draft-to="Chloe Stoltz (chloe@turtlerockstudios.com)"
+     data-cta-gmail-draft-subject="Re: UI Motion Support Proposal - UX is Fine">
+  <div class="update-card-inner">
+    <div class="update-icon">🎮</div>
+    <div class="update-body">
+      <div class="update-title">Chloe Stoltz (Turtle Rock) — UI Motion Proposal Update</div>
+      <div class="update-detail">Chloe confirmed they want to move forward (UI motion, HUD &amp; menus, rapid prototyping start). Ashley followed up pushing for scoping call. Jason: if June start, they need to pay to hold team. Awaiting their response to Ashley's latest.</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card border-lead" id="update-6" data-date="2026-04-13"
+     data-cta-gmail-thread="19d891aa92125eb5"
+     data-cta-gmail-draft-thread="19d891aa92125eb5"
+     data-cta-gmail-draft-to="Nathan Wheeler (nathan@liveawarelabs.com)"
+     data-cta-gmail-draft-subject="Re: Reconnecting - Live Aware">
+  <div class="update-card-inner">
+    <div class="update-icon">🎮</div>
+    <div class="update-body">
+      <div class="update-title">Nathan Wheeler (Live Aware Labs) — Partnership Reconnect</div>
+      <div class="update-detail">Nathan reconnecting after partnership discussion with Sean Vesce last year. References prior conversation with Jason. Worth a reply to gauge current fit — Live Aware builds real-time game analytics/streaming tools.</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-7" data-date="2026-04-13"
+     data-cta-gmail-thread="19d6d6730470da5d">
+  <div class="update-card-inner">
+    <div class="update-icon">⚡</div>
+    <div class="update-body">
+      <div class="update-title">Jon Kay (SEGA) — Checking In</div>
+      <div class="update-detail">Jon Kay (SOE, SEGA UK) replied to Ashley — "If anything suitable comes up I'll give you a shout." Low action needed, but SEGA door remains open for future opps.</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-8" data-date="2026-04-14"
+     data-cta-gmail-thread="19d8a1d89477b112">
+  <div class="update-card-inner">
+    <div class="update-icon">⚡</div>
+    <div class="update-body">
+      <div class="update-title">Figma — Upgrade Requests from Carl Kwoh &amp; Jeff Turley</div>
+      <div class="update-detail">Two Full seat upgrade requests arrived via Figma email. Review and approve/deny in Figma org settings.</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-9" data-date="2026-04-13"
+     data-cta-gmail-thread="19d8894182888019">
+  <div class="update-card-inner">
+    <div class="update-icon">👤</div>
+    <div class="update-body">
+      <div class="update-title">Kat Craig Intro — Recruiting Opportunity</div>
+      <div class="update-detail">Sarah intro'd Kat Craig (looking for next role by May 1) to Jason. Sarah already invited Kat to grab calendar time. Timely given Kat King's resignation. Mike: "Kat Craig is worth the chat."</div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-10" data-date="2026-04-13"
+     data-cta-gmail-thread="19d887e1911296da">
+  <div class="update-card-inner">
+    <div class="update-icon">⚡</div>
+    <div class="update-body">
+      <div class="update-title">Liberty Mutual — Liability Insurance Renewal</div>
+      <div class="update-detail">Cat reached out to Jennifer Alonso (DII Insurance) about general liability renewal. Jason CC'd. Check if any updates needed on the policy.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-hdr">📂 Drive (Recently Modified)</div>
+
+<div class="drive-card" id="drive-1" data-date="2026-04-14">
+  <div class="drive-icon">📊</div>
+  <div class="drive-body" data-cta-gdrive-url="https://docs.google.com/spreadsheets/d/186aAeMznPfgY7Sl_CJLyih58qVYwMtr6/edit">
+    <div class="drive-title">Language Innovation LLC — OKR Tracker Template (Play Apps Accelerator)</div>
+    <div class="drive-meta">Modified Apr 14 · Google Accelerator cohort file</div>
+  </div>
+</div>
+
+<div class="drive-card" id="drive-2" data-date="2026-04-13">
+  <div class="drive-icon">📄</div>
+  <div class="drive-body" data-cta-gdrive-url="https://docs.google.com/document/d/1hO7Vyft2t7XSfChS2M5Fwhw5pcgyuQ6FnDJR0oyseuI/edit">
+    <div class="drive-title">Notes — Gemma Skarvo consult</div>
+    <div class="drive-meta">Modified Apr 13 · Prep for today's 1 PM Skarvo meeting</div>
+  </div>
+</div>
+
+<div class="drive-card" id="drive-3" data-date="2026-04-13">
+  <div class="drive-icon">📊</div>
+  <div class="drive-body" data-cta-gdrive-url="https://docs.google.com/spreadsheets/d/15yDTVG_sp4U8R1SQuap1jXosbhaJNEXn/edit">
+    <div class="drive-title">Skarvo OKR Tracker (Play Apps Accelerator)</div>
+    <div class="drive-meta">Modified Apr 13 · Active accelerator tracker</div>
+  </div>
+</div>
+
+<div class="drive-card" id="drive-4" data-date="2026-04-13">
+  <div class="drive-icon">📊</div>
+  <div class="drive-body" data-cta-gdrive-url="https://docs.google.com/spreadsheets/d/1lfuKsKLR90Kjn_Bsz7aC97RATS_k3sddDhEpx6FRZ6k/edit">
+    <div class="drive-title">M42 — Template | Biz Dev | Staff Aug Pricing</div>
+    <div class="drive-meta">Modified Apr 13 · BD pricing tool — relevant to staffing discussions</div>
+  </div>
+</div>
+
+<div class="drive-card" id="drive-5" data-date="2026-04-13">
+  <div class="drive-icon">📄</div>
+  <div class="drive-body" data-cta-gdrive-url="https://docs.google.com/document/d/1lGGYIdFrgwfpLa7Vz0vqAkBSxZ1NQG1rMlCG4InowRg/edit">
+    <div class="drive-title">Skarvo &lt;&gt; Google Accelerator</div>
+    <div class="drive-meta">Modified Apr 13 · Key accelerator doc for today's meeting</div>
+  </div>
+</div>
+
+<div class="drive-card" id="drive-6" data-date="2026-04-13">
+  <div class="drive-icon">📄</div>
+  <div class="drive-body" data-cta-gdrive-url="https://docs.google.com/document/d/1pd8KvAysmMKm1Drf2y_eU03UIYdephtFz6qTByz7DJU/edit">
+    <div class="drive-title">UXIF | AI | Company Values</div>
+    <div class="drive-meta">Modified Apr 13 · Internal values doc — relevant to Riot AI meeting prep</div>
+  </div>
+</div>
+
+<div class="section-hdr">💬 Slack</div>
+
+<div class="section-hdr" style="font-size:12px;margin-top:12px;">⭐ VIP Unreads</div>
+<div class="update-card">
+  <div class="update-card-inner">
+    <div class="update-icon">⚠️</div>
+    <div class="update-body">
+      <div class="update-title" style="color:#fbbf24;">Not Configured</div>
+      <div class="update-detail">VIP Unreads, Priority, and Strat-pris channel IDs are not yet set. Edit <code>Claude/_system/skills/morning-brief/slack-channels.json</code> to add channel IDs.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-hdr" style="font-size:12px;margin-top:12px;">💬 Direct Messages (last 24h)</div>
+<div class="update-card" id="update-11" data-date="2026-04-13">
+  <div class="update-card-inner">
+    <div class="update-icon">💬</div>
+    <div class="update-body">
+      <div class="update-title">Sarah Benjamin — M42 Staffing &amp; Kat King Rate</div>
+      <div class="update-detail">Sarah and Jason discussing Kat King's rate ($60/hr), team margins on M42, and replacement options. Eshine Peng (new hire, replacing Andrea) starts on 2-month contract with a pre-planned trip in June. Kat Craig as potential next hire discussed in context of Kat King's departure.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-hdr" style="font-size:12px;margin-top:12px;">🔥 Deal Channels (5 active of 44 scanned · last 72h)</div>
+
+<div class="update-card" id="update-12" data-date="2026-04-13">
+  <div class="update-card-inner">
+    <div class="update-icon">🔥</div>
+    <div class="update-body">
+      <div class="update-title">#deal-riot-tft-unreal-197rio <span class="badge badge-indigo" style="font-size:11px;">MEETING TODAY</span></div>
+      <div class="update-detail">
+        Ashley posted 4-14 agenda: goal = get intro to Riot AI team, pitch AI retainer (UMG validation, Figma-to-Unreal, knowledge sharing). Mike has Loom demo ready. Jason debrief from Capretto call Friday: TFT relationship extension beyond June/July, on-site visit planning, strong AI philosophical alignment. Capretto also messaged on their Slack. Jason noted Scopely is near Riot campus.
+        <div style="margin-top:6px;"><a href="https://uxisfine.slack.com/archives/C09BW67EBH7" target="_blank">💬 Open channel</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-13" data-date="2026-04-13">
+  <div class="update-card-inner">
+    <div class="update-icon">💰</div>
+    <div class="update-body">
+      <div class="update-title">#deal-jam-and-tea-207jam <span class="badge badge-amber" style="font-size:11px;">SCOPE PENDING</span></div>
+      <div class="update-detail">
+        Carl (Amazon Luna partner) asking for full production support estimate through Feb 2027. Mike pitched 0.5 Dir, 1 UX, 2 UI, 1 Imp. Jason wants to steer toward "ALL THE BUDGETS" and position UX is Fine as trusted AMZN partner co-developing AI tools. Amazon Luna news (removing purchased game access) is relevant context for the Luna partnership discussion.
+        <div style="margin-top:6px;"><a href="https://uxisfine.slack.com/archives/C0AME81CP38" target="_blank">💬 Open channel</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-14" data-date="2026-04-13">
+  <div class="update-card-inner">
+    <div class="update-icon">⚠️</div>
+    <div class="update-body">
+      <div class="update-title">#deal-mission42-ux-193mis <span class="badge badge-red" style="font-size:11px;">STAFFING IMPACT</span></div>
+      <div class="update-detail">
+        Sarah announced to channel that Kat King gave notice — she's been offered a position at D&amp;D Beyond. New hire Eshine Peng (replacing Andrea) has a pre-planned trip in June; offered 2-month test contract. Mike: "When one door closes, another opens — Kat Craig is worth the chat."
+        <div style="margin-top:6px;"><a href="https://uxisfine.slack.com/archives/C08S8NQN9N0" target="_blank">💬 Open channel</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-15" data-date="2026-04-13">
+  <div class="update-card-inner">
+    <div class="update-icon">⚡</div>
+    <div class="update-body">
+      <div class="update-title">#deal-turtlerock-imp-ui <span class="badge badge-amber" style="font-size:11px;">FOLLOW-UP SENT</span></div>
+      <div class="update-detail">
+        Ashley sent follow-up pushing for alignment call. Jason: "When does this start? If they want June they need to pay to hold them." Good candidates: Evan, Jerome, Gustavo (with Sparkle and Project C wrapping May). Matt Laverty noting the recurring "see portfolios" pattern from companies treating UX is Fine like a staffing agency.
+        <div style="margin-top:6px;"><a href="https://uxisfine.slack.com/archives/C096PJ9PYQ5" target="_blank">💬 Open channel</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="update-card" id="update-16" data-date="2026-04-13">
+  <div class="update-card-inner">
+    <div class="update-icon">❌</div>
+    <div class="update-body">
+      <div class="update-title">#deal-behaviour-rfp — Not Moving Forward</div>
+      <div class="update-detail">Ashley: "They finally got back to us. Not moving forward unfortunately." RFP closed.
+        <div style="margin-top:6px;"><a href="https://uxisfine.slack.com/archives/C09LLM77T5X" target="_blank">💬 Open channel</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="tab-content" id="tab-4">
+
+<div class="task-block">
+  <div class="task-block-header"><span class="badge badge-indigo">🤖 Claude / AI</span> (5 tasks)</div>
+  <div class="task-row" id="task-58351471">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351471" style="flex:1;">Brain-dump AI usage details for Ric's notebook/deck</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351471" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351472">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351472" style="flex:1;">Review Ric's draft AI usage deck and supplement with detail</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351472" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351469">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351469" style="flex:1;">Share AI tools update with Ric</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351469" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351473">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351473" style="flex:1;">Send David Bisceglia screencap of AI-generated daily report setup</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351473" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-57822373">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57822373" style="flex:1;">Jason: Discuss AI policy with Mike regarding use of Krisp transcripts in external AI tools</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57822373" style="margin-left:auto;">✓ Done</button>
+</div>
+</div>
+
+<div class="task-block">
+  <div class="task-block-header"><span class="badge badge-green">💼 Work</span> (29 tasks)</div>
+  <div class="task-row" id="task-57822372">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57822372" style="flex:1;">Jason/Ashley: Decide on XDS hotel block — book 3 rooms, set refund deadline, release 3rd if not needed</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57822372" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-57822367">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57822367" style="flex:1;">Jason: Send DICE follow-up emails — prioritize Brendon and Tyler first</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57822367" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-57817127">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57817127" style="flex:1;">Follow-up with Jay Minn (WotC) — GDC prep / vendor relationship</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57817127" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58189770">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58189770" style="flex:1;">Review meeting: Accelerator Squad Meetup</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58189770" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58352573">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58352573" style="flex:1;">Catch up with Tara Phillips (Keywords Studios) — she's hiring an Art Producer</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58352573" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351470">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351470" style="flex:1;">Intro Ric to Levlr (if no contact there)</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351470" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351476">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351476" style="flex:1;">Share mission statement/manifesto with David Bisceglia for feedback</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351476" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351474">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351474" style="flex:1;">Send David Bisceglia screencap of negative AI social media reactions</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-58351474" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-58351475">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="58351475" style="flex:1;">Follow-up catch-up with David Bisceglia (later this summer)</div>
+  <span class="task-due">2026-07-08</span>
+  <button class="done-btn" data-done-target="#task-58351475" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-57766452">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57766452" style="flex:1;">Follow Up with Mark Day</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57766452" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-57761914">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57761914" style="flex:1;">Intro Teresa to Ash</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57761914" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-57808267">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="57808267" style="flex:1;">Get Warm Intro to Tim Stuart</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-57808267" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55054895">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55054895" style="flex:1;">Follow up w/ Ro</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55054895" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-56287990">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="56287990" style="flex:1;">Marcus - General Catchup</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-56287990" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55473708">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55473708" style="flex:1;">Derek Rees - Follow up Post Gamescom</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55473708" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-56287959">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="56287959" style="flex:1;">Follow up w/ Look North</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-56287959" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-54281867">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="54281867" style="flex:1;">Touch base - strategic</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-54281867" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55683317">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55683317" style="flex:1;">check in with Matt S in the fall</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55683317" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-56376936">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="56376936" style="flex:1;">Need to ask around about Paul Grimes at TCPi</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-56376936" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-56230078">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="56230078" style="flex:1;">Send Deck, Trailer, Youtube vids</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-56230078" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55899704">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55899704" style="flex:1;">Follow up on Linkedin Message to Thomas</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55899704" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-54863088">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="54863088" style="flex:1;">⏰️ Howdy - PHB Follow up: Testimonial for internal Hasbro project?</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-54863088" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55473277">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55473277" style="flex:1;">Send post Gamescom Follow Up</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55473277" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55473998">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55473998" style="flex:1;">Send post gamescom follow up</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55473998" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55473192">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55473192" style="flex:1;">Follow up from Gamescom</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55473192" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55270512">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55270512" style="flex:1;">Follow up w/ David Bisceglia</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55270512" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-54807689">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="54807689" style="flex:1;">Follow up with John and schedule a chat</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-54807689" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-54712172">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="54712172" style="flex:1;">DDM Follow Up</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-54712172" style="margin-left:auto;">✓ Done</button>
+</div>
+<div class="task-row" id="task-55719817">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="55719817" style="flex:1;">Check in with Rogers mid September</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-55719817" style="margin-left:auto;">✓ Done</button>
+</div>
+</div>
+
+<div class="task-block">
+  <div class="task-block-header"><span class="badge badge-amber">🧍 Personal / Strategic</span> (1 tasks)</div>
+  <div class="task-row" id="task-53619511">
+  <div data-editable="true" data-record-type="copper_task" data-record-id="53619511" style="flex:1;">Marcus Foon | New role at Google.</div>
+  <span class="task-overdue">overdue</span>
+  <button class="done-btn" data-done-target="#task-53619511" style="margin-left:auto;">✓ Done</button>
+</div>
+</div>
+
+<div class="footer-note">Synced from Copper CRM · Last updated Tuesday, April 14, 2026 · 35 open tasks</div>
+
+</div>
+
+<div class="tab-content" id="tab-5">
+
+<div class="section-hdr">🧠 Skills</div>
+<table class="cowork-table">
+  <thead><tr><th>Skill</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>morning-brief</td><td>Generates Jason's daily 7-tab HTML briefing — Krisp, Calendar, Email, Drive, Slack, Copper, CoWork</td></tr>
+    <tr><td>copper-crm</td><td>Pull live data from Copper CRM — tasks, contacts, companies, recent activity</td></tr>
+    <tr><td>cloudflare-publish</td><td>Publish HTML reports to Cloudflare Pages with auto-generated index page</td></tr>
+    <tr><td>deliver</td><td>Send files, reports, or messages to Jason via Slack and/or Gmail draft</td></tr>
+    <tr><td>search</td><td>Ad-hoc cross-source lookup with explicit source gate (web, Slack, Drive, Gmail)</td></tr>
+    <tr><td>process-krisp-meeting</td><td>Post-meeting workflow: Krisp notes → CRM notes, follow-up tasks, Google Drive doc</td></tr>
+    <tr><td>krisp-to-copper</td><td>Review Krisp summary and publish to Copper as a note with review task for Ashley</td></tr>
+    <tr><td>krisp-ai-summary</td><td>Per-card Krisp AI Chat integration — copy prompt, paste response, persist to localStorage, publish to Copper</td></tr>
+    <tr><td>inline-edit</td><td>Click-to-edit framework for HTML reports — edit in-place, mark tasks done, sync changes</td></tr>
+    <tr><td>card-cta</td><td>CTA button system — data-cta-* attributes inject action buttons (Copper, Gmail, Krisp, Drive)</td></tr>
+    <tr><td>people-brief</td><td>Enriched contact briefing for any list of people — calendar, Gmail, Copper, LinkedIn</td></tr>
+    <tr><td>reports-hub</td><td>Hub CSS/JS source files for reports-hub.pages.dev</td></tr>
+    <tr><td>accessibility-style-guide</td><td>MAXIMUM accessibility preset guide for all generated HTML (18px base, 1.75 line-height)</td></tr>
+    <tr><td>image-tools</td><td>Process and transform images — resize, crop, convert, add watermarks, composite</td></tr>
+    <tr><td>budget-analysis</td><td>Budget and financial analysis tools</td></tr>
+    <tr><td>onboard-mentee</td><td>Onboard new mentee/advisee studio into CRM and workflow</td></tr>
+    <tr><td>game-analysis</td><td>Sonar-style player sentiment reports from Steam reviews, YouTube, and social</td></tr>
+  </tbody>
+</table>
+
+<div class="section-hdr">⏰ Scheduled Tasks</div>
+<table class="cowork-table">
+  <thead><tr><th>Task</th><th>Schedule</th><th>Last Run</th><th>Next Run</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>morning-brief</td>
+      <td>At 07:05 AM, every day</td>
+      <td>Apr 14, 2026 07:04 AM CT</td>
+      <td>Apr 15, 2026 07:04 AM CT</td>
+      <td><span class="badge badge-green" style="font-size:11px;">Enabled</span></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+<div class="tab-content" id="tab-6">
+
+<div class="section-hdr">🔥 Active Deal Channels (last 72h)</div>
+<table class="cowork-table">
+  <thead><tr><th>Channel</th><th>Latest Activity</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://uxisfine.slack.com/archives/C09BW67EBH7" target="_blank">#deal-riot-tft-unreal-197rio</a></td><td style="color:#b8bcd0;">Meeting today — AI retainer pitch, Capretto relationship extension, on-site visit planning</td></tr>
+<tr><td><a href="https://uxisfine.slack.com/archives/C0AME81CP38" target="_blank">#deal-jam-and-tea-207jam</a></td><td style="color:#b8bcd0;">Carl sizing full production support through Feb 2027, Amazon Luna partnership context</td></tr>
+<tr><td><a href="https://uxisfine.slack.com/archives/C08S8NQN9N0" target="_blank">#deal-mission42-ux-193mis</a></td><td style="color:#b8bcd0;">Kat King gave notice (D&D Beyond), Eshine Peng new hire on 2-month contract</td></tr>
+<tr><td><a href="https://uxisfine.slack.com/archives/C096PJ9PYQ5" target="_blank">#deal-turtlerock-imp-ui</a></td><td style="color:#b8bcd0;">UI Motion Support follow-up sent, start date &amp; commitment pending from Chloe Stoltz</td></tr>
+<tr><td><a href="https://uxisfine.slack.com/archives/C09LLM77T5X" target="_blank">#deal-behaviour-rfp</a></td><td style="color:#b8bcd0;">RFP closed — not moving forward</td></tr>
+  </tbody>
+</table>
+
+<div class="section-hdr">😴 Silent Deal Channels (no activity last 72h)</div>
+<table class="cowork-table">
+  <thead><tr><th>Channel</th><th>Created</th></tr></thead>
+  <tbody>
+    <tr><td>#deal-humanitz-tbd</td><td style="color:#6b7280;">Created 2026-04-05</td></tr>
+<tr><td>#deal-luna-games-ux-prototyping</td><td style="color:#6b7280;">Created 2026-03-03</td></tr>
+<tr><td>#deal-pokemon-tcglive-198pok</td><td style="color:#6b7280;">Created 2025-08-18</td></tr>
+<tr><td>#deal-gg-sparkle-foshizzle-182gga</td><td style="color:#6b7280;">Created 2024-02-05</td></tr>
+<tr><td>#deal-yellowbrick-ux</td><td style="color:#6b7280;">Created 2025-06-16</td></tr>
+<tr><td>#deal-focus-ux</td><td style="color:#6b7280;">Created 2025-10-20</td></tr>
+<tr><td>#deal-netflix</td><td style="color:#6b7280;">Created 2026-01-27</td></tr>
+<tr><td>#deal-sony-mobile</td><td style="color:#6b7280;">Created 2025-10-01</td></tr>
+<tr><td>#deal-looknorthworld-ux</td><td style="color:#6b7280;">Created 2025-11-03</td></tr>
+<tr><td>#deal-scopely-poe-ui</td><td style="color:#6b7280;">Created 2026-03-02</td></tr>
+<tr><td>#deal-zynga-ui-test-205zyn</td><td style="color:#6b7280;">Created 2026-03-04</td></tr>
+<tr><td>#deal-ea-nhl-ux</td><td style="color:#6b7280;">Created 2026-03-26</td></tr>
+<tr><td>#deal-2k-horizon-rfp</td><td style="color:#6b7280;">Created 2026-02-25</td></tr>
+<tr><td>#deal-nexon-uxresearch</td><td style="color:#6b7280;">Created 2026-03-24</td></tr>
+<tr><td>#deal-magicsoup-ux</td><td style="color:#6b7280;">Created 2025-02-07</td></tr>
+<tr><td>#deal-supersaurus-website</td><td style="color:#6b7280;">Created 2026-03-18</td></tr>
+<tr><td>#deal-riot-league-live-195rio</td><td style="color:#6b7280;">Created 2025-05-01</td></tr>
+<tr><td>#deal-playformant</td><td style="color:#6b7280;">Created 2026-01-15</td></tr>
+<tr><td>#deal-amazon-prototypes</td><td style="color:#6b7280;">Created 2026-01-12</td></tr>
+<tr><td>#deal-koboio-ux-ui</td><td style="color:#6b7280;">Created 2026-02-19</td></tr>
+  </tbody>
+</table>
+<div class="footer-note">44 total deal channels scanned · 5 active · 40 silent</div>
+
+</div>
+
+<script>
+/* Morning Brief — Canonical JavaScript (dark theme)
+   Source of truth: ~/Claude/_system/skills/morning-brief/morning-brief.js
+   Last updated: 2026-04-11
+
+   IMPORTANT: When rendering the morning brief HTML, use this file as the JS source.
+   Read this file and embed its contents in the <script> block VERBATIM.
+   Do NOT write JavaScript from scratch or copy from previous HTML outputs,
+   as they will have drifted from this canonical version.
+
+   After pasting, replace ONLY the __PLACEHOLDER__ config tokens below.
+   Do NOT modify any function bodies, rename functions, or change URL patterns.
+
+   Config tokens to replace:
+     2026-04-14            → YYYY-MM-DD  (e.g. 2026-04-13)  — appears 2x
+     1   → integer     (e.g. 1)
+     Tuesday, April 14         → display str (e.g. "Monday, April 13")
+     Monday, April 13     → display str (e.g. "Sunday, April 12") — appears 3x in LB_LABELS
+     Apr 7              → display str (e.g. "Apr 5")
+     Mar 15             → display str (e.g. "Mar 13")
+*/
+
+// ── Config (replace tokens at generation time) ──────────────────────────
+const BRIEF_DATE = new Date('2026-04-14');
+const BRIEF_LOOKBACK_DAYS = 1;
+const TODAY_DATE_STR = '2026-04-14';
+
+const LB_LABELS = {
+  1:  { tab: "\uD83D\uDCFC Yesterday",           hdr: '\uD83D\uDCFC Monday, April 13' },
+  7:  { tab: '\uD83D\uDCFC Last 7 Days',        hdr: '\uD83D\uDCFC Apr 7 \u2013 Monday, April 13 \u00B7 Last 7 Days' },
+  30: { tab: '\uD83D\uDCFC Last 30 Days',       hdr: '\uD83D\uDCFC Mar 15 \u2013 Monday, April 13 \u00B7 Last 30 Days' }
+};
+
+// ── Tab switching ───────────────────────────────────────────────────────
+function switchTab(tabNum) {
+  document.querySelectorAll('.tab-content').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  var tab = document.getElementById('tab-' + tabNum);
+  if (tab) tab.classList.add('active');
+  var btns = document.querySelectorAll('.tab-btn');
+  if (btns[tabNum]) btns[tabNum].classList.add('active');
+}
+
+// ── Collapsible cards ───────────────────────────────────────────────────
+// Toggles Yesterday tab meeting cards (Tab 2)
+function toggleMtg(hdr) {
+  hdr.closest('.collapsible-mtg').classList.toggle('collapsed');
+}
+
+// Toggles Today tab attention cards (Tab 1)
+function toggleAttn(hdr) {
+  hdr.closest('.attn-card').classList.toggle('collapsed');
+}
+
+// ── Date navigation ─────────────────────────────────────────────────────
+// Navigates to previous/next day brief on Cloudflare Pages.
+// URL pattern: /briefs/YYYY-MM-DD.html  (matches deployed filenames)
+function navDate(dir) {
+  var m = window.location.pathname.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return;
+  var d = new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+  d.setDate(d.getDate() + dir);
+  var y = d.getFullYear();
+  var mo = String(d.getMonth() + 1).padStart(2, '0');
+  var da = String(d.getDate()).padStart(2, '0');
+  window.location.href = 'https://reports-hub.pages.dev/briefs/' + y + '-' + mo + '-' + da + '.html';
+}
+
+// Disable the "next" button if we're on today's brief or later
+(function() {
+  var m = window.location.pathname.match(/(\d{4}-\d{2}-\d{2})/);
+  if (m) {
+    var today = new Date().toISOString().split('T')[0];
+    if (m[1] >= today) {
+      var btn = document.getElementById('date-nav-next');
+      if (btn) btn.disabled = true;
+    }
+  }
+})();
+
+// ── Lookback filter ─────────────────────────────────────────────────────
+function setLookback(days, btn) {
+  document.querySelectorAll('.lb-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  btn.classList.add('active');
+
+  var cutoff = new Date(BRIEF_DATE);
+  cutoff.setDate(cutoff.getDate() - days);
+  var cutoffStr = cutoff.toISOString().split('T')[0];
+
+  document.querySelectorAll('[data-date]').forEach(function(el) {
+    el.style.display = (el.dataset.date >= cutoffStr) ? '' : 'none';
+  });
+
+  var tabBtn = document.getElementById('tab-btn-yesterday');
+  var secHdr = document.getElementById('tab2-date-hdr');
+  if (LB_LABELS[days]) {
+    if (tabBtn) tabBtn.textContent = LB_LABELS[days].tab;
+    if (secHdr) secHdr.textContent = LB_LABELS[days].hdr;
+  }
+
+  var notice = document.getElementById('lookback-notice');
+  if (notice) {
+    if (days > BRIEF_LOOKBACK_DAYS) {
+      var d = days === 7 ? '7 days' : '30 days';
+      notice.textContent = '\u26A0\uFE0F This brief captured ' + BRIEF_LOOKBACK_DAYS +
+        ' day' + (BRIEF_LOOKBACK_DAYS !== 1 ? 's' : '') +
+        ' of data. Showing all available. Ask Claude to regenerate for a full ' + d + ' window.';
+      notice.style.display = 'block';
+    } else {
+      notice.style.display = 'none';
+    }
+  }
+}
+
+// ── Focus Topics (localStorage persistence) ─────────────────────────────
+(function() {
+  var key = 'focus-topics-' + TODAY_DATE_STR;
+  var el = document.getElementById('focus-topics-input');
+  if (!el) return;
+  var saved = localStorage.getItem(key);
+  if (saved) el.value = saved;
+})();
+
+function saveFocusTopics() {
+  var key = 'focus-topics-' + TODAY_DATE_STR;
+  var el = document.getElementById('focus-topics-input');
+  if (el) localStorage.setItem(key, el.value);
+}
+
+// ── Brief Starring (shared localStorage with Reports Hub) ──────────────
+// Uses the same `hub_starred` localStorage key as reports-hub.js.
+// Same-origin (reports-hub.pages.dev) means both read the same store.
+// ID formats:
+//   "brief:2026-04-11"        → whole brief
+//   "brief:2026-04-11#mtg-1"  → individual meeting card
+
+function getBriefStarred() {
+  try { return JSON.parse(localStorage.getItem('hub_starred') || '[]'); } catch(e) { return []; }
+}
+function setBriefStarred(arr) {
+  try { localStorage.setItem('hub_starred', JSON.stringify(arr)); } catch(e) {}
+}
+function getBriefStarredId(entry) {
+  return (typeof entry === 'string') ? entry : entry.id;
+}
+function isBriefStarred(itemId) {
+  var starred = getBriefStarred();
+  for (var i = 0; i < starred.length; i++) {
+    if (getBriefStarredId(starred[i]) === itemId) return true;
+  }
+  return false;
+}
+function toggleBriefStar(itemId, meta) {
+  var starred = getBriefStarred();
+  var idx = -1;
+  for (var i = 0; i < starred.length; i++) {
+    if (getBriefStarredId(starred[i]) === itemId) { idx = i; break; }
+  }
+  if (idx !== -1) {
+    starred.splice(idx, 1);
+  } else {
+    starred.push(meta || itemId);
+  }
+  setBriefStarred(starred);
+}
+
+function getBriefDateStr() {
+  // Extract YYYY-MM-DD from the URL path (works regardless of which script block defines the config)
+  var m = window.location.pathname.match(/(\d{4}-\d{2}-\d{2})/);
+  if (m) return m[1];
+  // Fallback to config constant if available
+  if (typeof TODAY_DATE_STR !== 'undefined') return TODAY_DATE_STR;
+  return new Date().toISOString().slice(0, 10);
+}
+
+function initBriefStars() {
+  var briefDateStr = getBriefDateStr();
+
+  // Hub link button (added to the nav header area, first child)
+  var navWrap = document.querySelector('.header-center') || document.querySelector('.date-nav-wrap') || document.querySelector('.date-nav');
+  if (navWrap) {
+    var hubBtn = document.createElement('a');
+    hubBtn.href = 'https://reports-hub.pages.dev/';
+    hubBtn.className = 'brief-hub-btn';
+    hubBtn.title = 'Reports Hub';
+    hubBtn.textContent = '\u2600\uFE0F';
+    navWrap.insertBefore(hubBtn, navWrap.firstChild);
+  }
+
+  // Star button for the whole brief (added to the nav header area)
+  if (navWrap) {
+    var briefId = 'brief:' + briefDateStr;
+    var briefStarBtn = document.createElement('button');
+    briefStarBtn.className = 'brief-star-btn' + (isBriefStarred(briefId) ? ' starred' : '');
+    briefStarBtn.title = 'Star this brief';
+    briefStarBtn.textContent = '\u2B50';
+    briefStarBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(briefId);
+      briefStarBtn.classList.toggle('starred');
+    });
+    navWrap.appendChild(briefStarBtn);
+  }
+
+  // Star buttons on each meeting card (.mtg-card with id="mtg-N")
+  document.querySelectorAll('.mtg-card[id^="mtg-"]').forEach(function(card) {
+    var mtgId = card.id;
+    var starId = 'brief:' + briefDateStr + '#' + mtgId;
+    var title = card.getAttribute('data-mtg-title') || 'Meeting';
+    var tag = 'morning';
+
+    var starBtn = document.createElement('button');
+    starBtn.className = 'brief-star-btn' + (isBriefStarred(starId) ? ' starred' : '');
+    starBtn.title = 'Star this meeting';
+    starBtn.textContent = '\u2B50';
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(starId, { id: starId, title: title, tag: tag });
+      starBtn.classList.toggle('starred');
+    });
+
+    // Insert into the card header
+    var header = card.querySelector('.mtg-card-header') || card.querySelector('.mtg-card-hdr');
+    if (header) {
+      header.appendChild(starBtn);
+    } else {
+      card.insertBefore(starBtn, card.firstChild);
+    }
+  });
+
+  // Star buttons on each today's meeting card (.cal-row with id="cal-N")
+  document.querySelectorAll('.cal-row[id^="cal-"]').forEach(function(card) {
+    var calId = card.id;
+    var starId = 'brief:' + briefDateStr + '#' + calId;
+    var titleEl = card.querySelector('.cal-title');
+    var title = card.getAttribute('data-mtg-title') ||
+      (titleEl ? titleEl.textContent.replace(/External|Internal/g, '').trim() : 'Meeting');
+    var tag = 'morning';
+
+    var starBtn = document.createElement('button');
+    starBtn.className = 'brief-star-btn' + (isBriefStarred(starId) ? ' starred' : '');
+    starBtn.title = 'Star this meeting';
+    starBtn.textContent = '\u2B50';
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(starId, { id: starId, title: title, tag: tag });
+      starBtn.classList.toggle('starred');
+    });
+
+    // Insert into the card header area
+    var hdr = card.querySelector('.cal-hdr') || card.querySelector('.cal-title');
+    if (hdr) {
+      hdr.appendChild(starBtn);
+    } else {
+      card.insertBefore(starBtn, card.firstChild);
+    }
+  });
+
+  // Star buttons on attention cards (.attn-card with id="attn-N")
+  document.querySelectorAll('.attn-card[id^="attn-"]').forEach(function(card) {
+    var cardId = card.id;
+    var starId = 'brief:' + briefDateStr + '#' + cardId;
+    var titleEl = card.querySelector('.attn-card-title');
+    var title = titleEl ? titleEl.textContent.trim() : 'Attention Item';
+
+    var starBtn = document.createElement('button');
+    starBtn.className = 'brief-star-btn' + (isBriefStarred(starId) ? ' starred' : '');
+    starBtn.title = 'Star this item';
+    starBtn.textContent = '\u2B50';
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(starId, { id: starId, title: title, tag: 'morning' });
+      starBtn.classList.toggle('starred');
+    });
+
+    var hdr = card.querySelector('.attn-card-hdr');
+    if (hdr) {
+      hdr.appendChild(starBtn);
+    } else {
+      card.insertBefore(starBtn, card.firstChild);
+    }
+  });
+
+  // Star buttons on update cards (.update-card with id="update-N")
+  document.querySelectorAll('.update-card[id^="update-"]').forEach(function(card) {
+    var cardId = card.id;
+    var starId = 'brief:' + briefDateStr + '#' + cardId;
+    var titleEl = card.querySelector('.update-title');
+    var title = titleEl ? titleEl.textContent.trim() : 'Update';
+
+    var starBtn = document.createElement('button');
+    starBtn.className = 'brief-star-btn' + (isBriefStarred(starId) ? ' starred' : '');
+    starBtn.title = 'Star this update';
+    starBtn.textContent = '\u2B50';
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(starId, { id: starId, title: title, tag: 'morning' });
+      starBtn.classList.toggle('starred');
+    });
+
+    var titleWrap = card.querySelector('.update-title');
+    if (titleWrap) {
+      titleWrap.appendChild(starBtn);
+    } else {
+      card.appendChild(starBtn);
+    }
+  });
+
+  // Star buttons on drive cards (.drive-card with id="drive-N")
+  document.querySelectorAll('.drive-card[id^="drive-"]').forEach(function(card) {
+    var cardId = card.id;
+    var starId = 'brief:' + briefDateStr + '#' + cardId;
+    var titleEl = card.querySelector('.drive-title');
+    var title = titleEl ? titleEl.textContent.trim() : 'Drive File';
+
+    var starBtn = document.createElement('button');
+    starBtn.className = 'brief-star-btn' + (isBriefStarred(starId) ? ' starred' : '');
+    starBtn.title = 'Star this file';
+    starBtn.textContent = '\u2B50';
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(starId, { id: starId, title: title, tag: 'morning' });
+      starBtn.classList.toggle('starred');
+    });
+
+    card.appendChild(starBtn);
+  });
+
+  // Star buttons on task rows (.task-row with id="task-N")
+  document.querySelectorAll('.task-row[id^="task-"]').forEach(function(card) {
+    var cardId = card.id;
+    var starId = 'brief:' + briefDateStr + '#' + cardId;
+    var editDiv = card.querySelector('[data-editable]');
+    var title = editDiv ? editDiv.textContent.trim() : 'Task';
+
+    var starBtn = document.createElement('button');
+    starBtn.className = 'brief-star-btn brief-star-btn-sm' + (isBriefStarred(starId) ? ' starred' : '');
+    starBtn.title = 'Star this task';
+    starBtn.textContent = '\u2B50';
+    starBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleBriefStar(starId, { id: starId, title: title, tag: 'morning' });
+      starBtn.classList.toggle('starred');
+    });
+
+    var doneBtn = card.querySelector('.done-btn');
+    if (doneBtn) {
+      card.insertBefore(starBtn, doneBtn);
+    } else {
+      card.appendChild(starBtn);
+    }
+  });
+}
+
+// Init starring after DOM is ready
+document.addEventListener('DOMContentLoaded', initBriefStars);
+</script>
+
+<script>
+/**
+ * CTA Button System
+ * Finds all [data-cta-*] elements and injects action buttons
+ */
+(function() {
+  const CTA_CONFIG = {
+    'copper-id': {
+      label: '🔶 Open in Copper',
+      buildUrl: (val) => `https://app.copper.com/companies/499808/app#/people/${val}`
+    },
+    'copper-url': {
+      label: '🔶 Open in Copper',
+      buildUrl: (val) => val
+    },
+    'krisp-id': {
+      label: '🎙️ Open in Krisp',
+      buildUrl: (val) => `https://app.krisp.ai/t/${val}`
+    },
+    'linkedin-url': {
+      label: '💼 LinkedIn',
+      buildUrl: (val) => val
+    },
+    'gmail-thread': {
+      label: '📧 Open Email',
+      buildUrl: (val) => `https://mail.google.com/mail/u/0/#all/${val}`
+    },
+    'gmail-compose': {
+      label: '↩️ Reply',
+      buildUrl: (val) => `https://mail.google.com/mail/u/0/#drafts?compose=${val}`
+    },
+    'gdrive-url': {
+      label: '📄 Open in Drive',
+      buildUrl: (val) => val
+    },
+    'url': {
+      label: '🔗 Open →',
+      buildUrl: (val) => val
+    }
+  };
+
+  const BUTTON_ORDER = [
+    'copper-id',
+    'copper-url',
+    'krisp-id',
+    'linkedin-url',
+    'gmail-thread',
+    'gmail-compose',
+    'gdrive-url',
+    'url'
+  ];
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Find all elements with data-cta-* attributes
+    const elements = document.querySelectorAll('[data-cta-copper-id], [data-cta-copper-url], [data-cta-krisp-id], [data-cta-linkedin-url], [data-cta-gmail-thread], [data-cta-gmail-compose], [data-cta-gdrive-url], [data-cta-url]');
+
+    elements.forEach((el) => {
+      const buttons = [];
+
+      // Collect buttons in defined order
+      BUTTON_ORDER.forEach((key) => {
+        const attrKey = 'dataCta' + key.split('-').map((w, i) => i === 0 ? w : w.charAt(0).toUpperCase() + w.slice(1)).join('');
+        const value = el.dataset['cta' + key.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('')];
+
+        if (value) {
+          const config = CTA_CONFIG[key];
+          const url = config.buildUrl(value);
+          const label = el.dataset.ctaLabel || config.label;
+
+          buttons.push({ label, url });
+        }
+      });
+
+      // If any buttons exist, append button row
+      if (buttons.length > 0) {
+        const row = document.createElement('div');
+        row.className = 'cta-btn-row';
+
+        buttons.forEach((btn) => {
+          const link = document.createElement('a');
+          link.className = 'cta-btn';
+          link.href = btn.url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = btn.label;
+          row.appendChild(link);
+        });
+
+        el.appendChild(row);
+      }
+    });
+  });
+})();
+</script>
+
+<!-- INLINE EDIT MODULE -->
+<style>
+  /* Inline Edit Styles */
+
+  [data-editable="true"] {
+    cursor: pointer;
+    position: relative;
+  }
+
+  [data-editable="true"]:hover {
+    outline: 2px dashed #6366f1;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .edit-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 2px solid #6366f1;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: inherit;
+    line-height: 1.75;
+    background: #1e1e2e;
+    color: #e8eaef;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+
+  .edit-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .edit-save {
+    background: #6366f1;
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 14px 26px;
+    min-height: 52px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background 0.15s;
+  }
+
+  .edit-save:hover {
+    background: #4f46e5;
+  }
+
+  .edit-cancel {
+    background: transparent;
+    color: #b8bcd0;
+    border: 2px solid #2a2f3e;
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-height: 52px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.15s;
+  }
+
+  .edit-cancel:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .done-btn {
+    background: none;
+    border: none;
+    color: #6366f1;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0 8px;
+    transition: color 0.15s;
+  }
+
+  .done-btn:hover {
+    color: #4f46e5;
+  }
+
+  #sync-float-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 28px;
+    min-height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    display: none;
+    z-index: 9999;
+    transition: all 0.2s;
+  }
+
+  #sync-float-btn:hover {
+    background: #4f46e5;
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+  }
+
+  #sync-toast {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    background: #1e1e2e;
+    color: #a5b4fc;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.3s;
+    border: 1px solid #2a2a3e;
+  }
+</style>
+
+<script>
+  // ===== INLINE EDITING FRAMEWORK v1.0 =====
+
+  // Global state
+  window.pendingEdits = [];
+  window.doneItems = [];
+
+  function initInlineEdit() {
+    // Initialize click handlers for all editable elements
+    document.querySelectorAll('[data-editable="true"]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.title = 'Click to edit';
+      el.addEventListener('click', function(e) {
+        // Don't re-open if already editing
+        if (el.querySelector('textarea')) return;
+
+        const original = el.textContent.trim();
+        const recordType = el.dataset.recordType || 'unknown';
+        const recordId = el.dataset.recordId || 'unknown';
+
+        // Replace element with textarea + buttons
+        el.innerHTML = `
+          <textarea class="edit-textarea">${original}</textarea>
+          <div class="edit-actions">
+            <button class="edit-save" onclick="event.stopPropagation(); saveEdit(this, '${recordType}', '${recordId}', '${original.replace(/'/g, "\\'")}')" style="cursor:pointer;">💾 Save</button>
+            <button class="edit-cancel" onclick="event.stopPropagation(); cancelEdit(this, '${original.replace(/'/g, "\\'")}')" style="cursor:pointer;">❌ Cancel</button>
+          </div>
+        `;
+
+        // Focus textarea
+        el.querySelector('textarea').focus();
+      });
+    });
+
+    // Initialize click handlers for DONE buttons
+    document.querySelectorAll('[data-done-target]').forEach(btn => {
+      if (!btn.classList.contains('done-btn')) {
+        btn.classList.add('done-btn');
+      }
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(btn.dataset.doneTarget);
+        if (target) {
+          const recordType = target.dataset.recordType || 'unknown';
+          const recordId = target.dataset.recordId || 'unknown';
+          const title = target.textContent.trim();
+
+          // Hide the element
+          target.style.display = 'none';
+
+          // Track as done
+          window.doneItems.push({
+            recordType,
+            recordId,
+            title
+          });
+
+          updateSyncButton();
+        }
+      });
+    });
+  }
+
+  function saveEdit(btn, recordType, recordId, original) {
+    const container = btn.closest('[data-editable="true"]');
+    const textarea = container.querySelector('textarea');
+    const newText = textarea ? textarea.value.trim() : original;
+
+    // Update display
+    container.textContent = newText;
+    container.style.cursor = 'pointer';
+    container.title = 'Click to edit';
+
+    // Track edit
+    window.pendingEdits.push({
+      recordType,
+      recordId,
+      original,
+      newText
+    });
+
+    updateSyncButton();
+  }
+
+  function cancelEdit(btn, original) {
+    const container = btn.closest('[data-editable="true"]');
+    container.textContent = original;
+    container.style.cursor = 'pointer';
+    container.title = 'Click to edit';
+  }
+
+  function updateSyncButton() {
+    const total = window.pendingEdits.length + window.doneItems.length;
+    let btn = document.getElementById('sync-float-btn');
+
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'sync-float-btn';
+      btn.onclick = copySyncPrompt;
+      document.body.appendChild(btn);
+    }
+
+    const label = `🔄 Sync ${total} change${total !== 1 ? 's' : ''}`;
+    btn.textContent = label;
+    btn.style.display = total > 0 ? 'block' : 'none';
+  }
+
+  function copySyncPrompt() {
+    let prompt = 'Please sync the following changes from my morning brief:\n\n';
+
+    if (window.pendingEdits.length > 0) {
+      prompt += 'EDITS:\n';
+      window.pendingEdits.forEach(e => {
+        prompt += `- [${e.recordType} id:${e.recordId}] Updated text: "${e.newText}"\n`;
+      });
+    }
+
+    if (window.doneItems.length > 0) {
+      prompt += '\nDONE:\n';
+      window.doneItems.forEach(d => {
+        prompt += `- [${d.recordType} id:${d.recordId}] Mark as completed\n`;
+      });
+    }
+
+    prompt += '\nRun these updates now.';
+
+    // Copy to clipboard (with fallback)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(prompt).then(() => {
+        showToast('📋 Sync prompt copied — paste into Claude');
+      }).catch(() => {
+        fallbackCopy(prompt);
+      });
+    } else {
+      fallbackCopy(prompt);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast('📋 Sync prompt copied — paste into Claude');
+    } catch (err) {
+      showToast('❌ Copy failed — try manually selecting the text');
+    }
+    document.body.removeChild(textarea);
+  }
+
+  function showToast(message) {
+    let toast = document.getElementById('sync-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'sync-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+    }, 3000);
+  }
+
+  // Initialize when DOM is ready
+  function initWhenReady() {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      initInlineEdit();
+    } else {
+      document.addEventListener('DOMContentLoaded', initInlineEdit);
+    }
+  }
+
+  initWhenReady();
+</script>
+
+<!-- KRISP AI SUMMARY MODULE START -->
+<style>
+/* ─── Krisp AI Summary Section ─── */
+.krisp-ai-section { margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; }
+.krisp-ai-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.krisp-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(167,139,250,0.1); color: #c084fc;
+  border: 2px solid rgba(167,139,250,0.25); border-radius: 10px;
+  padding: 14px 26px; font-size: 16px; font-weight: 700; min-height: 52px;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.krisp-ai-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.4); }
+.krisp-ai-btn.paste-btn { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.25); }
+.krisp-ai-btn.paste-btn:hover { background: rgba(99,102,241,0.18); border-color: rgba(99,102,241,0.4); }
+.krisp-ai-btn.publish-btn { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.25); }
+.krisp-ai-btn.publish-btn:hover { background: rgba(245,158,11,0.18); border-color: rgba(245,158,11,0.4); }
+.krisp-ai-status { font-size: 13px; color: #b8bcd0; transition: color 0.3s; }
+
+/* Prompt template selector */
+.krisp-prompt-selector { margin-top: 8px; display: none; }
+.krisp-prompt-selector.visible { display: block; }
+.krisp-prompt-option {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;
+  margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+}
+.krisp-prompt-option:hover { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.krisp-prompt-option.recommended { border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.04); }
+.krisp-prompt-option .kp-name { font-size: 12px; font-weight: 600; color: #e5e7eb; }
+.krisp-prompt-option .kp-desc { font-size: 11px; color: #6b7280; }
+.krisp-prompt-option .kp-icon { font-size: 16px; flex-shrink: 0; }
+.krisp-prompt-option .kp-rec { font-size: 9px; background: rgba(167,139,250,0.2); color: #c084fc; padding: 1px 6px; border-radius: 99px; margin-left: 6px; }
+
+/* Paste panel */
+.krisp-paste-panel { margin-top: 10px; display: none; }
+.krisp-paste-panel.visible { display: block; }
+.krisp-paste-area {
+  width: 100%; min-height: 120px; background: #0f1320; color: #d1d5db;
+  border: 1px solid rgba(167,139,250,0.25); border-radius: 8px;
+  padding: 10px; font-size: 16px; font-family: inherit; line-height: 1.75; resize: vertical;
+}
+.krisp-paste-area::placeholder { color: #4b5563; }
+.krisp-paste-area:focus { outline: none; border-color: rgba(167,139,250,0.5); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
+.krisp-paste-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+.krisp-paste-save { background: #6366f1; color: #fff; border: 2px solid transparent; border-radius: 10px; padding: 14px 26px; font-size: 16px; font-weight: 700; min-height: 52px; cursor: pointer; font-family: inherit; }
+.krisp-paste-save:hover { background: #7c7ff7; }
+.krisp-paste-cancel { background: transparent; color: #b8bcd0; border: 2px solid #2a2f3e; border-radius: 10px; padding: 14px 20px; font-size: 16px; min-height: 52px; cursor: pointer; font-family: inherit; }
+.krisp-paste-cancel:hover { background: rgba(255,255,255,0.04); }
+.krisp-save-toast { font-size: 13px; color: #4ade80; display: none; }
+
+/* Saved Krisp AI summary display */
+.krisp-ai-saved { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 8px; padding: 12px; margin-top: 10px; position: relative; display: none; }
+.krisp-ai-saved.visible { display: block; }
+.krisp-ai-saved .krisp-badge { position: absolute; top: -8px; left: 12px; background: #1a1f2e; padding: 0 6px; font-size: 10px; font-weight: 600; color: #c084fc; text-transform: uppercase; letter-spacing: 0.5px; }
+.krisp-ai-saved .krisp-text { font-size: 18px; color: #e8eaef; line-height: 1.75; white-space: pre-wrap; }
+</style>
+
+<script>
+/**
+ * Krisp AI Summary Module
+ * Adds per-meeting-card Krisp AI Chat integration:
+ * - Prompt template selection + clipboard copy
+ * - Paste-back panel for Krisp AI responses
+ * - localStorage persistence
+ * - Copper CRM publish payload generation
+ */
+(function() {
+  'use strict';
+
+  /* ─── Prompt Templates ─── */
+  var KRISP_PROMPTS = {
+    mentoring: {
+      icon: '\uD83C\uDFAF',
+      name: 'GPA / Mentoring Session',
+      desc: 'UX feedback, studio action items, progress, blockers',
+      text: 'Summarize this mentoring session. Structure your response as:\n\n**Key Findings:** Bullet list of UX/design feedback given during the session.\n**Action Items:** Each item should include owner name and due date if discussed.\n**Progress Since Last Session:** What has improved or been completed since we last met.\n**Blockers:** Any issues that could delay progress.\n\nKeep it concise but thorough. Use specific details from the conversation, not generic summaries.'
+    },
+    client: {
+      icon: '\uD83E\uDD1D',
+      name: 'Client / Prospect Call',
+      desc: 'Decisions, action items with owners, next steps, objections',
+      text: 'Summarize this client/prospect meeting. Structure your response as:\n\n**Decisions Made:** Any agreements or commitments from both sides.\n**Action Items:** Each with an owner and deadline if discussed.\n**Next Steps:** What happens after this meeting.\n**Objections or Concerns:** Anything the client pushed back on or expressed doubt about.\n**Budget/Timeline Signals:** Any mentions of budget, timeline, or deal progression.\n\nBe specific \u2014 include names, dates, and deliverables mentioned.'
+    },
+    internal: {
+      icon: '\uD83C\uDFE0',
+      name: 'Internal Team Meeting',
+      desc: 'Decisions, tasks with owners, escalation items',
+      text: 'Summarize this internal team meeting. Structure your response as:\n\n**Decisions:** What was decided or approved.\n**Action Items:** Each with owner and deadline.\n**Needs Jason\'s Attention:** Anything that was flagged as needing escalation or Jason\'s input.\n**Capacity/Risk Flags:** Any resource, deadline, or workload concerns raised.\n\nKeep it brief \u2014 focus on what\'s actionable.'
+    },
+    srs: {
+      icon: '\uD83C\uDDF7\uD83C\uDDF8',
+      name: 'Serbia Rising Stars Session',
+      desc: 'UX feedback, studio action items, progress, engine-specific blockers',
+      text: 'Summarize this mentoring session with the Serbian studio. Structure your response as:\n\n**Key Findings:** Bullet list of UX/design feedback given during the session.\n**Action Items:** Each item should include owner name and due date if discussed.\n**Progress Since Last Session:** What has improved or been completed since we last met.\n**Blockers:** Any issues that could delay progress, including engine-specific challenges.\n\nKeep it concise but thorough. Use specific details from the conversation.'
+    }
+  };
+
+  var PROMPT_ORDER = ['mentoring', 'client', 'internal', 'srs'];
+
+  /* ─── localStorage helpers ─── */
+  function getStorageKey() {
+    // Find brief date from the page — look for data-date on first mtg-card, or fall back to today
+    var firstCard = document.querySelector('.mtg-card[data-date]');
+    var briefDate = firstCard ? firstCard.getAttribute('data-date') : new Date().toISOString().slice(0, 10);
+    return 'mb-summaries-' + briefDate;
+  }
+
+  function loadSummaries() {
+    try {
+      var data = localStorage.getItem(getStorageKey());
+      return data ? JSON.parse(data) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveSummary(mtgId, text) {
+    var summaries = loadSummaries();
+    summaries[mtgId] = {
+      text: text,
+      savedAt: new Date().toISOString(),
+      source: 'krisp'
+    };
+    try { localStorage.setItem(getStorageKey(), JSON.stringify(summaries)); } catch (e) {}
+  }
+
+  /* ─── Build UI for each meeting card ─── */
+  function initKrispAI() {
+    var sections = document.querySelectorAll('.krisp-ai-section[data-for-mtg]');
+    var saved = loadSummaries();
+
+    sections.forEach(function(section) {
+      var mtgId = section.getAttribute('data-for-mtg');
+      var card = document.getElementById(mtgId);
+      if (!card) return;
+
+      var krispId = card.getAttribute('data-krisp-id') || '';
+      var mtgTitle = card.getAttribute('data-mtg-title') || '';
+      var mtgParticipants = card.getAttribute('data-mtg-participants') || '';
+      var mtgType = card.getAttribute('data-mtg-type') || 'client';
+      var mtgDate = card.getAttribute('data-date') || '';
+      var isExternal = card.classList.contains('external');
+
+      // Build the section HTML
+      var html = '';
+
+      // Action bar
+      html += '<div class="krisp-ai-bar">';
+      html += '<button class="krisp-ai-btn" data-action="get-summary" data-mtg="' + mtgId + '">💬 Get AI Summary</button>';
+      html += '<button class="krisp-ai-btn paste-btn" data-action="paste-summary" data-mtg="' + mtgId + '">📋 Paste Summary</button>';
+      if (isExternal) {
+        html += '<button class="krisp-ai-btn publish-btn" data-action="publish-copper" data-mtg="' + mtgId + '">🔶 Publish to Copper</button>';
+      }
+      html += '<span class="krisp-ai-status" id="kai-status-' + mtgId + '"></span>';
+      html += '</div>';
+
+      // Prompt selector (hidden)
+      html += '<div class="krisp-prompt-selector" id="kai-prompts-' + mtgId + '">';
+      html += '<div style="font-size:11px;color:#6b7280;margin-bottom:6px;margin-top:4px;">Choose a prompt template:</div>';
+      PROMPT_ORDER.forEach(function(key) {
+        var p = KRISP_PROMPTS[key];
+        var isRec = (key === mtgType);
+        html += '<div class="krisp-prompt-option' + (isRec ? ' recommended' : '') + '" data-action="copy-prompt" data-mtg="' + mtgId + '" data-prompt-type="' + key + '" data-krisp-id="' + krispId + '">';
+        html += '<span class="kp-icon">' + p.icon + '</span>';
+        html += '<div><div class="kp-name">' + p.name + (isRec ? '<span class="kp-rec">recommended</span>' : '') + '</div>';
+        html += '<div class="kp-desc">' + p.desc + '</div></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+
+      // Paste panel (hidden)
+      html += '<div class="krisp-paste-panel" id="kai-paste-' + mtgId + '">';
+      html += '<textarea class="krisp-paste-area" id="kai-text-' + mtgId + '" placeholder="Paste the Krisp AI summary here...\n\nThe pasted text will replace Claude\'s summary and be used when publishing to Copper."></textarea>';
+      html += '<div class="krisp-paste-actions">';
+      html += '<button class="krisp-paste-save" data-action="save-summary" data-mtg="' + mtgId + '">✅ Save Summary</button>';
+      html += '<button class="krisp-paste-cancel" data-action="cancel-paste" data-mtg="' + mtgId + '">Cancel</button>';
+      html += '<span class="krisp-save-toast" id="kai-toast-' + mtgId + '">✓ Summary saved — will be used for Copper publish</span>';
+      html += '</div>';
+      html += '</div>';
+
+      // Saved summary display (hidden)
+      html += '<div class="krisp-ai-saved" id="kai-saved-' + mtgId + '">';
+      html += '<span class="krisp-badge">✨ Krisp AI Summary</span>';
+      html += '<div class="krisp-text" id="kai-savedtext-' + mtgId + '"></div>';
+      html += '</div>';
+
+      section.innerHTML = html;
+
+      // Restore saved summary if exists
+      if (saved[mtgId] && saved[mtgId].text) {
+        showSavedSummary(mtgId, saved[mtgId].text);
+      }
+    });
+
+    // Event delegation for all krisp-ai actions
+    document.addEventListener('click', handleKrispAIClick);
+  }
+
+  function handleKrispAIClick(e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+
+    var action = btn.getAttribute('data-action');
+    var mtgId = btn.getAttribute('data-mtg');
+
+    switch (action) {
+      case 'get-summary':
+        togglePromptSelector(mtgId);
+        break;
+      case 'copy-prompt':
+        var type = btn.getAttribute('data-prompt-type');
+        var krispId = btn.getAttribute('data-krisp-id');
+        copyPromptAndOpenKrisp(mtgId, type, krispId);
+        break;
+      case 'paste-summary':
+        togglePastePanel(mtgId);
+        break;
+      case 'save-summary':
+        saveAndDisplaySummary(mtgId);
+        break;
+      case 'cancel-paste':
+        togglePastePanel(mtgId);
+        break;
+      case 'publish-copper':
+        publishToCopper(mtgId);
+        break;
+    }
+  }
+
+  function togglePromptSelector(mtgId) {
+    var el = document.getElementById('kai-prompts-' + mtgId);
+    if (el) el.classList.toggle('visible');
+  }
+
+  function copyPromptAndOpenKrisp(mtgId, type, krispId) {
+    var prompt = KRISP_PROMPTS[type];
+    if (!prompt) return;
+
+    navigator.clipboard.writeText(prompt.text).then(function() {
+      setStatus(mtgId, '📋 Prompt copied! Open Krisp → paste into AI Chat', '#c084fc');
+
+      // Open Krisp meeting in new tab
+      if (krispId) {
+        window.open('https://app.krisp.ai/t/' + krispId, '_blank');
+      }
+
+      // Hide prompt selector
+      var el = document.getElementById('kai-prompts-' + mtgId);
+      if (el) el.classList.remove('visible');
+
+      // Fade status after 5s
+      setTimeout(function() { setStatus(mtgId, '', '#6b7280'); }, 5000);
+    }).catch(function() {
+      setStatus(mtgId, '⚠️ Clipboard failed — copy prompt manually', '#f59e0b');
+    });
+  }
+
+  function togglePastePanel(mtgId) {
+    var panel = document.getElementById('kai-paste-' + mtgId);
+    if (panel) {
+      panel.classList.toggle('visible');
+      if (panel.classList.contains('visible')) {
+        var textarea = document.getElementById('kai-text-' + mtgId);
+        if (textarea) textarea.focus();
+      }
+    }
+  }
+
+  function saveAndDisplaySummary(mtgId) {
+    var textarea = document.getElementById('kai-text-' + mtgId);
+    var text = textarea ? textarea.value.trim() : '';
+    if (!text) return;
+
+    // Save to localStorage
+    saveSummary(mtgId, text);
+
+    // Display the saved summary
+    showSavedSummary(mtgId, text);
+
+    // Hide paste panel
+    var panel = document.getElementById('kai-paste-' + mtgId);
+    if (panel) panel.classList.remove('visible');
+
+    // Show toast
+    var toast = document.getElementById('kai-toast-' + mtgId);
+    if (toast) { toast.style.display = 'inline'; setTimeout(function() { toast.style.display = 'none'; }, 3000); }
+
+    // Update status
+    setStatus(mtgId, '✓ Krisp AI summary applied', '#4ade80');
+
+    // Add green badge to card header if not present
+    var card = document.getElementById(mtgId);
+    if (card && !card.querySelector('.badge-krisp-ai')) {
+      var headerRight = card.querySelector('.mtg-card-header > div:last-child');
+      if (headerRight) {
+        var badge = document.createElement('span');
+        badge.className = 'badge badge-krisp-ai';
+        badge.style.cssText = 'background:rgba(34,197,94,0.15);color:#4ade80;font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;';
+        badge.textContent = '✨ AI';
+        headerRight.insertBefore(badge, headerRight.firstChild);
+      }
+    }
+  }
+
+  function showSavedSummary(mtgId, text) {
+    var savedEl = document.getElementById('kai-saved-' + mtgId);
+    var textEl = document.getElementById('kai-savedtext-' + mtgId);
+    if (savedEl && textEl) {
+      textEl.textContent = text;
+      savedEl.classList.add('visible');
+    }
+  }
+
+  function publishToCopper(mtgId) {
+    var card = document.getElementById(mtgId);
+    if (!card) return;
+
+    var title = card.getAttribute('data-mtg-title') || 'Unknown Meeting';
+    var date = card.getAttribute('data-date') || '';
+    var participants = card.getAttribute('data-mtg-participants') || '';
+
+    // Check for Krisp AI summary
+    var summaries = loadSummaries();
+    var hasKrispSummary = summaries[mtgId] && summaries[mtgId].text;
+    var summaryText = hasKrispSummary ? summaries[mtgId].text : getClaudeSummary(mtgId);
+    var source = hasKrispSummary ? 'Krisp AI summary' : 'Claude summary (no Krisp AI available)';
+
+    var payload = 'KRISP-TO-COPPER\nTitle: ' + title + '\nDate: ' + date + '\nParticipants: ' + participants + '\nSource: ' + source + '\n\nSummary:\n' + summaryText;
+
+    navigator.clipboard.writeText(payload).then(function() {
+      setStatus(mtgId, '📋 Copper payload copied — paste into Cowork to publish', '#fbbf24');
+      setTimeout(function() { setStatus(mtgId, hasKrispSummary ? '✓ Krisp AI summary applied' : '', '#6b7280'); }, 5000);
+    }).catch(function() {
+      setStatus(mtgId, '⚠️ Clipboard failed', '#f59e0b');
+    });
+  }
+
+  function getClaudeSummary(mtgId) {
+    // Extract Claude's key points from the card as fallback
+    var card = document.getElementById(mtgId);
+    if (!card) return '(no summary available)';
+    var kpList = card.querySelector('.kp-list');
+    if (!kpList) return '(no summary available)';
+    var items = kpList.querySelectorAll('li');
+    var text = '';
+    items.forEach(function(li) { text += '• ' + li.textContent.trim() + '\n'; });
+    return text.trim() || '(no summary available)';
+  }
+
+  function setStatus(mtgId, message, color) {
+    var el = document.getElementById('kai-status-' + mtgId);
+    if (el) {
+      el.textContent = message;
+      el.style.color = color || '#6b7280';
+    }
+  }
+
+  /* ─── Initialize ─── */
+  document.addEventListener('DOMContentLoaded', initKrispAI);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initKrispAI();
+  }
+})();
+</script>
+<!-- KRISP AI SUMMARY MODULE END -->
+
+</body>
+</html>

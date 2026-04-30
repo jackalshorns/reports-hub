@@ -1,13 +1,23 @@
 /* Krisp AI Summary — hosted JS (v1) */
 (function() {
   'use strict';
+  /* Hardcoded fallback — used only if prompts.json fetch fails. Keep minimal. */
   var KRISP_PROMPTS = {
-    mentoring: { icon: '\uD83C\uDFAF', name: 'GPA / Mentoring', desc: 'UX feedback, action items, blockers', text: 'Summarize this mentoring session. Structure: **Key Findings**, **Action Items** (owner + deadline), **Progress Since Last**, **Blockers**. Be specific.' },
-    client: { icon: '\uD83E\uDD1D', name: 'Client / Prospect', desc: 'Decisions, owners, next steps, objections', text: 'Summarize this client meeting. Structure: **Decisions Made**, **Action Items** (owner + deadline), **Next Steps**, **Objections**, **Budget/Timeline Signals**. Include names and dates.' },
-    internal: { icon: '\uD83C\uDFE0', name: 'Internal Team', desc: 'Decisions, tasks, escalations', text: 'Summarize this internal team meeting. Structure: **Decisions**, **Action Items** (owner + deadline), **Needs Jason\'s Attention**, **Capacity/Risk Flags**.' },
-    srs: { icon: '\uD83C\uDDF7\uD83C\uDDF8', name: 'Serbia Rising Stars', desc: 'UX feedback, engine blockers', text: 'Summarize this SRS mentoring session. Structure: **Key Findings**, **Action Items** (owner + deadline), **Progress**, **Blockers** (including engine). Be specific.' }
+    generic: { icon: '\uD83D\uDCDD', name: 'Generic', desc: 'Basic meeting summary (fallback)', text: 'Summarize this meeting. Structure: **Key Points**, **Decisions**, **Action Items** (owner + deadline), **Open Questions**. Be specific \u2014 quote or paraphrase precisely, do not invent details.' }
   };
-  var ORDER = ['mentoring', 'client', 'internal', 'srs'];
+  var ORDER = ['generic'];
+  var PROMPTS_URL = 'https://reports-hub.pages.dev/assets/v1/prompts.json';
+  function loadPrompts() {
+    return fetch(PROMPTS_URL, { cache: 'no-cache' })
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(list) {
+        if (!Array.isArray(list) || !list.length) throw new Error('empty');
+        var map = {}, order = [];
+        list.forEach(function(p) { if (p && p.key && p.text) { map[p.key] = { icon: p.icon || '', name: p.name || p.key, desc: p.desc || '', text: p.text }; order.push(p.key); } });
+        if (order.length) { KRISP_PROMPTS = map; ORDER = order; }
+      })
+      .catch(function() { /* fall back to hardcoded Generic */ });
+  }
   function storageKey() {
     var f = document.querySelector('.mtg-card[data-date]');
     var d = f ? f.getAttribute('data-date') : new Date().toISOString().slice(0,10);
@@ -81,5 +91,5 @@
     if (s && t) { t.textContent = text; s.classList.add('visible'); }
   }
   function setStatus(mid, msg, color) { var el = document.getElementById('kai-status-'+mid); if (el) { el.textContent = msg; el.style.color = color || '#6b7280'; } }
-  document.addEventListener('DOMContentLoaded', initKrisp);
+  document.addEventListener('DOMContentLoaded', function() { loadPrompts().then(initKrisp); });
 })();
